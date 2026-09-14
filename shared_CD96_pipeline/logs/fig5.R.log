@@ -1,0 +1,23 @@
+Error in `dplyr::mutate()`:
+ℹ In argument: `fill = dplyr::case_when(...)`.
+Caused by error in `dplyr::case_when()`:
+! Failed to evaluate the left-hand side of formula 1.
+Caused by error:
+! object 'klass' not found
+Backtrace:
+     ▆
+  1. ├─dplyr::mutate(...)
+  2. ├─dplyr:::mutate.data.frame(...)
+  3. │ └─dplyr:::mutate_cols(.data, dplyr_quosures(...), by)
+  4. │   ├─base::withCallingHandlers(...)
+  5. │   └─dplyr:::mutate_col(dots[[i]], data, mask, new_columns)
+  6. │     └─mask$eval_all_mutate(quo)
+  7. │       └─dplyr (local) eval()
+  8. ├─dplyr::case_when(...)
+  9. │ └─dplyr:::eval_formulas(..., allow_empty_dots = FALSE)
+ 10. │   ├─base::withCallingHandlers(...)
+ 11. │   └─rlang::eval_tidy(pair$lhs, env = user_env)
+ 12. └─base::.handleSimpleError(...)
+ 13.   └─dplyr (local) h(simpleError(msg, call))
+ 14.     └─rlang::abort(message, parent = cnd, call = error_call)
+Execution halted

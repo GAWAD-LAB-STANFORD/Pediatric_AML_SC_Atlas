@@ -1,0 +1,80 @@
+group,target,label,add,kind,cls,toxicity,efficacy,n_cells,single_patient_flag
+All PPAC,CD96,CD96,CD96 alone,CD96,cd96,3.02,33.03,13746,False
+All PPAC,CD9,CD9,+CD9,partner,discovered,9.83,54.01,13746,False
+All PPAC,SUCNR1,SUCNR1,+SUCNR1,partner,discovered,9.29,44.35,13746,False
+All PPAC,CD7,CD7,+CD7,partner,discovered,10.95,43.02,13746,False
+All PPAC,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,44.82,13746,False
+All PPAC,CD33,CD33,+CD33,partner,clinical,29.92,58.99,13746,False
+All PPAC,IL3RA,CD123,+CD123,partner,clinical,14.84,58.03,13746,False
+All PPAC,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,52.08,13746,False
+All PPAC,FLT3,FLT3,+FLT3,partner,clinical,53.99,72.48,13746,False
+All PPAC,MSLN,MSLN,+MSLN,partner,clinical,19.06,49.52,13746,False
+All PPAC,CD70,CD70,+CD70,partner,clinical,3.5,37.47,13746,False
+All PPAC,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,46.13,13746,False
+PPAC_1,CD96,CD96,CD96 alone,CD96,cd96,3.02,33.01,4887,False
+PPAC_1,SUCNR1,SUCNR1,+SUCNR1,partner,discovered,9.29,50.07,4887,False
+PPAC_1,TNFRSF4,TNFRSF4,+TNFRSF4,partner,discovered,3.02,47.92,4887,False
+PPAC_1,CD9,CD9,+CD9,partner,discovered,9.83,50.56,4887,False
+PPAC_1,SLC7A6,SLC7A6,+SLC7A6,partner,discovered,10.95,49.42,4887,False
+PPAC_1,CD33,CD33,+CD33,partner,clinical,29.92,64.91,4887,False
+PPAC_1,IL3RA,CD123,+CD123,partner,clinical,14.84,64.78,4887,False
+PPAC_1,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,54.29,4887,False
+PPAC_1,FLT3,FLT3,+FLT3,partner,clinical,53.99,85.47,4887,False
+PPAC_1,MSLN,MSLN,+MSLN,partner,clinical,19.06,34.97,4887,False
+PPAC_1,CD70,CD70,+CD70,partner,clinical,3.5,33.7,4887,False
+PPAC_1,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,55.41,4887,False
+PPAC_1,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,46.86,4887,False
+PPAC_2,CD96,CD96,CD96 alone,CD96,cd96,3.02,59.97,3355,False
+PPAC_2,CD9,CD9,+CD9,partner,discovered,9.83,79.73,3355,False
+PPAC_2,CD7,CD7,+CD7,partner,discovered,10.95,76.33,3355,False
+PPAC_2,SUCNR1,SUCNR1,+SUCNR1,partner,discovered,9.29,67.27,3355,False
+PPAC_2,UMODL1,UMODL1,+UMODL1,partner,discovered,3.86,69.63,3355,False
+PPAC_2,CD33,CD33,+CD33,partner,clinical,29.92,71.06,3355,False
+PPAC_2,IL3RA,CD123,+CD123,partner,clinical,14.84,75.47,3355,False
+PPAC_2,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,70.31,3355,False
+PPAC_2,FLT3,FLT3,+FLT3,partner,clinical,53.99,85.31,3355,False
+PPAC_2,MSLN,MSLN,+MSLN,partner,clinical,19.06,61.22,3355,False
+PPAC_2,CD70,CD70,+CD70,partner,clinical,3.5,64.62,3355,False
+PPAC_2,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,68.58,3355,False
+PPAC_2,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,67.0,3355,False
+PPAC_3,CD96,CD96,CD96 alone,CD96,cd96,3.02,8.52,2325,False
+PPAC_3,ABCA7,ABCA7,+ABCA7,partner,discovered,12.3,45.59,2325,False
+PPAC_3,ITGAX,ITGAX,+ITGAX,partner,discovered,9.53,41.94,2325,False
+PPAC_3,LAMP5,LAMP5,+LAMP5,partner,discovered,4.83,33.63,2325,False
+PPAC_3,FCGR2A,FCGR2A,+FCGR2A,partner,discovered,9.05,30.97,2325,False
+PPAC_3,CD9,CD9,+CD9,partner,discovered,9.83,27.83,2325,False
+PPAC_3,CD33,CD33,+CD33,partner,clinical,29.92,35.74,2325,False
+PPAC_3,IL3RA,CD123,+CD123,partner,clinical,14.84,29.08,2325,False
+PPAC_3,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,30.54,2325,False
+PPAC_3,FLT3,FLT3,+FLT3,partner,clinical,53.99,43.1,2325,False
+PPAC_3,MSLN,MSLN,+MSLN,partner,clinical,19.06,59.35,2325,False
+PPAC_3,CD70,CD70,+CD70,partner,clinical,3.5,23.7,2325,False
+PPAC_3,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,10.62,2325,False
+PPAC_3,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,21.55,2325,False
+PPAC_4,CD96,CD96,CD96 alone,CD96,cd96,3.02,34.97,2033,False
+PPAC_4,CD9,CD9,+CD9,partner,discovered,9.83,48.5,2033,False
+PPAC_4,FGFR1,FGFR1,+FGFR1,partner,discovered,8.32,42.99,2033,False
+PPAC_4,FURIN,FURIN,+FURIN,partner,discovered,11.69,47.17,2033,False
+PPAC_4,SUSD1,SUSD1,+SUSD1,partner,discovered,11.13,45.65,2033,False
+PPAC_4,CD33,CD33,+CD33,partner,clinical,29.92,54.01,2033,False
+PPAC_4,IL3RA,CD123,+CD123,partner,clinical,14.84,47.52,2033,False
+PPAC_4,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,53.62,2033,False
+PPAC_4,FLT3,FLT3,+FLT3,partner,clinical,53.99,57.3,2033,False
+PPAC_4,MSLN,MSLN,+MSLN,partner,clinical,19.06,44.42,2033,False
+PPAC_4,CD70,CD70,+CD70,partner,clinical,3.5,38.27,2033,False
+PPAC_4,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,39.35,2033,False
+PPAC_4,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,43.33,2033,False
+PPAC_5,CD96,CD96,CD96 alone,CD96,cd96,3.02,0.52,1146,True
+PPAC_5,CD9,CD9,+CD9,partner,discovered,9.83,56.28,1146,True
+PPAC_5,DPEP3,DPEP3,+DPEP3,partner,discovered,5.94,44.59,1146,True
+PPAC_5,AMN,AMN,+AMN,partner,discovered,7.05,36.65,1146,True
+PPAC_5,ITGAX,ITGAX,+ITGAX,partner,discovered,9.53,30.19,1146,True
+PPAC_5,MRC2,MRC2,+MRC2,partner,discovered,9.46,29.14,1146,True
+PPAC_5,CD33,CD33,+CD33,partner,clinical,29.92,54.45,1146,True
+PPAC_5,IL3RA,CD123,+CD123,partner,clinical,14.84,55.58,1146,True
+PPAC_5,CLEC12A,CLL-1,+CLL-1,partner,clinical,31.12,30.28,1146,True
+PPAC_5,FLT3,FLT3,+FLT3,partner,clinical,53.99,66.06,1146,True
+PPAC_5,MSLN,MSLN,+MSLN,partner,clinical,19.06,66.4,1146,True
+PPAC_5,CD70,CD70,+CD70,partner,clinical,3.5,0.52,1146,True
+PPAC_5,ADGRG1,GPR56,+GPR56,partner,clinical,41.93,24.87,1146,True
+PPAC_5,IL1RAP,IL1RAP,+IL1RAP,partner,clinical,12.06,21.03,1146,True

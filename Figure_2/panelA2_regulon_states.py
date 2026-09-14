@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+"""Figure 2 regulon panel: SCENIC regulon activity (z-scored AUCell, top-2 regulons per
+leukemic state) across the 49 leukemic states AND the 8 normal compartments (reference).
+States labeled by cell type / lineage program; labels colored by whole-cohort EFS prognosis
+(favorable teal / poor red / n.s. grey), normal compartments in purple. vlag palette, key
+moved off the heatmap. Data = compute_regulon_landscape.py. No fabricated values."""
+import os, sys, numpy as np, pandas as pd, matplotlib
+matplotlib.use("Agg"); import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.colors import Normalize
+sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+D3 = C.DATA; D2 = D3.replace("Figure_3", "Figure_2")
+OUT = os.path.join(C.BASE, "04_Main_Figures/Figure_2_panels")
+z = pd.read_csv(os.path.join(D3, "regulon_landscape_z.csv"), index_col=0)   # 57 cols (leukemic + normal) x regulons
+pr = pd.read_csv(os.path.join(D2, "LS_wholecohort_prognosis.csv")).set_index("LS")
+ann = pd.read_csv(os.path.join(D3, "LS_annotation.csv")).set_index("LS")
+NORMCOL = "#7b3294"
+def collabel(c):
+    if c.startswith("NORM_"): return "norm " + c.replace("NORM_", "")
+    p = str(ann.lineage_program.get(c, "")); p = "" if p == "unresolved" else p
+    return (c.replace("_", "") + " " + p).strip()
+def progcol(c): return NORMCOL if c.startswith("NORM_") else {"favorable": "#0A9396", "poor": "#AE2012", "ns": "#dddddd"}[pr.prognosis.get(c, "ns")]
+def labtextcol(c): return NORMCOL if c.startswith("NORM_") else {"favorable": "#0A9396", "poor": "#AE2012", "ns": "#333333"}[pr.prognosis.get(c, "ns")]  # dark text for n.s. (readable)
+# Row set = (top-2 regulons per LEUKEMIC state) UNION (lineage-signature regulons of each
+# NORMAL compartment). The leukemic top-2 give each state its own defining programs; the
+# normal signatures are the lineage ANCHORS (B: PAX5/EBF1; T/NK: TCF7/LEF1; ery: GATA1/KLF1;
+# HSPC: HOXA9/ERG; MyeloidPro: E2F6/EGR2 ...) so each state's lineage lean vs normal is legible
+# and the normal reference columns light up their own diagonal. Adding the FULL regulon set
+# instead collapses everything onto HSPC (central profile) -- see LS_nearest_normal_regulon.csv.
+mean = pd.read_csv(os.path.join(D3, "regulon_landscape_mean.csv"), index_col=0)
+norm = [c for c in mean.index if c.startswith("NORM_")]
+Nz = (mean.loc[norm] - mean.loc[norm].mean(0)) / (mean.loc[norm].std(0) + 1e-9)  # z WITHIN normal -> compartment-specific
+top = set()
+for s in z.index:
+    if s.startswith("LS_"): top |= set(z.loc[s].sort_values(ascending=False).head(2).index)
+for n in norm: top |= set(Nz.loc[n].sort_values(ascending=False).head(3).index)  # 3 lineage anchors / normal compartment
+top = [r for r in top if r in z.columns]
+M = z[sorted(top)].T; M.columns = [collabel(c) for c in z.index]
+# top strip: proliferation module expression (mean log-norm of MKI67/TOP2A/PCNA/... per column,
+# z across columns) -- from compute_proliferation_lineage.py. Greys: dark = more proliferative.
+ps = pd.read_csv(os.path.join(D3, "proliferation_strip.csv"), index_col=0)["proliferation_z"]
+pnorm = Normalize(vmin=float(ps.min()), vmax=float(ps.max())); pcmap = plt.cm.Greys
+def prolcol(c):
+    v = ps.get(c, np.nan)
+    return pcmap(pnorm(v)) if pd.notna(v) else (1, 1, 1)
+cc = pd.DataFrame({"proliferation": [prolcol(c) for c in z.index],
+                   "EFS prognosis": [progcol(c) for c in z.index]}, index=M.columns)
+labcol = {collabel(c): labtextcol(c) for c in z.index}
+# manuscript diverging palette (heatmap3, colourblind-safe) so the z-scored heatmap matches the
+# other diverging panels (stemness in 2D/2E) and Figure 3's shared scheme, instead of seaborn vlag
+from matplotlib.colors import LinearSegmentedColormap
+DIV = LinearSegmentedColormap.from_list("heatmap3", ["#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"])
+g = sns.clustermap(M, cmap=sns.color_palette("vlag", as_cmap=True), center=0, vmin=-2, vmax=2, figsize=(17, 12), col_colors=cc,
+    xticklabels=True, yticklabels=True, cbar_kws={"label": "regulon activity (z)"},
+    dendrogram_ratio=(0.07, 0.10), colors_ratio=0.013)
+g.ax_col_colors.set_yticklabels(g.ax_col_colors.get_yticklabels(), fontsize=8)
+g.ax_heatmap.set_xticklabels(g.ax_heatmap.get_xticklabels(), fontsize=7.5, rotation=90)
+g.ax_heatmap.set_yticklabels(g.ax_heatmap.get_yticklabels(), fontsize=6.5)
+for t in g.ax_heatmap.get_xticklabels():        # color labels: prognosis (leukemic) / purple (normal)
+    col = labcol.get(t.get_text(), "#000000"); t.set_color(col)
+    if col in ("#0A9396", "#AE2012", NORMCOL): t.set_fontweight("bold")
+g.ax_cbar.set_position([0.03, 0.83, 0.018, 0.12])   # key off the heatmap
+cax2 = g.fig.add_axes([0.03, 0.66, 0.018, 0.12])    # proliferation strip scale (off the heatmap)
+cb2 = g.fig.colorbar(plt.cm.ScalarMappable(norm=pnorm, cmap=pcmap), cax=cax2)
+cb2.set_label("proliferation (z)", fontsize=8); cb2.ax.tick_params(labelsize=7)
+# panel description (comparison, colour key) lives in the figure legend, not on the panel
+for e in ("png", "pdf"): g.savefig(os.path.join(OUT, f"Figure_2_regulon_states.{e}"), dpi=170, bbox_inches="tight")
+print(f"wrote Figure_2_regulon_states ({M.shape[0]} regulons x {M.shape[1]} cols; leukemic + normal)")

@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+"""Figure 5 panel D (corrected scheme), BOTH sub-plots computed with ONE identical recipe so they
+share the dot-plot colour scale:
+  * fig5D_cyto.csv  — leukemic cells grouped by Cytogenetic subtype (efficacy across karyotypes)
+  * fig5D_ls.csv    — leukemic aggregate + the 8 normal hematopoietic compartments (efficacy vs toxicity),
+                      replacing the retired PAC/PPAC/FPAC populations.
+Recipe = the committed add_mean_expr.py recipe (raw CP10k-log1p over the full raw gene set):
+  pct       = 100 * fraction of cells in the group with raw count > 0
+  mean_expr = mean over all cells in the group of log1p(raw / total_counts * 1e4)
+Leukemic = the canonical 4 leukemic Cell_Types (config.LEUK_CELLTYPES). Gene symbols mapped
+CD123->IL3RA, CLL-1->CLEC12A. Writes to BOTH the pipeline source_data/ (read by fig5.R) and the
+08_Source_Data mirror. No fabricated values."""
+import os, numpy as np, pandas as pd, scipy.sparse as sp, h5py
+
+H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+HERE = os.path.dirname(os.path.abspath(__file__))
+DEST = [os.path.join(HERE, "..", "source_data"),
+        "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_5"]
+GSET = ["CD96","CD9","SUCNR1","AMN","IL1RAP","LMBR1L","NRXN2","FURIN","UMODL1","CD7",
+        "CD33","CD123","CLL-1","CD38","CD70","FLT3","TNFRSF4","ABCA7","ITGAX"]
+SYM = {"CD123": "IL3RA", "CLL-1": "CLEC12A"}     # figure label -> gene symbol
+LEUK = {"AML", "AML-MKI67", "AML-PCNA", "AML-CD1C"}   # config.LEUK_CELLTYPES
+# normal hematopoietic compartments (toxicity reference); AML-prefixed bystander normal cells are
+# folded into their lineage (the naming convention: AML-<lineage> = normal patient cell of that lineage).
+NORM = {"0_HSPC": "HSPC", "Myeloid_Pro": "Myeloid_Pro",
+        "CD14_Monocyte": "Monocyte", "CD16_Monocyte": "Monocyte", "AML-CD14": "Monocyte",
+        "Macrophage": "Macrophage", "mDC": "DC", "pDC": "DC",
+        "Erythrocytes": "Erythroid", "AML-Ery": "Erythroid",
+        "CD20+B": "B", "ProB": "B", "PreB": "B", "PlasmaB": "B", "CD34+ProB": "B", "AML-B": "B",
+        "Naïve_CD4T": "T/NK", "Naïve_CD8T": "T/NK", "CTL": "T/NK", "NK": "T/NK",
+        "Activated_CD4T": "T/NK", "AML-CD4T": "T/NK", "AML-CTL": "T/NK", "AML-NK": "T/NK",
+        "AML-Naïve_CD8T": "T/NK"}
+LSORD = ["leukemic", "HSPC", "Myeloid_Pro", "Monocyte", "Macrophage", "DC", "Erythroid", "B", "T/NK"]
+
+dec = lambda a: np.array([x.decode() if isinstance(x, bytes) else x for x in a])
+def cat(f, k):
+    o = f["obs"][k]; return dec(o["categories"][:])[o["codes"][:].astype(int)]
+
+f = h5py.File(H5, "r")
+ct = cat(f, "Cell Type"); cyto_lab = cat(f, "Cytogenetic"); stype = cat(f, "SampleType")
+rk = f["raw"]["var"].attrs.get("_index", b"_index"); rk = rk.decode() if isinstance(rk, bytes) else rk
+sym = list(dec(f["raw"]["var"][rk][:]))
+rx = f["raw"]["X"]
+X = sp.csr_matrix((rx["data"][:], rx["indices"][:], rx["indptr"][:]), shape=tuple(rx.attrs["shape"])).tocsc()
+f.close()
+total = np.asarray(X.sum(1)).ravel().astype(np.float64); total[total == 0] = 1.0
+
+present = [(lab, SYM.get(lab, lab)) for lab in GSET if SYM.get(lab, lab) in sym]
+expr, pos = {}, {}
+for lab, g in present:
+    raw = np.asarray(X[:, sym.index(g)].todense(), np.float64).ravel()
+    expr[lab] = np.log1p(raw / total * 1e4); pos[lab] = raw > 0
+
+def summarize(mask_by_group, order):
+    rows = []
+    for lab, _ in present:
+        for grp in order:
+            m = mask_by_group[grp]
+            if m.sum() == 0: continue
+            rows.append([lab, grp, round(100 * pos[lab][m].mean(), 2),
+                         round(float(expr[lab][m].mean()), 5), lab])
+    return pd.DataFrame(rows, columns=["gene", "group", "pct", "mean_expr", "label"])
+
+# --- cytogenetic panel: leukemic cells only (from AML samples), grouped by karyotype ---
+# the SampleType=="AML" guard drops the ~637 healthy-BM cells mislabeled with a leukemic Cell_Type.
+leuk = np.isin(ct, list(LEUK)) & (stype == "AML")
+cyto_groups = [g for g in pd.unique(cyto_lab[leuk]) if isinstance(g, str) and g != "nan"]
+cyto_masks = {g: (leuk & (cyto_lab == g)) for g in cyto_groups}
+cyto_df = summarize(cyto_masks, cyto_groups)
+
+# --- leukemic vs normal compartments panel ---
+ls_masks = {"leukemic": leuk}
+for k, v in NORM.items():
+    ls_masks.setdefault(v, np.zeros(len(ct), bool))
+    ls_masks[v] = ls_masks[v] | (ct == k)
+ls_df = summarize(ls_masks, LSORD)
+
+for d in DEST:
+    cyto_df.to_csv(os.path.join(d, "fig5D_cyto.csv"), index=False)
+    ls_df.to_csv(os.path.join(d, "fig5D_ls.csv"), index=False)
+print("wrote fig5D_cyto.csv (%d groups) + fig5D_ls.csv (%d groups) to %d locations" %
+      (len(cyto_groups), len(LSORD), len(DEST)))
+print("\nCD96 by compartment (pct / mean):")
+print(ls_df[ls_df.gene == "CD96"][["group", "pct", "mean_expr"]].to_string(index=False))
+print("\nCD96 leukemic aggregate vs HSPC window:  %.1f%% vs %.1f%%" %
+      (ls_df.query("gene=='CD96' and group=='leukemic'").pct.iloc[0],
+       ls_df.query("gene=='CD96' and group=='HSPC'").pct.iloc[0]))

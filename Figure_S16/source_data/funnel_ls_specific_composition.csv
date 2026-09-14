@@ -1,0 +1,7 @@
+group,n_cells,n_patients_any,n_patients_contrib,dominant_patient_share_pct,single_patient_flag
+All poor LS,8918,30,28,15.6,False
+LS_10,1583,30,21,7.3,False
+LS_19,1291,24,8,46.6,False
+LS_20,1251,30,17,10.5,False
+LS_21,1168,25,12,28.9,False
+LS_27,1064,23,12,20.9,False

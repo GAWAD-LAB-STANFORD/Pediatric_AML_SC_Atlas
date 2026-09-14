@@ -1,0 +1,25 @@
+{
+  "map": {
+    "fig6A_funnel.csv": "fig5A_funnel.csv",
+    "fig6A_top15.csv": "fig5A_top15.csv",
+    "fig6B_umap.csv": "fig5B_umap.csv",
+    "fig6C_headtohead.csv": "fig5C_headtohead.csv",
+    "fig6D_cyto.csv": "fig5D_cyto.csv",
+    "fig6D_pac.csv": "fig5D_pac.csv",
+    "fig6E_corr.csv": "fig5E_corr.csv",
+    "fig6E_sc.csv": "fig5E_sc.csv",
+    "fig6E_target.csv": "fig5E_target.csv",
+    "fig6E_coverage.csv": "fig5E_coverage.csv",
+    "fig6F_meta_all.csv": "fig5F_meta_all.csv",
+    "fig6F_violin.csv": "fig5F_violin.csv",
+    "fig6F_adult_beataml_meta.csv": "fig5F_adult_beataml_meta.csv",
+    "fig6F_adult_beataml_violin.csv": "fig5F_adult_beataml_violin.csv",
+    "fig6F_meta_nonMLL.csv": "figS18_meta_nonMLL.csv",
+    "fig5_leads_celltype.csv": "figS16_leads_celltype.csv",
+    "fig7EF_cellchat.csv": "figS22EF_cellchat.csv",
+    "figS7_corr_r.csv": "figS17_corr_r.csv",
+    "figS7_points_bulk.csv": "figS17_points_bulk.csv",
+    "figS7_points_singlecell.csv": "figS17_points_singlecell.csv"
+  },
+  "note": "old->new figure renumber to manuscript; reverse to undo"
+}

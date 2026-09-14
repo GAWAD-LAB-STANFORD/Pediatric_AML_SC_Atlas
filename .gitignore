@@ -1,0 +1,14 @@
+# environments (do not distribute)
+.venv/
+.census_venv/
+**/.venv/
+**/.census_venv/
+# python caches
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.ipynb_checkpoints/
+# os
+.DS_Store

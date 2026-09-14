@@ -1,0 +1,30 @@
+Warning message:
+The `label.size` argument of `geom_label()` is deprecated as of ggplot2 3.5.0.
+ℹ Please use the `linewidth` argument instead. 
+wrote fig7A_circos.png (combined) · shared WMAX = 5.93
+
+== CD96 ==
+           from             to         w
+ AML (leukemic) AML (leukemic) 5.9270258
+ AML (leukemic)           HSPC 4.4734860
+ AML (leukemic)    Myeloid_Pro 3.0684847
+ AML (leukemic) Mature myeloid 3.0141864
+ AML (leukemic)      B-lineage 0.3581419
+ AML (leukemic)        T cells 0.2825187
+ AML (leukemic)             NK 0.9197351
+ AML (leukemic)      Erythroid 4.3895514
+
+== ITGAX ==
+           from             to         w
+ AML (leukemic) AML (leukemic) 0.9620576
+           HSPC AML (leukemic) 0.2544389
+    Myeloid_Pro AML (leukemic) 1.9411228
+ Mature myeloid AML (leukemic) 2.1187089
+      B-lineage AML (leukemic) 4.5784422
+        T cells AML (leukemic) 0.2807026
+             NK AML (leukemic) 0.7400591
+
+== TNFRSF4 ==
+           from             to         w
+ AML (leukemic) AML (leukemic) 0.3024626
+           HSPC AML (leukemic) 0.6086310

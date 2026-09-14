@@ -1,0 +1,13 @@
+gene,label,group,AML_coverage,Patient_breadth,Marrow_sparing,Immune_sparing,Organ_sparing
+CD96,CD96,lead,29.1,60.7,96.7,87.1,79.4
+CD9,CD9,lead,23.9,46.4,92.4,95.5,5.1
+SUCNR1,SUCNR1,lead,18.0,28.6,93.4,99.3,55.2
+IL1RAP,IL1RAP,lead,17.9,32.1,90.1,97.1,24.7
+FLT3,FLT3,control,48.9,89.3,47.4,94.5,31.2
+CD33,CD33,clinical,31.3,67.9,69.4,88.7,98.2
+IL3RA,CD123,clinical,25.8,60.7,87.8,95.1,34.5
+CLEC12A,CLL-1,clinical,32.7,64.3,68.7,87.9,95.1
+CD7,CD7,ppac,13.1,17.9,90.9,63.6,88.1
+TNFRSF4,TNFRSF4,ppac,6.4,7.1,99.4,97.7,54.0
+ABCA7,ABCA7,ppac,12.6,7.1,89.3,92.4,39.0
+ITGAX,ITGAX,ppac,11.6,21.4,93.4,88.3,97.3

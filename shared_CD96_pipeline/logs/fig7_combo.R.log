@@ -1,0 +1,23 @@
+  wrote Figure7_CD96_additive_window (13.5x7)
+Warning messages:
+1: In grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  for '% normal HSPC / Myeloid-Pro positive  ·  CD96 OR partner  (marrow toxicity →)' in 'mbcsToSbcs': -> substituted for → (U+2192)
+2: In grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  for '% normal HSPC / Myeloid-Pro positive  ·  CD96 OR partner  (marrow toxicity →)' in 'mbcsToSbcs': -> substituted for → (U+2192)
+3: In grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  for '(≥20% of blasts covered · single cell)' in 'mbcsToSbcs': >= substituted for ≥ (U+2265)
+
+CD96 + partner (sorted by within-patient depth):
+      label    group within between   tox highly_toxic
+      +FLT3  control  66.62   92.86 36.55        FALSE
+      +CD33 clinical  59.56   85.71 25.22        FALSE
+     +CLL-1 clinical  59.42   75.00 23.10        FALSE
+       +CD9     lead  55.10   75.00  9.14         TRUE
+     +CD123 clinical  55.10   82.14 11.62         TRUE
+    +IL1RAP     lead  50.56   67.86 10.53         TRUE
+    +SUCNR1     lead  48.66   71.43  8.85        FALSE
+       +CD7     ppac  46.24   67.86  7.75        FALSE
+     +ITGAX     ppac  46.08   82.14  7.09        FALSE
+     +ABCA7     ppac  45.00   75.00 10.45         TRUE
+   +TNFRSF4     ppac  44.09   64.29  3.00        FALSE
+ CD96 alone     lead  40.39   60.71  2.78        FALSE

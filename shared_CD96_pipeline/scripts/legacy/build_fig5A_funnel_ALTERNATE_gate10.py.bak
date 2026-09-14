@@ -1,0 +1,101 @@
+#!/usr/bin/env python
+# ====================================================================
+# build_fig5A_funnel.py  |  Figure 5 (builder)
+# reproducibility header (auto-generated; edit freely below this block)
+# Inputs : (reads upstream object / raw matrix — see body)
+# Outputs: (writes to ../figures or ../source_data — see body)
+# Run    : python build_fig5A_funnel.py   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
+# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# ====================================================================
+
+"""ALTERNATE Figure 5A — discovery funnel + composite, with the safety tolerance
+raised to HSPC <= 10% AND Myeloid_Pro <= 10% (official package uses HSPC<3%/Myeloid<=5%).
+
+Reproduces the published 5A composite EXACTLY from the bundled count matrix
+(composite = mean of C1 = % leukemic cells positive, C2 = % of 28 patients with
+>=20% leukemic positivity, C3 = % of PPAC_1-5 cells positive); only the gate changes.
+This surfaces the 5 LEAD targets of the alternate figure set:
+   CD96 (1), CD9 (2), SUCNR1 (3), AMN (4), IL1RAP (5).
+
+Overwrites the panel-A source data in this (alternate) package:
+   source_data/fig5A_funnel.csv   (funnel stage counts)
+   source_data/fig5A_top15.csv    (full composite ranking; fig5.R takes the top 15)
+"""
+import os
+import numpy as np
+import pandas as pd
+import scipy.sparse as sp
+import anndata as ad
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(HERE, ".."))
+CM = os.path.join(ROOT, "count_matrix", "ALSF_AML_raw_counts.h5ad")
+SURF = os.path.join(ROOT, "..", "ref", "surfaceome_genes.txt")
+OUT_FUNNEL = os.path.join(ROOT, "source_data", "fig5A_funnel.csv")
+OUT_TOP = os.path.join(ROOT, "source_data", "fig5A_top15.csv")
+
+GATE_HSPC, GATE_MYE = 10.0, 10.0
+N_PATIENTS = 28
+AML_MIN = 0.20
+LEUK = [f"AML_{i}" for i in range(1, 28)]
+PPACS = ["PPAC_1", "PPAC_2", "PPAC_3", "PPAC_4", "PPAC_5"]
+TCR = {"CD3D", "CD3E", "CD3G", "CD247", "TRAC", "TRBC1", "TRBC2", "TRGC1", "TRGC2", "TRDC"}
+GLAB = {"IL3RA": "CD123", "CLEC12A": "CLL-1", "ADGRG1": "GPR56"}
+
+A = ad.read_h5ad(CM)
+surf = [g.strip() for g in open(SURF) if g.strip()]
+present = [g for g in surf if g in A.var_names]
+pac = A.obs["Prognosis-Associated Clusters"].astype(str).values
+sub = A.obs["AML Sub-Clusters"].astype(str).values
+samp = A.obs["Sample"].astype(str).values
+leuk = np.isin(sub, LEUK)
+hspc = pac == "0_HSPC"; mye = pac == "Myeloid_Pro"; inppac = np.isin(pac, PPACS)
+X = A[:, present].X
+pos = (np.asarray(X.todense()) > 0) if sp.issparse(X) else (np.asarray(X) > 0)
+present = np.array(present)
+
+hspc_pct = 100 * pos[hspc].mean(0)
+mye_pct = 100 * pos[mye].mean(0)
+aml_pct = 100 * pos[leuk].mean(0)
+ppac_pct = 100 * pos[inppac].mean(0)
+samples = sorted({s for s in np.unique(samp) if "Healthy" not in s})
+npts = np.zeros(len(present), int)
+for s in samples:
+    m = leuk & (samp == s)
+    if m.sum():
+        npts += (pos[m].mean(0) >= AML_MIN)
+
+df = pd.DataFrame(dict(
+    gene=present,
+    scRNA_HSPC_pct=hspc_pct.round(3), scRNA_Myeloid_pct=mye_pct.round(3),
+    scRNA_AML_pct=aml_pct.round(2), scRNA_PPAC_pct=ppac_pct.round(2),
+    scRNA_n_pts_above20pct=npts))
+df["C1_pct_AML_cells"] = df.scRNA_AML_pct
+df["C2_pct_AML_patients"] = df.scRNA_n_pts_above20pct / N_PATIENTS * 100
+df["C3_pct_PPAC_cells"] = df.scRNA_PPAC_pct
+df["composite"] = (df.C1_pct_AML_cells + df.C2_pct_AML_patients + df.C3_pct_PPAC_cells) / 3
+df["is_tcr"] = df.gene.isin(TCR)
+
+n_detect = len(df)
+n_hspc = int((df.scRNA_HSPC_pct <= GATE_HSPC).sum())
+n_mye = int(((df.scRNA_HSPC_pct <= GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE)).sum())
+gated = df[(df.scRNA_HSPC_pct <= GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE) & (~df.is_tcr)].copy()
+n_aml = int((gated.scRNA_n_pts_above20pct >= 1).sum())
+
+ranked = gated.sort_values("composite", ascending=False).reset_index(drop=True)
+ranked.insert(0, "rank", np.arange(1, len(ranked) + 1))
+ranked.drop(columns=["is_tcr"]).to_csv(OUT_TOP, index=False)
+
+funnel = pd.DataFrame({
+    "stage": ["surfaceome (in silico)", "HSPC-sparing (≤10%)", "+ Myeloid-sparing (≤10%)",
+              "+ AML+ (>20%, ≥1 pt)", "top 15 composite"],
+    "n": [n_detect, n_hspc, n_mye, n_aml, 15]})
+funnel.to_csv(OUT_FUNNEL, index=False)
+
+print("ALTERNATE Fig 5A funnel (gate HSPC<=10%, Myeloid<=10%):")
+print(funnel.to_string(index=False))
+print(f"\n  gated set (TCR dropped): {len(gated)}   AML+(>20%,>=1pt): {n_aml}")
+print("\n  top 15 by composite:")
+print(ranked.head(15)[["rank", "gene", "composite", "scRNA_HSPC_pct", "scRNA_Myeloid_pct",
+                       "scRNA_AML_pct", "scRNA_PPAC_pct"]].to_string(index=False))
+print(f"\n  wrote {OUT_FUNNEL}\n  wrote {OUT_TOP}")

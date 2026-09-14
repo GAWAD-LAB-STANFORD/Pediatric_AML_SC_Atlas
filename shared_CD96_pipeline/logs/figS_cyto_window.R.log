@@ -1,0 +1,11 @@
+Error in `ggplot2::ggsave()`:
+! Cannot find directory '../figures/supplementary'.
+ℹ Please supply an existing directory or use `create.dir = TRUE`.
+Backtrace:
+    ▆
+ 1. └─global savefig(fig, "supplementary/FigureS24_cyto_window", 12, 15)
+ 2.   └─ggplot2::ggsave(...)
+ 3.     └─ggplot2:::validate_path(path, filename, create.dir)
+ 4.       └─cli::cli_abort(...)
+ 5.         └─rlang::abort(...)
+Execution halted

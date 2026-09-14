@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+"""Composite Figure 2 (v3, corrected 49 states) as a roughly-square multi-column grid.
+Whole-cohort only (CBF moved to Figure 3). Row 1 = three atlas UMAPs (CD34, 49 states,
+EFS prognosis); row 2 = states x subtypes dot plot; row 3 = stemness + GO:BP. Panels are
+scaled to a shared per-row height (aspect preserved -> no distortion). Letters only."""
+import os
+from PIL import Image, ImageDraw, ImageFont
+P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+
+# (filename, letter)  -- empty letter = continuation of the previous panel (2A has 2 UMAPs)
+ROWS = [
+  [("Figure_2A_CD34.png","A"), ("Figure_2A_states.png",""), ("Figure_2B_prognosis_umap.png","B")],
+  [("Figure_regulon_HOX_v3.png","C")],                                                    # C: HOX/homeobox regulon module (full regulon heatmap -> Fig S9)
+  [("Figure_2C_states_subtypes.png","D"), ("Figure_2E_prognostic_GOBP.png","E")],        # subtypes + GO:BP paired (stemness -> supplement)
+  [("Figure_2F_cbf_umap.png","F"), ("Figure_2F_cbf_states.png","G"), ("Figure_2G_cbf_stem_km.png","H")],  # CBF: map, states, stem KM
+]
+W, GAP, HEAD, TOP, MARGIN = 2500, 46, 76, 26, 30
+MAXH = 0.52 * W
+def font(sz):
+    for p in ["/System/Library/Fonts/Supplemental/Arial Bold.ttf", "/System/Library/Fonts/Helvetica.ttc"]:
+        try: return ImageFont.truetype(p, sz)
+        except Exception: pass
+    return ImageFont.load_default()
+fL = font(62)
+
+rowlays = []
+for row in ROWS:
+    ims = [Image.open(os.path.join(P, f)).convert("RGB") for f, _ in row]
+    ratios = [im.width/im.height for im in ims]
+    n = len(row); avail = W - GAP*(n-1)
+    Hrow = min(avail/sum(ratios), MAXH)
+    widths = [r*Hrow for r in ratios]
+    tot = sum(widths) + GAP*(n-1); x = MARGIN + (W - tot)/2
+    placed = []
+    for (f, lab), im, w in zip(row, ims, widths):
+        placed.append((im, lab, int(round(x)), int(round(w)))); x += w + GAP
+    rowlays.append((int(round(Hrow)), placed))
+
+totalH = TOP + sum(HEAD + h for h, _ in rowlays) + GAP*len(rowlays)
+canvas = Image.new("RGB", (W + 2*MARGIN, int(totalH)), "white")
+d = ImageDraw.Draw(canvas)
+y = TOP
+for Hrow, placed in rowlays:
+    for im, lab, x, w in placed:
+        if lab: d.text((x, y), lab, font=fL, fill="black")
+        canvas.paste(im.resize((w, Hrow), Image.LANCZOS), (x, y + HEAD))
+    y += HEAD + Hrow + GAP
+canvas.save(os.path.join(OUT, "Figure_2__leukemic_states.png"))
+print("wrote Figure_2__leukemic_states  %dx%d px  (aspect %.2f)" % (canvas.width, canvas.height, canvas.height/canvas.width))

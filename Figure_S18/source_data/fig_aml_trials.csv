@@ -1,0 +1,15 @@
+antigen,label,n_trials,is_lead,note
+CD33,CD33,94,FALSE,gemtuzumab ozogamicin (approved ADC) + CAR-T/BiTE
+CD123,CD123 (IL3RA),70,FALSE,tagraxofusp / flotetuzumab / CD123 CAR-T
+CLL-1,CLL-1 (CLEC12A/CD371),37,FALSE,CAR-T / bispecific
+CD38,CD38,24,FALSE,daratumumab / CD38 CAR (some basket trials)
+CD7,CD7,14,FALSE,CD7 CAR-T (CD7+ AML; some T-ALL basket)
+CD70,CD70,10,FALSE,cusatuzumab / CD70 CAR-T
+NKG2D-L,NKG2D ligands,9,FALSE,NKG2D-CAR / NK-cell therapy
+TIM-3,TIM-3 (HAVCR2),7,FALSE,sabatolimab (anti-TIM-3 mAb)
+B7-H3,B7-H3 (CD276),3,FALSE,B7-H3 CAR-T
+IL1RAP,IL1RAP,2,TRUE,IL1RAP CAR (NCT04169022) + nadunolimab AML/MDS (NCT06548230)
+CD44v6,CD44v6,1,FALSE,CD44v6 CAR-T
+CD96,CD96,0,TRUE,"no AML antigen-directed trials (CD96 = checkpoint on T/NK, preclinical)"
+CD9,CD9,0,TRUE,no AML trials (tetraspanin; biomarker study only)
+SUCNR1,SUCNR1,0,TRUE,no AML/cancer antigen trials (metabolite receptor)

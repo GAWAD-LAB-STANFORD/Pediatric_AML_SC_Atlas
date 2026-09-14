@@ -1,0 +1,17 @@
+There were 50 or more warnings (use warnings() to see the first 50)
+wrote _review_fig6D.png + .panel_fig6D.pdf  | radar area ranking:
+# A tibble: 12 × 2
+   label    area
+   <fct>   <dbl>
+ 1 CD33     63.9
+ 2 CD96     62.7
+ 3 CLL-1    62.2
+ 4 FLT3     50.8
+ 5 CD123    45.3
+ 6 SUCNR1   43.6
+ 7 ITGAX    43.5
+ 8 CD9      34.2
+ 9 IL1RAP   33.8
+10 TNFRSF4  33.8
+11 CD7      32.9
+12 ABCA7    28.2

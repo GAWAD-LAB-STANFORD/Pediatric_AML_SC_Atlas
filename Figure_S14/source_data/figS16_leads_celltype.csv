@@ -1,0 +1,89 @@
+compartment,cell_type,n,gene,pct
+leukemic,AML,63680,CD96,28.8
+leukemic,AML,63680,CD9,23.4
+leukemic,AML,63680,SUCNR1,17.7
+leukemic,AML,63680,IL1RAP,17.7
+leukemic,AML-MKI67,2241,CD96,35.4
+leukemic,AML-MKI67,2241,CD9,27.7
+leukemic,AML-MKI67,2241,SUCNR1,18.4
+leukemic,AML-MKI67,2241,IL1RAP,17.0
+leukemic,AML-PCNA,2790,CD96,38.4
+leukemic,AML-PCNA,2790,CD9,25.8
+leukemic,AML-PCNA,2790,SUCNR1,27.7
+leukemic,AML-PCNA,2790,IL1RAP,22.7
+leukemic,AML-CD1C,1397,CD96,5.4
+leukemic,AML-CD1C,1397,CD9,25.4
+leukemic,AML-CD1C,1397,SUCNR1,3.6
+leukemic,AML-CD1C,1397,IL1RAP,10.5
+HSPC / Myeloid (gate),0_HSPC,540,CD96,2.4
+HSPC / Myeloid (gate),0_HSPC,540,CD9,7.6
+HSPC / Myeloid (gate),0_HSPC,540,SUCNR1,6.3
+HSPC / Myeloid (gate),0_HSPC,540,IL1RAP,5.7
+HSPC / Myeloid (gate),Myeloid_Pro,885,CD96,3.3
+HSPC / Myeloid (gate),Myeloid_Pro,885,CD9,6.8
+HSPC / Myeloid (gate),Myeloid_Pro,885,SUCNR1,6.6
+HSPC / Myeloid (gate),Myeloid_Pro,885,IL1RAP,9.9
+monocyte / DC,CD14_Monocyte,4146,CD96,0.4
+monocyte / DC,CD14_Monocyte,4146,CD9,5.8
+monocyte / DC,CD14_Monocyte,4146,SUCNR1,0.2
+monocyte / DC,CD14_Monocyte,4146,IL1RAP,4.5
+monocyte / DC,CD16_Monocyte,526,CD96,2.9
+monocyte / DC,CD16_Monocyte,526,CD9,2.9
+monocyte / DC,CD16_Monocyte,526,SUCNR1,2.9
+monocyte / DC,CD16_Monocyte,526,IL1RAP,3.6
+monocyte / DC,mDC,534,CD96,2.4
+monocyte / DC,mDC,534,CD9,8.6
+monocyte / DC,mDC,534,SUCNR1,1.9
+monocyte / DC,mDC,534,IL1RAP,6.4
+monocyte / DC,pDC,386,CD96,5.2
+monocyte / DC,pDC,386,CD9,3.1
+monocyte / DC,pDC,386,SUCNR1,2.3
+monocyte / DC,pDC,386,IL1RAP,1.0
+monocyte / DC,Macrophage,78,CD96,1.3
+monocyte / DC,Macrophage,78,CD9,3.8
+monocyte / DC,Macrophage,78,SUCNR1,0.0
+monocyte / DC,Macrophage,78,IL1RAP,5.1
+T / NK,Naïve_CD4T,2329,CD96,18.3
+T / NK,Naïve_CD4T,2329,CD9,1.5
+T / NK,Naïve_CD4T,2329,SUCNR1,0.4
+T / NK,Naïve_CD4T,2329,IL1RAP,1.1
+T / NK,Naïve_CD8T,1220,CD96,32.2
+T / NK,Naïve_CD8T,1220,CD9,5.0
+T / NK,Naïve_CD8T,1220,SUCNR1,0.2
+T / NK,Naïve_CD8T,1220,IL1RAP,2.4
+T / NK,CTL,1594,CD96,22.0
+T / NK,CTL,1594,CD9,2.0
+T / NK,CTL,1594,SUCNR1,0.8
+T / NK,CTL,1594,IL1RAP,1.7
+T / NK,Activated_CD4T,659,CD96,25.2
+T / NK,Activated_CD4T,659,CD9,1.7
+T / NK,Activated_CD4T,659,SUCNR1,0.9
+T / NK,Activated_CD4T,659,IL1RAP,2.1
+T / NK,NK,1170,CD96,26.8
+T / NK,NK,1170,CD9,1.3
+T / NK,NK,1170,SUCNR1,0.4
+T / NK,NK,1170,IL1RAP,2.6
+B / plasma,CD34+ProB,179,CD96,12.8
+B / plasma,CD34+ProB,179,CD9,55.3
+B / plasma,CD34+ProB,179,SUCNR1,5.0
+B / plasma,CD34+ProB,179,IL1RAP,1.1
+B / plasma,ProB,608,CD96,9.4
+B / plasma,ProB,608,CD9,61.0
+B / plasma,ProB,608,SUCNR1,0.2
+B / plasma,ProB,608,IL1RAP,1.5
+B / plasma,PreB,574,CD96,1.4
+B / plasma,PreB,574,CD9,48.8
+B / plasma,PreB,574,SUCNR1,0.0
+B / plasma,PreB,574,IL1RAP,0.2
+B / plasma,CD20+B,1115,CD96,7.4
+B / plasma,CD20+B,1115,CD9,6.5
+B / plasma,CD20+B,1115,SUCNR1,1.0
+B / plasma,CD20+B,1115,IL1RAP,1.8
+B / plasma,PlasmaB,386,CD96,7.8
+B / plasma,PlasmaB,386,CD9,22.8
+B / plasma,PlasmaB,386,SUCNR1,1.6
+B / plasma,PlasmaB,386,IL1RAP,4.9
+erythroid,Erythrocytes,881,CD96,4.1
+erythroid,Erythrocytes,881,CD9,2.2
+erythroid,Erythrocytes,881,SUCNR1,1.4
+erythroid,Erythrocytes,881,IL1RAP,1.5

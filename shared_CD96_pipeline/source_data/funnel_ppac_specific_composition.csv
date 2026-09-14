@@ -1,0 +1,7 @@
+group,n_cells,n_patients_any,n_patients_contrib,dominant_patient_share_pct,single_patient_flag
+PPAC_1,4887,25,13,22.6,False
+PPAC_2,3355,28,16,29.4,False
+PPAC_3,2325,27,17,31.5,False
+PPAC_4,2033,27,21,9.6,False
+PPAC_5,1146,6,2,94.5,True
+All PPAC,13746,28,28,9.7,False

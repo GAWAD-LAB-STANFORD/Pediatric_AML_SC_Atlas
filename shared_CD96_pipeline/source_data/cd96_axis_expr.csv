@@ -1,0 +1,79 @@
+compartment,gene,role,pct,mean
+AML (leukemic),CD96,receptor,28.9,0.248
+AML (leukemic),TIGIT,receptor,0.1,0.001
+AML (leukemic),CD226,receptor,0.7,0.006
+AML (leukemic),PVR,ligand,4.0,0.027
+AML (leukemic),NECTIN1,ligand,5.1,0.037
+AML (leukemic),NECTIN2,ligand,19.8,0.151
+Naïve CD4 T,CD96,receptor,21.7,0.248
+Naïve CD4 T,TIGIT,receptor,1.6,0.018
+Naïve CD4 T,CD226,receptor,4.5,0.051
+Naïve CD4 T,PVR,ligand,0.3,0.004
+Naïve CD4 T,NECTIN1,ligand,0.1,0.002
+Naïve CD4 T,NECTIN2,ligand,0.1,0.001
+Memory CD4 T,CD96,receptor,30.6,0.323
+Memory CD4 T,TIGIT,receptor,7.2,0.075
+Memory CD4 T,CD226,receptor,12.8,0.126
+Memory CD4 T,PVR,ligand,0.1,0.001
+Memory CD4 T,NECTIN1,ligand,1.1,0.011
+Memory CD4 T,NECTIN2,ligand,0.1,0.001
+Treg,CD96,receptor,21.6,0.234
+Treg,TIGIT,receptor,37.6,0.437
+Treg,CD226,receptor,4.1,0.042
+Treg,PVR,ligand,0.0,0.0
+Treg,NECTIN1,ligand,0.0,0.0
+Treg,NECTIN2,ligand,0.0,0.0
+Naïve CD8 T,CD96,receptor,31.8,0.352
+Naïve CD8 T,TIGIT,receptor,1.1,0.012
+Naïve CD8 T,CD226,receptor,4.7,0.05
+Naïve CD8 T,PVR,ligand,0.4,0.004
+Naïve CD8 T,NECTIN1,ligand,0.4,0.004
+Naïve CD8 T,NECTIN2,ligand,0.2,0.002
+Memory CD8 T,CD96,receptor,31.0,0.333
+Memory CD8 T,TIGIT,receptor,7.6,0.083
+Memory CD8 T,CD226,receptor,6.8,0.069
+Memory CD8 T,PVR,ligand,0.3,0.003
+Memory CD8 T,NECTIN1,ligand,0.8,0.009
+Memory CD8 T,NECTIN2,ligand,0.0,0.0
+GZMK CD8 T,CD96,receptor,30.5,0.343
+GZMK CD8 T,TIGIT,receptor,24.6,0.276
+GZMK CD8 T,CD226,receptor,4.3,0.045
+GZMK CD8 T,PVR,ligand,0.4,0.004
+GZMK CD8 T,NECTIN1,ligand,0.1,0.001
+GZMK CD8 T,NECTIN2,ligand,0.4,0.004
+GZMB CD8 T,CD96,receptor,25.7,0.282
+GZMB CD8 T,TIGIT,receptor,13.6,0.151
+GZMB CD8 T,CD226,receptor,13.8,0.151
+GZMB CD8 T,PVR,ligand,0.7,0.007
+GZMB CD8 T,NECTIN1,ligand,1.0,0.011
+GZMB CD8 T,NECTIN2,ligand,0.0,0.0
+GZMB DNT,CD96,receptor,31.8,0.354
+GZMB DNT,TIGIT,receptor,4.5,0.049
+GZMB DNT,CD226,receptor,15.4,0.167
+GZMB DNT,PVR,ligand,0.0,0.0
+GZMB DNT,NECTIN1,ligand,0.5,0.007
+GZMB DNT,NECTIN2,ligand,0.0,0.0
+MAIT,CD96,receptor,44.4,0.471
+MAIT,TIGIT,receptor,1.3,0.011
+MAIT,CD226,receptor,7.2,0.075
+MAIT,PVR,ligand,0.4,0.005
+MAIT,NECTIN1,ligand,0.9,0.01
+MAIT,NECTIN2,ligand,0.9,0.009
+GZMK NK,CD96,receptor,42.6,0.445
+GZMK NK,TIGIT,receptor,20.6,0.216
+GZMK NK,CD226,receptor,16.7,0.169
+GZMK NK,PVR,ligand,1.4,0.014
+GZMK NK,NECTIN1,ligand,0.0,0.0
+GZMK NK,NECTIN2,ligand,0.0,0.0
+GZMB NK,CD96,receptor,27.5,0.303
+GZMB NK,TIGIT,receptor,18.5,0.201
+GZMB NK,CD226,receptor,18.6,0.201
+GZMB NK,PVR,ligand,1.2,0.012
+GZMB NK,NECTIN1,ligand,1.1,0.012
+GZMB NK,NECTIN2,ligand,0.1,0.0
+Proliferating T,CD96,receptor,51.9,0.453
+Proliferating T,TIGIT,receptor,27.2,0.243
+Proliferating T,CD226,receptor,17.3,0.127
+Proliferating T,PVR,ligand,3.7,0.024
+Proliferating T,NECTIN1,ligand,1.2,0.007
+Proliferating T,NECTIN2,ligand,0.0,0.0

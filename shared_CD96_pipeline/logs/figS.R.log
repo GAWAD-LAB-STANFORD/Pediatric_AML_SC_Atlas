@@ -1,0 +1,13 @@
+Error in `dplyr::group_by()`:
+! Must group by variables found in `.data`.
+✖ Column `group` is not found.
+Backtrace:
+    ▆
+ 1. ├─dplyr::arrange(...)
+ 2. ├─dplyr::left_join(...)
+ 3. ├─dplyr::summarise(...)
+ 4. ├─dplyr::group_by(vio, gene, label, group)
+ 5. └─dplyr:::group_by.data.frame(vio, gene, label, group)
+ 6.   └─dplyr::group_by_prepare(.data, ..., .add = .add, error_call = current_env())
+ 7.     └─rlang::abort(bullets, call = error_call)
+Execution halted
