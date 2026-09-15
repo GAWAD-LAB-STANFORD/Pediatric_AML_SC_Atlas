@@ -18,11 +18,18 @@ shiny::runApp("app")        # from the repository root
 | **Safety** | Normal-marrow cell types, vital-organ expression, and the five-axis profile for the twelve antigens carried past the screen | `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv`, `fig6D_radar.csv` |
 | **Validation** | Whether a target holds beyond discovery: paediatric TARGET bulk, adult Beat AML bulk, and an independent adult single-cell cohort | `Figure_5/fig5F_meta_all.csv`, `fig5F_adult_beataml_meta.csv`, `Figure_S23/adult_scrna_overall.csv` |
 | **Combinations** | Every single antigen and "X OR Y" pair, plotted as patient coverage against normal-marrow toxicity | `Figure_7/fig7_allpairs.csv` |
-| **Atlas** | Monocle trajectory embedding, by compartment, pseudotime, or leukemic fraction | `Figure_3/v3/monocle_umap_coords.csv` |
+| **Atlas** | Monocle trajectory embedding of the **paediatric** cohort (49 leukemic states + 8 normal marrow compartments), by compartment, pseudotime, or leukemic fraction | `Figure_3/v3/monocle_umap_coords.csv` |
 
 Selecting a gene — from the dropdown or by clicking a row in the Targets table — drives every panel.
 Genes that were screened but not carried forward (most of the 1,704) show the ranking panels and a
 note explaining that no safety or combination data exists for them.
+
+## Which cohort is which
+
+Everything is the **paediatric** discovery cohort except the **Validation** panel, which is the
+explicit adult comparison (Beat AML bulk and an independent adult single-cell cohort). The atlas
+embedding is paediatric: its 57 groups are the 49 leukemic states `LS_1`-`LS_49` plus eight
+`NORM_*` marrow compartments.
 
 ## Notes
 

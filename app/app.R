@@ -48,42 +48,41 @@ has  <- function(df, g) nrow(df[df$gene == g, ]) > 0
 
 # --- ui --------------------------------------------------------------------
 ui <- page_navbar(
+  id = "nav",
   title = "Pediatric AML Target Discovery",
   theme = bs_theme(version = 5, primary = "#2F5D70", base_font = font_google("Inter")),
   sidebar = sidebar(
-    width = 320,
+    width = 300,
     selectizeInput("gene", "Selected target", choices = NULL,
                    options = list(placeholder = "type a gene, e.g. CD96")),
     uiOutput("gene_card"),
+    conditionalPanel(
+      "input.nav == 'Discover'",
+      hr(),
+      strong("Screening criteria"),
+      sliderInput("f_aml",  "Min % leukemic cells positive", 0, 30, 5, step = 1),
+      sliderInput("f_pts",  "Min patients with >20% positive", 0, 17, 2, step = 1),
+      sliderInput("f_hspc", "Max % normal HSPC", 0, 10, 10, step = 0.5),
+      sliderInput("f_mye",  "Max % myeloid progenitors", 0, 10, 10, step = 0.5),
+      sliderInput("w", "Score weighting \u2014 breadth \u2194 efficacy", 0, 1, 0.5, step = 0.05),
+      downloadButton("dl", "Download hits (CSV)", class = "btn-sm btn-primary")
+    ),
     hr(),
     uiOutput("coverage_note")
   ),
 
   nav_panel(
     "Discover",
+    card(card_header(textOutput("funnel_title")), plotOutput("funnel_plot", height = 300),
+         note("Set your criteria in the sidebar. The 1,704 screened genes have already passed the ",
+              "\u226410% marrow-sparing gate; your thresholds narrow them further. ",
+              "Score = w \u00d7 (% leukemic cells) + (1-w) \u00d7 (% patients >20% positive).")),
     layout_columns(
-      col_widths = c(4, 8),
-      card(
-        card_header("Screening criteria"),
-        sliderInput("f_aml",  "Min % leukemic cells positive", 0, 30, 5, step = 1),
-        sliderInput("f_pts",  "Min patients with >20% positive", 0, 17, 2, step = 1),
-        sliderInput("f_hspc", "Max % normal HSPC", 0, 10, 10, step = 0.5),
-        sliderInput("f_mye",  "Max % myeloid progenitors", 0, 10, 10, step = 0.5),
-        hr(),
-        sliderInput("w", "Score weighting — breadth ↔ efficacy", 0, 1, 0.5, step = 0.05),
-        note("Score = w x (% leukemic cells) + (1-w) x (% patients >20% positive). ",
-             "At w = 0.5 this is the manuscript composite."),
-        downloadButton("dl", "Download passing genes (CSV)", class = "btn-sm btn-primary mt-2")
-      ),
-      card(card_header(textOutput("funnel_title")), plotOutput("funnel_plot", height = 260),
-           note("The 1,704 screened genes have already passed the ≤10% marrow-sparing gate; ",
-                "your criteria narrow them further."))
-    ),
-    layout_columns(
-      col_widths = c(6, 6),
-      card(card_header("Efficacy vs normal-marrow expression"), plotOutput("gate_plot", height = 420),
-           note("Dashed lines are your gates. Genes passing every criterion are highlighted.")),
-      card(card_header("Passing targets"), DTOutput("hits"))
+      col_widths = c(5, 7),
+      card(card_header("Efficacy vs normal-marrow expression"), plotOutput("gate_plot", height = 430),
+           note("Dashed lines are your gates; the selected target is ringed in amber.")),
+      card(card_header("Passing targets"), DTOutput("hits"),
+           note("Click a row to profile that gene in the other tabs."))
     )
   ),
 
@@ -111,7 +110,7 @@ ui <- page_navbar(
 
   nav_panel(
     "Validation",
-    card(card_header("Does the target hold beyond the discovery cohort?"),
+    card(card_header("Does the target hold beyond the paediatric discovery cohort?"),
          plotOutput("valid_plot", height = 420),
          note("Percent of patients targetable in paediatric TARGET bulk RNA-seq and adult Beat AML, ",
               "alongside percent of cells positive in an independent adult single-cell cohort."))
@@ -126,12 +125,13 @@ ui <- page_navbar(
 
   nav_panel(
     "Atlas",
-    card(card_header("Single-cell embedding"),
+    card(card_header("Single-cell embedding \u2014 paediatric atlas"),
       layout_columns(col_widths = c(3, 9),
         radioButtons("emb_fill", "Colour by",
                      c("Compartment" = "comp", "Pseudotime" = "pt", "Leukemic fraction" = "frac")),
         plotOutput("emb_plot", height = 460)),
-      note("Monocle trajectory embedding. Each of the 57 groups is subsampled to 1,000 cells, ",
+      note(strong("Paediatric cohort"), " \u2014 the 49 leukemic states (LS_1\u2013LS_49) plus eight normal marrow compartments. ",
+           "Monocle trajectory embedding; each of the 57 groups is subsampled to 1,000 cells, ",
            "so apparent cell density reflects the subsampling, not true abundance — ",
            "compartment and pseudotime are the meaningful readouts here."))
   )
