@@ -116,9 +116,21 @@ ui <- page_navbar(
 
   nav_panel(
     "Safety",
+    card(
+      card_header("Browse the top 500 targets by marrow safety"),
+      layout_columns(
+        col_widths = c(5, 7),
+        plotOutput("safety_scatter", height = 400),
+        DTOutput("safety_tbl")),
+      note("Marrow safety is available for all 1,704 screened genes: the axes are the percentage of ",
+           "normal HSPC and myeloid progenitors expressing the target, the two measures the ",
+           "\u226410% gate was built on. Lower-left is safer. Click any row to profile that gene. ",
+           strong("Deep Census profiling \u2014 the vital-organ and five-axis panels below \u2014 exists only for the "),
+           strong("twelve antigens carried past the screen"), ", so it is flagged in the table rather than implied for the rest.")
+    ),
     layout_columns(
       col_widths = c(6, 6),
-      card(card_header("Normal marrow"), plotOutput("hema_plot", height = 400)),
+      card(card_header("Normal marrow cell types"), plotOutput("hema_plot", height = 400)),
       card(card_header("Vital organs (top 15)"), plotOutput("org_plot", height = 400))),
     card(card_header("Five-axis profile"), plotOutput("radar_plot", height = 300),
          note("Each axis is min-max scaled across the twelve antigens carried past the screen. Higher is better."))
@@ -259,6 +271,32 @@ server <- function(input, output, session) {
   })
 
   # ---- Safety ----
+  top500 <- local({
+    d <- screen[order(-screen$composite), ][1:min(500, nrow(screen)), ]
+    d$deep <- ifelse(d$gene %in% radar$gene, "Full Census profile", "Marrow only")
+    d
+  })
+  output$safety_scatter <- renderPlot({
+    d <- top500; sel <- d[d$gene == g(), ]
+    ggplot(d, aes(scRNA_HSPC_pct, scRNA_Myeloid_pct)) +
+      geom_point(aes(colour = composite, shape = deep), size = 2.4, alpha = .85) +
+      { if (nrow(sel)) geom_point(data = sel, size = 5, shape = 21, fill = "#F6A30C", colour = "black") } +
+      { if (nrow(sel)) geom_text(data = sel, aes(label = gene), vjust = -1.2, fontface = "bold") } +
+      scale_colour_viridis_c(option = "mako", direction = -1, name = "Composite") +
+      scale_shape_manual(values = c(`Full Census profile` = 17, `Marrow only` = 16), name = NULL) +
+      labs(x = "% normal HSPC positive", y = "% myeloid progenitors positive") +
+      theme_lab(0)
+  })
+  output$safety_tbl <- renderDT({
+    d <- top500[, c("rank", "gene", "composite", "scRNA_AML_pct", "scRNA_HSPC_pct", "scRNA_Myeloid_pct", "deep")]
+    names(d) <- c("Rank", "Gene", "Composite", "% AML cells", "% HSPC", "% Myeloid", "Safety data")
+    datatable(d, selection = "single", rownames = FALSE,
+              options = list(pageLength = 10, order = list(list(0, "asc")))) |>
+      formatRound(c("Composite", "% AML cells", "% HSPC", "% Myeloid"), 1)
+  })
+  observeEvent(input$safety_tbl_rows_selected, {
+    updateSelectizeInput(session, "gene", selected = top500$gene[input$safety_tbl_rows_selected])
+  })
   output$hema_plot <- renderPlot({
     d <- tox_hema[tox_hema$gene == g(), ]
     validate(need(nrow(d) > 0, sprintf("No normal-marrow profile for %s.", g())))

@@ -15,7 +15,7 @@ shiny::runApp("app")        # from the repository root
 | :-- | :-- | :-- |
 | **Discover** | Interactive screen: set your own efficacy, breadth and marrow-sparing thresholds, reweight the composite score, watch the funnel recompute, and export the passing genes | `Figure_5/fig5A_top15.csv`, `fig5A_funnel.csv` |
 | **Target profile** | Per-leukemic-state expression coloured by outcome association, position against the 48 head-to-head antigens, and coverage across 14 cytogenetic subtypes | `Figure_5/fig5D_ls.csv`, `fig5C_headtohead.csv`, `fig5D_cyto.csv` |
-| **Safety** | Normal-marrow cell types, vital-organ expression, and the five-axis profile for the twelve antigens carried past the screen | `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv`, `fig6D_radar.csv` |
+| **Safety** | Browse the **top 500** targets on the marrow-safety axes (% normal HSPC vs % myeloid progenitors, available for all 1,704), then the selected gene's marrow cell types, vital organs and five-axis profile | `Figure_5/fig5A_top15.csv`, `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv`, `fig6D_radar.csv` |
 | **Validation** | Whether a target holds beyond discovery: paediatric TARGET bulk, adult Beat AML bulk, and an independent adult single-cell cohort | `Figure_5/fig5F_meta_all.csv`, `fig5F_adult_beataml_meta.csv`, `Figure_S23/adult_scrna_overall.csv` |
 | **Combinations** | Every single antigen and "X OR Y" pair, plotted as patient coverage against normal-marrow toxicity | `Figure_7/fig7_allpairs.csv` |
 | **Atlas** | The Figure 2A UMAP of the full **paediatric** atlas — 96,627 cells (70,108 leukemic across 49 states, 26,519 normal marrow) — coloured by compartment, cell type, leukemic state, or density | `Figure_2/fig2A_umap_cells.csv` |
@@ -42,5 +42,10 @@ is meaningful. The hex-binned view follows the approach of the lab's earlier
 grid rather than the cell count.
 
 Only a subset of the 1,704 screened genes carries the deeper panels (19 have per-state and subtype
-data, 12 have safety, validation and combination data). Panels without data for the selected gene say
-so explicitly rather than rendering an empty plot.
+data, 12 have vital-organ, validation and combination data). Panels without data for the selected gene
+say so explicitly rather than rendering an empty plot.
+
+The distinction matters most in the Safety tab. **Marrow** safety (% normal HSPC, % myeloid
+progenitors) is measured for all 1,704 genes, so the top-500 browser is real data throughout.
+**Vital-organ** profiling against the CZ CELLxGENE Census exists only for the twelve antigens carried
+past the screen — the browser marks which those are rather than leaving it implied.
