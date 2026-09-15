@@ -2,7 +2,7 @@
 
 Every **deployed** figure — main Figures 1–7 and Supplementary Figures **S1–S27** (the files in
 `../04_Main_Figures/` and `../05_Supplementary_Figures/`) — maps to a **self-contained folder** here.
-The supplement code folders and the `08_Source_Data/` folders now match the deployed S-numbers
+The supplement code folders and the `source_data/` folders now match the deployed S-numbers
 (the earlier superseded/drifted numbering has been reconciled).
 
 ## Self-contained layout

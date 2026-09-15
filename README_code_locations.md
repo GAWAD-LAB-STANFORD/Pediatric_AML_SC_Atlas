@@ -1,7 +1,7 @@
 # Code — one self-contained folder per figure
 
 `07_Code/` has one folder per deployed figure (main Figures 1–7, Supplementary Figures **S1–S27**),
-and `08_Source_Data/` mirrors the same numbering. Folder numbers now match the deployed figures
+and `source_data/` mirrors the same numbering. Folder numbers now match the deployed figures
 (the earlier superseded/drifted supplement numbering has been reconciled).
 
 ## Self-contained per-figure folders
@@ -19,7 +19,7 @@ reads `../source_data/` and writes `../figures/`. Builders (`build_*.py`) regene
 from the raw atlas / TARGET bulk (GEO/dbGaP; path in `config.py`) and need the deposited raw data.
 
 Legacy main figures `Figure_1/…Figure_4/` keep their original multi-script pipelines (they already
-ship the full scripts; their plot-level data is in `08_Source_Data/Figure_1…4/`).
+ship the full scripts; their plot-level data is in `source_data/Figure_1…4/`).
 
 ## Two provenance streams
 - **Atlas / prognosis (Figs 1–4, Suppl. S1–S13)** — leukemic-state atlas, prognosis, T/NK and CITE-seq
