@@ -29,9 +29,15 @@ radar    <- rd("Figure_6", "fig6D_radar.csv")
 tox_hema <- rd("Figure_6", "fig6tox_hema.csv")
 tox_org  <- rd("Figure_6", "fig6tox_organ.csv")
 combos   <- rd("Figure_7", "fig7_allpairs.csv")
+lsspec   <- rd("Figure_S16", "funnel_ls_specific.csv")          # 1,704 genes x poor-prognosis contexts
+lscomp   <- rd("Figure_S16", "funnel_ls_specific_composition.csv")
+N_PT     <- 28                                                   # patients in the discovery cohort
 emb      <- rd("Figure_2", "fig2A_umap_cells.csv")   # full paediatric atlas, 96,627 cells
-emb$cell_type[emb$cell_type == ""] <- "Non-leukemic"
+ebins    <- rd("Figure_2", "fig2A_bins.csv")         # hex/grid bin centres over the UMAP
+gexpr    <- rd("Figure_2", "fig2A_gene_bin_expr.csv")# mean log1p(CPM) per gene per bin
 LS_LEVELS <- paste0("LS_", 1:49)
+EXPR_GENES <- sort(unique(gexpr$gene))
+BINW <- diff(range(ebins$x)) / 120; BINH <- diff(range(ebins$y)) / 120
 
 PROG  <- c(favorable = "#2F5D70", poor = "#8C1515", n.s. = "#B9C0C7", normal = "#7E57C2")
 KLASS <- c(lead = "#8C1515", candidate = "#2F5D70", clinical = "#F6A30C",
@@ -51,7 +57,9 @@ has  <- function(df, g) nrow(df[df$gene == g, ]) > 0
 ui <- page_navbar(
   id = "nav",
   title = "Pediatric AML Target Discovery",
-  theme = bs_theme(version = 5, primary = "#2F5D70", base_font = font_google("Inter")),
+  # No font_google(): webR has no curl, so a downloaded font breaks the WebAssembly build.
+  theme = bs_theme(version = 5, primary = "#2F5D70",
+                   base_font = font_face(family = "Inter", src = "local('Inter')")),
   sidebar = sidebar(
     width = 300,
     selectizeInput("gene", "Selected target", choices = NULL,
@@ -60,9 +68,12 @@ ui <- page_navbar(
     conditionalPanel(
       "input.nav == 'Discover'",
       hr(),
+      selectInput("ctx", "Disease context",
+                  c("Whole cohort", sort(unique(lsspec$group)))),
+      uiOutput("ctx_note"),
       strong("Screening criteria"),
-      sliderInput("f_aml",  "Min % leukemic cells positive", 0, 30, 5, step = 1),
-      sliderInput("f_pts",  "Min patients with >20% positive", 0, 17, 2, step = 1),
+      sliderInput("f_aml",  "Min % leukemic cells positive", 0, 70, 5, step = 1),
+      sliderInput("f_pts",  "Min % of patients positive", 0, 100, 10, step = 5),
       sliderInput("f_hspc", "Max % normal HSPC", 0, 10, 10, step = 0.5),
       sliderInput("f_mye",  "Max % myeloid progenitors", 0, 10, 10, step = 0.5),
       sliderInput("w", "Score weighting \u2014 breadth \u2194 efficacy", 0, 1, 0.5, step = 0.05),
@@ -79,11 +90,14 @@ ui <- page_navbar(
       layout_columns(
         col_widths = c(3, 9),
         radioButtons("emb_fill", "Colour by",
-                     c("Compartment" = "comp", "Cell type" = "type",
+                     c("Gene expression" = "expr", "Compartment" = "comp", "Cell type" = "type",
                        "Leukemic state" = "state", "Cell density" = "dens")),
         plotOutput("emb_plot", height = 520)),
-      note(strong("96,627 cells"), " \u2014 70,108 leukemic (49 states, LS_1\u2013LS_49) and 26,519 normal marrow cells. ",
-           "This is the Figure 2A UMAP of the full paediatric atlas; every cell is shown, so density is real.")
+      note(strong("96,627 cells"), " \u2014 70,108 leukemic and 26,519 normal marrow, across 29 annotated cell types. ",
+           "Of the leukemic cells, 57,166 fall in one of the 49 reproducible states (LS_1\u2013LS_49); the other 12,942 sit in ",
+           "clusters that failed the Jaccard \u2265 0.35 stability cut and are deliberately left unassigned. ",
+           "Expression is the mean log1p(CPM) per grid bin, available for ", textOutput("n_expr_genes", inline = TRUE),
+           " of the screened targets.")
     )
   ),
 
@@ -157,15 +171,39 @@ server <- function(input, output, session) {
   updateSelectizeInput(session, "gene", choices = screen$gene, selected = "CD96", server = TRUE)
   g <- reactive(if (is.null(input$gene) || !nzchar(input$gene)) "CD96" else input$gene)
 
+  # unified screening table: whole cohort, or one poor-prognosis context
+  base_tbl <- reactive({
+    if (identical(input$ctx, "Whole cohort")) {
+      data.frame(gene = screen$gene, aml = screen$scRNA_AML_pct,
+                 breadth = screen$scRNA_n_pts_above20pct / N_PT * 100,
+                 hspc = screen$scRNA_HSPC_pct, mye = screen$scRNA_Myeloid_pct,
+                 npt = screen$scRNA_n_pts_above20pct, paper_rank = screen$rank,
+                 stringsAsFactors = FALSE)
+    } else {
+      d <- lsspec[lsspec$group == input$ctx, ]
+      data.frame(gene = d$gene, aml = d$cov_pct, breadth = d$rec_pct,
+                 hspc = d$HSPC, mye = d$Myeloid, npt = d$n_contrib_patients,
+                 paper_rank = match(d$gene, screen$gene), stringsAsFactors = FALSE)
+    }
+  })
   scored <- reactive({
-    d <- screen
-    d$score <- input$w * d$scRNA_AML_pct +
-      (1 - input$w) * (d$scRNA_n_pts_above20pct / max(d$scRNA_n_pts_above20pct, na.rm = TRUE) * 100)
-    d$pass <- d$scRNA_AML_pct >= input$f_aml &
-      d$scRNA_n_pts_above20pct >= input$f_pts &
-      d$scRNA_HSPC_pct <= input$f_hspc &
-      d$scRNA_Myeloid_pct <= input$f_mye
+    d <- base_tbl()
+    d$score <- input$w * d$aml + (1 - input$w) * d$breadth
+    d$pass <- d$aml >= input$f_aml & d$breadth >= input$f_pts &
+      d$hspc <= input$f_hspc & d$mye <= input$f_mye
     d[order(-d$score), ]
+  })
+
+  output$ctx_note <- renderUI({
+    if (identical(input$ctx, "Whole cohort"))
+      return(note("Screening every leukemic cell in the cohort."))
+    r <- lscomp[lscomp$group == input$ctx, ]
+    if (!nrow(r)) return(NULL)
+    warn <- identical(as.character(r$single_patient_flag[1]), "True")
+    note(sprintf("%s: %s cells from %d contributing patients; largest single patient contributes %.1f%%.",
+                 input$ctx, format(r$n_cells[1], big.mark = ","), r$n_patients_contrib[1],
+                 r$dominant_patient_share_pct[1]),
+         if (warn) span(style = "color:#8C1515;font-weight:600", " Dominated by one patient \u2014 treat as an artifact risk."))
   })
   hits <- reactive(scored()[scored()$pass, ])
 
@@ -194,9 +232,12 @@ server <- function(input, output, session) {
   })
 
   # ---- Discover ----
-  output$funnel_title <- renderText(sprintf("Screening funnel — %s genes pass", format(nrow(hits()), big.mark = ",")))
+  output$funnel_title <- renderText(sprintf("%s \u2014 %s of %s genes pass",
+      input$ctx, format(nrow(hits()), big.mark = ","), format(nrow(base_tbl()), big.mark = ",")))
   output$funnel_plot <- renderPlot({
-    d <- rbind(funnel, data.frame(stage = "your criteria", n = nrow(hits())))
+    base <- if (identical(input$ctx, "Whole cohort")) funnel else
+      data.frame(stage = paste("screened in", input$ctx), n = nrow(base_tbl()))
+    d <- rbind(base, data.frame(stage = "your criteria", n = nrow(hits())))
     d$stage <- factor(d$stage, levels = rev(d$stage))
     d$mine <- d$stage == "your criteria"
     ggplot(d, aes(n, stage, fill = mine)) +
@@ -221,12 +262,11 @@ server <- function(input, output, session) {
   })
 
   output$hits <- renderDT({
-    d <- hits()[, c("gene", "score", "scRNA_AML_pct", "scRNA_n_pts_above20pct",
-                    "scRNA_HSPC_pct", "scRNA_Myeloid_pct", "rank")]
-    names(d) <- c("Gene", "Score", "% AML cells", "Patients >20%", "% HSPC", "% Myeloid", "Paper rank")
+    d <- hits()[, c("gene", "score", "aml", "breadth", "npt", "hspc", "mye", "paper_rank")]
+    names(d) <- c("Gene", "Score", "% leukemic cells", "% patients", "Patients", "% HSPC", "% Myeloid", "Paper rank")
     datatable(d, selection = "single", rownames = FALSE,
               options = list(pageLength = 12, order = list(list(1, "desc")))) |>
-      formatRound(c("Score", "% AML cells", "% HSPC", "% Myeloid"), 1)
+      formatRound(c("Score", "% leukemic cells", "% patients", "% HSPC", "% Myeloid"), 1)
   })
   observeEvent(input$hits_rows_selected, {
     updateSelectizeInput(session, "gene", selected = hits()$gene[input$hits_rows_selected])
@@ -362,17 +402,28 @@ server <- function(input, output, session) {
   })
 
   # ---- Atlas ----
+  output$n_expr_genes <- renderText(format(length(EXPR_GENES), big.mark = ","))
   output$emb_plot <- renderPlot({
     p <- switch(input$emb_fill,
+      expr = {
+        d <- gexpr[gexpr$gene == g(), c("bin", "mean")]
+        validate(need(nrow(d) > 0, sprintf(
+          "%s has no expression in the atlas (it is below the 25-cell detection floor, or absent from the reference).", g())))
+        m <- merge(ebins, d, by = "bin", all.x = TRUE); m$mean[is.na(m$mean)] <- 0
+        ggplot(m, aes(x, y, fill = mean)) +
+          geom_tile(width = BINW, height = BINH) +
+          scale_fill_viridis_c(option = "rocket", direction = -1,
+                               name = sprintf("%s\nmean log(CPM+1)", g())) +
+          labs(x = "UMAP1", y = "UMAP2")
+      },
       comp = ggplot(emb, aes(UMAP1, UMAP2, colour = compartment)) +
         geom_point(size = .25, alpha = .35) +
         scale_colour_manual(values = c(Leukemic = CARD, `Non-leukemic` = TEAL), name = NULL) +
         guides(colour = guide_legend(override.aes = list(size = 4, alpha = 1))),
       type = ggplot(emb, aes(UMAP1, UMAP2, colour = cell_type)) +
-        geom_point(size = .25, alpha = .35) +
-        scale_colour_manual(values = c(AML = CARD, `AML-PCNA` = "#F6A30C", `AML-MKI67` = "#5B8C5A",
-                                       `AML-CD1C` = "#7E57C2", `Non-leukemic` = "#B9C0C7"), name = NULL) +
-        guides(colour = guide_legend(override.aes = list(size = 4, alpha = 1))),
+        geom_point(size = .25, alpha = .4) +
+        scale_colour_manual(values = grDevices::hcl.colors(length(unique(emb$cell_type)), "Spectral"), name = NULL) +
+        guides(colour = guide_legend(override.aes = list(size = 3.5, alpha = 1), ncol = 2)),
       state = {
         d <- emb[emb$LS != "", ]; d$LS <- factor(d$LS, levels = LS_LEVELS)
         lab <- aggregate(cbind(UMAP1, UMAP2) ~ LS, d, median)
