@@ -18,7 +18,7 @@ shiny::runApp("app")        # from the repository root
 | **Safety** | Normal-marrow cell types, vital-organ expression, and the five-axis profile for the twelve antigens carried past the screen | `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv`, `fig6D_radar.csv` |
 | **Validation** | Whether a target holds beyond discovery: paediatric TARGET bulk, adult Beat AML bulk, and an independent adult single-cell cohort | `Figure_5/fig5F_meta_all.csv`, `fig5F_adult_beataml_meta.csv`, `Figure_S23/adult_scrna_overall.csv` |
 | **Combinations** | Every single antigen and "X OR Y" pair, plotted as patient coverage against normal-marrow toxicity | `Figure_7/fig7_allpairs.csv` |
-| **Atlas** | Monocle trajectory embedding of the **paediatric** cohort (49 leukemic states + 8 normal marrow compartments), by compartment, pseudotime, or leukemic fraction | `Figure_3/v3/monocle_umap_coords.csv` |
+| **Atlas** | The Figure 2A UMAP of the full **paediatric** atlas — 96,627 cells (70,108 leukemic across 49 states, 26,519 normal marrow) — coloured by compartment, cell type, leukemic state, or density | `Figure_2/fig2A_umap_cells.csv` |
 
 Selecting a gene — from the dropdown or by clicking a row in the Targets table — drives every panel.
 Genes that were screened but not carried forward (most of the 1,704) show the ranking panels and a
@@ -27,17 +27,19 @@ note explaining that no safety or combination data exists for them.
 ## Which cohort is which
 
 Everything is the **paediatric** discovery cohort except the **Validation** panel, which is the
-explicit adult comparison (Beat AML bulk and an independent adult single-cell cohort). The atlas
-embedding is paediatric: its 57 groups are the 49 leukemic states `LS_1`-`LS_49` plus eight
-`NORM_*` marrow compartments.
+explicit adult comparison (Beat AML bulk and an independent adult single-cell cohort). The Atlas tab
+shows the Figure 2A UMAP of all 96,627 paediatric cells; 70,108 carry a leukemic-state assignment
+(`LS_1`-`LS_49`) and the remaining 26,519 are normal marrow.
 
 ## Notes
 
-Each of the 57 groups in the embedding is subsampled to exactly 1,000 cells, so **apparent cell
-density reflects that subsampling rather than true abundance** — compartment and pseudotime are the
-meaningful readouts, and a raw density view is deliberately not offered. Hex-binned panels follow the
-approach used in the lab's earlier [CellSeek](https://github.com/GAWAD-LAB-STANFORD/CellSeek) explorer,
-where render cost scales with the grid rather than the cell count.
+`Figure_2/fig2A_umap_cells.csv` is built by joining the atlas UMAP coordinates to
+`Figure_3/v3/reference_assignments.csv`, mapping `res4.50` clusters to `LS_1`-`LS_49` via the stable
+clusters in `jaccard_percluster.csv` (mean Jaccard >= 0.35, ordered by size) — the same rule the
+figure scripts use. Because every cell is present rather than a per-group subsample, the density view
+is meaningful. The hex-binned view follows the approach of the lab's earlier
+[CellSeek](https://github.com/GAWAD-LAB-STANFORD/CellSeek) explorer, where render cost scales with the
+grid rather than the cell count.
 
 Only a subset of the 1,704 screened genes carries the deeper panels (19 have per-state and subtype
 data, 12 have safety, validation and combination data). Panels without data for the selected gene say

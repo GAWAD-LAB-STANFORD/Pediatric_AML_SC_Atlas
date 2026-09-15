@@ -29,8 +29,9 @@ radar    <- rd("Figure_6", "fig6D_radar.csv")
 tox_hema <- rd("Figure_6", "fig6tox_hema.csv")
 tox_org  <- rd("Figure_6", "fig6tox_organ.csv")
 combos   <- rd("Figure_7", "fig7_allpairs.csv")
-emb      <- rd("Figure_3", "v3", "monocle_umap_coords.csv")
-emb$compartment <- ifelse(grepl("^NORM", emb$group), "Normal", "Leukemic")
+emb      <- rd("Figure_2", "fig2A_umap_cells.csv")   # full paediatric atlas, 96,627 cells
+emb$cell_type[emb$cell_type == ""] <- "Non-leukemic"
+LS_LEVELS <- paste0("LS_", 1:49)
 
 PROG  <- c(favorable = "#2F5D70", poor = "#8C1515", n.s. = "#B9C0C7", normal = "#7E57C2")
 KLASS <- c(lead = "#8C1515", candidate = "#2F5D70", clinical = "#F6A30C",
@@ -69,6 +70,21 @@ ui <- page_navbar(
     ),
     hr(),
     uiOutput("coverage_note")
+  ),
+
+  nav_panel(
+    "Atlas",
+    card(
+      card_header("Paediatric AML single-cell atlas"),
+      layout_columns(
+        col_widths = c(3, 9),
+        radioButtons("emb_fill", "Colour by",
+                     c("Compartment" = "comp", "Cell type" = "type",
+                       "Leukemic state" = "state", "Cell density" = "dens")),
+        plotOutput("emb_plot", height = 520)),
+      note(strong("96,627 cells"), " \u2014 70,108 leukemic (49 states, LS_1\u2013LS_49) and 26,519 normal marrow cells. ",
+           "This is the Figure 2A UMAP of the full paediatric atlas; every cell is shown, so density is real.")
+    )
   ),
 
   nav_panel(
@@ -121,19 +137,6 @@ ui <- page_navbar(
     card(card_header("Coverage vs marrow toxicity"), plotOutput("combo_plot", height = 440),
          note("Each point is a single antigen or an 'X OR Y' pair. Up and left is better.")),
     card(card_header("Pairs involving the selected target"), DTOutput("combo_tbl"))
-  ),
-
-  nav_panel(
-    "Atlas",
-    card(card_header("Single-cell embedding \u2014 paediatric atlas"),
-      layout_columns(col_widths = c(3, 9),
-        radioButtons("emb_fill", "Colour by",
-                     c("Compartment" = "comp", "Pseudotime" = "pt", "Leukemic fraction" = "frac")),
-        plotOutput("emb_plot", height = 460)),
-      note(strong("Paediatric cohort"), " \u2014 the 49 leukemic states (LS_1\u2013LS_49) plus eight normal marrow compartments. ",
-           "Monocle trajectory embedding; each of the 57 groups is subsampled to 1,000 cells, ",
-           "so apparent cell density reflects the subsampling, not true abundance — ",
-           "compartment and pseudotime are the meaningful readouts here."))
   )
 )
 
@@ -324,15 +327,25 @@ server <- function(input, output, session) {
   output$emb_plot <- renderPlot({
     p <- switch(input$emb_fill,
       comp = ggplot(emb, aes(UMAP1, UMAP2, colour = compartment)) +
-        geom_point(size = .35, alpha = .45) +
-        scale_colour_manual(values = c(Leukemic = CARD, Normal = TEAL), name = NULL) +
+        geom_point(size = .25, alpha = .35) +
+        scale_colour_manual(values = c(Leukemic = CARD, `Non-leukemic` = TEAL), name = NULL) +
         guides(colour = guide_legend(override.aes = list(size = 4, alpha = 1))),
-      pt = ggplot(emb, aes(UMAP1, UMAP2, z = monocle_pt)) +
-        stat_summary_hex(bins = 70, fun = median) +
-        scale_fill_viridis_c(name = "Pseudotime", option = "mako"),
-      frac = ggplot(emb, aes(UMAP1, UMAP2, z = as.numeric(compartment == "Leukemic"))) +
-        stat_summary_hex(bins = 70, fun = mean) +
-        scale_fill_gradient(low = TEAL, high = CARD, name = "Leukemic\nfraction", labels = scales::percent))
+      type = ggplot(emb, aes(UMAP1, UMAP2, colour = cell_type)) +
+        geom_point(size = .25, alpha = .35) +
+        scale_colour_manual(values = c(AML = CARD, `AML-PCNA` = "#F6A30C", `AML-MKI67` = "#5B8C5A",
+                                       `AML-CD1C` = "#7E57C2", `Non-leukemic` = "#B9C0C7"), name = NULL) +
+        guides(colour = guide_legend(override.aes = list(size = 4, alpha = 1))),
+      state = {
+        d <- emb[emb$LS != "", ]; d$LS <- factor(d$LS, levels = LS_LEVELS)
+        lab <- aggregate(cbind(UMAP1, UMAP2) ~ LS, d, median)
+        ggplot(d, aes(UMAP1, UMAP2, colour = LS)) +
+          geom_point(size = .25, alpha = .45) +
+          geom_text(data = lab, aes(label = sub("LS_", "", LS)), colour = "black", size = 3, fontface = "bold") +
+          scale_colour_manual(values = grDevices::hcl.colors(49, "Spectral"), guide = "none")
+      },
+      dens = ggplot(emb, aes(UMAP1, UMAP2)) +
+        geom_hex(bins = 90) +
+        scale_fill_viridis_c(name = "Cells", option = "mako", trans = "log10"))
     p + coord_equal() + theme_lab(0)
   })
 }
