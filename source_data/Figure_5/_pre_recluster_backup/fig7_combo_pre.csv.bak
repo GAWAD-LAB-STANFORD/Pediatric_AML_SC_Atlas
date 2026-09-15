@@ -1,0 +1,13 @@
+partner,label,group,within,between,tox,highly_toxic,base
+FLT3,+FLT3,control,66.62,92.86,36.55,False,False
+CD33,+CD33,clinical,59.56,85.71,25.22,False,False
+CLEC12A,+CLL-1,clinical,59.42,75.0,23.1,False,False
+CD9,+CD9,lead,55.1,75.0,9.14,True,False
+IL3RA,+CD123,clinical,55.1,82.14,11.62,True,False
+IL1RAP,+IL1RAP,lead,50.56,67.86,10.53,True,False
+SUCNR1,+SUCNR1,lead,48.66,71.43,8.85,False,False
+CD7,+CD7,ppac,46.24,67.86,7.75,False,False
+ITGAX,+ITGAX,ppac,46.08,82.14,7.09,False,False
+ABCA7,+ABCA7,ppac,45.0,75.0,10.45,True,False
+TNFRSF4,+TNFRSF4,ppac,44.09,64.29,3.0,False,False
+CD96 alone,CD96 alone,lead,40.39,60.71,2.78,False,True

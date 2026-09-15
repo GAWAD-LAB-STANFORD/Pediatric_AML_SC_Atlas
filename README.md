@@ -13,12 +13,11 @@ surface expression against normal tissues to nominate **CD96** (with **ITGAX** a
 
 ## Layout
 
-The repository is organized **one folder per figure**, each self-contained with the
-scripts that build the panels and the plot-level `source_data/` they read:
-
 ```
-Figure_1 … Figure_7          main-figure panel scripts + source data
-Figure_S1 … Figure_S27       supplementary-figure panel scripts + source data
+Figure_1 … Figure_7          main-figure panel scripts (+ per-folder source_data/ for Figures 5–7)
+Figure_S1 … Figure_S27       supplementary-figure panel scripts (+ per-folder source_data/)
+source_data/                 the manuscript Source Data, one folder per figure — the canonical
+                             plot-level values behind every main and supplementary panel
 shared_CD96_pipeline/        shared environment, utilities, and the surfaceome pipeline
 README_code_locations.md     narrative map of where each analysis lives
 FIGURE_SCRIPT_MAP.md         figure/panel → script → source-data crosswalk
@@ -26,18 +25,25 @@ FIGURE_SCRIPT_MAP.md         figure/panel → script → source-data crosswalk
 
 Start with **[`FIGURE_SCRIPT_MAP.md`](FIGURE_SCRIPT_MAP.md)** and
 **[`README_code_locations.md`](README_code_locations.md)** to find the script behind any
-panel.
+panel, and **[`source_data/README_source_data_locations.md`](source_data/README_source_data_locations.md)**
+for the data behind it.
 
-## Reproducing a figure
+## Where each figure reads its data
 
-Each figure folder regenerates its panels from its own `source_data/`, so no external
-download is needed to rebuild the figures. Pinned environments live under
-`shared_CD96_pipeline/` (Python and R package snapshots). Scripts are a mix of Python
-(scanpy) and R.
+- **Figures 5–7 and S1–S27** read the copies in their own folder's `source_data/`.
+- **Figures 1–4 and S9** (and shared inputs such as the reference leukemic-state
+  assignments in `source_data/Figure_3/v3/`) read from the top-level `source_data/` tree.
 
-The raw single-cell atlas itself (the `.h5ad`) is **not** stored here — it is large and
-lives in the public data repositories below; the per-figure `source_data/` files are the
-plot-level values derived from it.
+Scripts locate the package through a root path: `Figure_3/config.py` defines `BASE` (with a
+`FIG3_DATA` environment-variable override for the Figure 3 data directory), and the R scripts
+carry the root path near the top of each file. Point these at your clone, with `source_data/`
+standing in for the package's `08_Source_Data/` folder. Pinned environments live under
+`shared_CD96_pipeline/` (Python and R package snapshots); scripts are a mix of Python (scanpy)
+and R.
+
+The raw single-cell atlas itself (the `.h5ad`) is **not** stored here — it is large and lives
+in the public data repositories below; everything in `source_data/` is the plot-level data
+derived from it.
 
 ## Data availability
 

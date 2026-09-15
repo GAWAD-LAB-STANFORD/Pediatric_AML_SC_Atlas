@@ -1,0 +1,8 @@
+step,gene,label,group,added,cum_pct,n_patients
+1,CD96,CD96,lead,17,60.7,28
+2,CD33,CD33,clinical,7,85.7,28
+3,SUCNR1,SUCNR1,lead,1,89.3,28
+4,ITGAX,ITGAX,ppac,1,92.9,28
+5,CLEC12A,CLL-1,clinical,0,92.9,28
+6,CD7,CD7,ppac,0,92.9,28
+7,TNFRSF4,TNFRSF4,ppac,0,92.9,28

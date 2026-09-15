@@ -1,0 +1,25 @@
+subset,direction,score
+Naïve CD4 T,AML → T/NK (nectin → CD96),1.97
+Naïve CD4 T,T/NK → AML (nectin → CD96),0.12
+Memory CD4 T,AML → T/NK (nectin → CD96),2.78
+Memory CD4 T,T/NK → AML (nectin → CD96),0.35
+Treg,AML → T/NK (nectin → CD96),1.97
+Treg,T/NK → AML (nectin → CD96),0.0
+Naïve CD8 T,AML → T/NK (nectin → CD96),2.89
+Naïve CD8 T,T/NK → AML (nectin → CD96),0.23
+Memory CD8 T,AML → T/NK (nectin → CD96),2.82
+Memory CD8 T,T/NK → AML (nectin → CD96),0.32
+GZMK CD8 T,AML → T/NK (nectin → CD96),2.78
+GZMK CD8 T,T/NK → AML (nectin → CD96),0.14
+GZMB CD8 T,AML → T/NK (nectin → CD96),2.34
+GZMB CD8 T,T/NK → AML (nectin → CD96),0.49
+GZMB DNT,AML → T/NK (nectin → CD96),2.89
+GZMB DNT,T/NK → AML (nectin → CD96),0.14
+MAIT,AML → T/NK (nectin → CD96),4.04
+MAIT,T/NK → AML (nectin → CD96),0.38
+GZMK NK,AML → T/NK (nectin → CD96),3.88
+GZMK NK,T/NK → AML (nectin → CD96),0.4
+GZMB NK,AML → T/NK (nectin → CD96),2.5
+GZMB NK,T/NK → AML (nectin → CD96),0.66
+Proliferating T,AML → T/NK (nectin → CD96),4.72
+Proliferating T,T/NK → AML (nectin → CD96),1.42

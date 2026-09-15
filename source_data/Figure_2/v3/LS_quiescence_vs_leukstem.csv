@@ -1,0 +1,21 @@
+gene,group,pct,mean_expr,n
+HLF,LS10 (proliferative),0.1,0.006,1583
+HLF,LS5/LS38 (leuk. HSC/MPP),0.0,0.002,2655
+HLF,normal HSPC,18.3,1.04,540
+HLF,other leukemic,0.1,0.005,52928
+AVP,LS10 (proliferative),0.8,0.04,1583
+AVP,LS5/LS38 (leuk. HSC/MPP),0.2,0.008,2655
+AVP,normal HSPC,41.3,2.633,540
+AVP,other leukemic,0.3,0.018,52928
+CRHBP,LS10 (proliferative),4.2,0.242,1583
+CRHBP,LS5/LS38 (leuk. HSC/MPP),25.2,1.853,2655
+CRHBP,normal HSPC,48.7,3.012,540
+CRHBP,other leukemic,3.1,0.191,52928
+HOXA9,LS10 (proliferative),24.4,1.254,1583
+HOXA9,LS5/LS38 (leuk. HSC/MPP),35.7,2.022,2655
+HOXA9,normal HSPC,38.9,2.158,540
+HOXA9,other leukemic,16.9,0.968,52928
+MEIS1,LS10 (proliferative),8.5,0.395,1583
+MEIS1,LS5/LS38 (leuk. HSC/MPP),15.3,0.825,2655
+MEIS1,normal HSPC,16.1,0.877,540
+MEIS1,other leukemic,6.0,0.315,52928

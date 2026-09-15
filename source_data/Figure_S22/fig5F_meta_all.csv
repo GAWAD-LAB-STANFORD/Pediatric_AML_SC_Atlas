@@ -1,0 +1,13 @@
+gene,label,group,hspc_mye,toxic,pct_targetable,median,n
+CD96,CD96,lead,3.02,False,49.89,4.9403,475
+CD9,CD9,lead,7.61,True,38.74,4.4074,475
+SUCNR1,SUCNR1,lead,7.12,True,25.26,3.1346,475
+IL1RAP,IL1RAP,lead,9.65,True,74.74,5.91,475
+FLT3,FLT3,control,53.06,True,91.37,7.616,475
+CD33,CD33,clinical,28.71,True,69.05,5.6904,475
+IL3RA,CD123,clinical,12.62,True,88.21,5.9678,475
+CLEC12A,CLL-1,clinical,29.67,True,50.95,5.0694,475
+CD7,CD7,clinical,9.09,True,14.95,3.1571,475
+TNFRSF4,TNFRSF4,ppac,0.56,False,7.58,1.4567,475
+ABCA7,ABCA7,ppac,9.77,True,84.42,6.4663,475
+ITGAX,ITGAX,ppac,6.63,True,84.0,7.0759,475
