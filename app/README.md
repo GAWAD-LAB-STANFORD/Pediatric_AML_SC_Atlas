@@ -1,4 +1,4 @@
-# Pediatric AML Atlas Browser
+# Pediatric AML Target Discovery
 
 A Shiny browser over the manuscript Source Data: surface-target ranking, per-leukemic-state
 expression, normal-tissue safety, and combination coverage. It reads only the CSVs in
@@ -13,11 +13,12 @@ shiny::runApp("app")        # from the repository root
 
 | Panel | What it shows | Source |
 | :-- | :-- | :-- |
-| **Targets** | All 1,704 screened surfaceome genes ranked by the composite score, with % leukemic cells, patient breadth, and normal HSPC/myeloid expression | `Figure_5/fig5A_top15.csv` |
-| **Leukemic states** | Percent positive across the leukemic states, coloured by each state's TARGET outcome association, with the normal-HSPC baseline | `Figure_5/fig5D_ls.csv` |
-| **Safety** | Normal-marrow cell types and vital-organ expression for the twelve antigens carried past the Figure 5 screen | `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv` |
+| **Discover** | Interactive screen: set your own efficacy, breadth and marrow-sparing thresholds, reweight the composite score, watch the funnel recompute, and export the passing genes | `Figure_5/fig5A_top15.csv`, `fig5A_funnel.csv` |
+| **Target profile** | Per-leukemic-state expression coloured by outcome association, position against the 48 head-to-head antigens, and coverage across 14 cytogenetic subtypes | `Figure_5/fig5D_ls.csv`, `fig5C_headtohead.csv`, `fig5D_cyto.csv` |
+| **Safety** | Normal-marrow cell types, vital-organ expression, and the five-axis profile for the twelve antigens carried past the screen | `Figure_6/fig6tox_hema.csv`, `fig6tox_organ.csv`, `fig6D_radar.csv` |
+| **Validation** | Whether a target holds beyond discovery: paediatric TARGET bulk, adult Beat AML bulk, and an independent adult single-cell cohort | `Figure_5/fig5F_meta_all.csv`, `fig5F_adult_beataml_meta.csv`, `Figure_S23/adult_scrna_overall.csv` |
 | **Combinations** | Every single antigen and "X OR Y" pair, plotted as patient coverage against normal-marrow toxicity | `Figure_7/fig7_allpairs.csv` |
-| **Atlas** | Single-cell UMAP, by cell density or Monocle pseudotime | `Figure_3/v3/monocle_umap_coords.csv` |
+| **Atlas** | Monocle trajectory embedding, by compartment, pseudotime, or leukemic fraction | `Figure_3/v3/monocle_umap_coords.csv` |
 
 Selecting a gene — from the dropdown or by clicking a row in the Targets table — drives every panel.
 Genes that were screened but not carried forward (most of the 1,704) show the ranking panels and a
@@ -25,7 +26,12 @@ note explaining that no safety or combination data exists for them.
 
 ## Notes
 
-The atlas panel bins cells into hexagons, so rendering cost scales with the grid rather than the cell
-count — the same approach used in the lab's earlier
-[CellSeek](https://github.com/GAWAD-LAB-STANFORD/CellSeek) explorer. The UMAP file is subsampled to
-1,000 cells per group for display.
+Each of the 57 groups in the embedding is subsampled to exactly 1,000 cells, so **apparent cell
+density reflects that subsampling rather than true abundance** — compartment and pseudotime are the
+meaningful readouts, and a raw density view is deliberately not offered. Hex-binned panels follow the
+approach used in the lab's earlier [CellSeek](https://github.com/GAWAD-LAB-STANFORD/CellSeek) explorer,
+where render cost scales with the grid rather than the cell count.
+
+Only a subset of the 1,704 screened genes carries the deeper panels (19 have per-state and subtype
+data, 12 have safety, validation and combination data). Panels without data for the selected gene say
+so explicitly rather than rendering an empty plot.
