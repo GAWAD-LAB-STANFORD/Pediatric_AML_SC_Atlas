@@ -3,10 +3,10 @@
 # cells incl. LS10, absent on normal HSC) across cell groups. Dot size = % expressing,
 # fill = mean log-norm expression. Data from LS10_surface_dotplot.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2 <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 d <- read.csv(file.path(D2, "LS10_surface_dotplot.csv"))
 d$group <- factor(d$group, levels=rev(c("normal HSC","other leukemic","LS3 (ns)","LS39 (ns)","LS10 (poor)")))
 d$gene  <- factor(d$gene, levels=c("CD96","CLEC12A","SUCNR1","CD68"))

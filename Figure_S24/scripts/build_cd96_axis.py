@@ -10,7 +10,7 @@ Outputs: source_data/cd96_axis_expr.csv, source_data/cd96_axis_connectivity.csv
 import h5py, numpy as np, pandas as pd, os
 from scipy.sparse import csr_matrix
 dec=lambda a:np.array([x.decode() if isinstance(x,bytes) else x for x in a])
-ROOT="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+ROOT="../../../raw"
 RD=os.path.join(ROOT,"__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data")
 H5=os.path.join(ROOT,"ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad")
 H5T=os.path.join(ROOT,"ALSF_AML_plot/H5AD/ALSF_AML_total_Tcell_rna_withTCR.h5ad")

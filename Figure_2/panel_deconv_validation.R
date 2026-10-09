@@ -6,8 +6,8 @@
 # ordered by detectability and coloured by whole-cohort EFS prognosis; states left of the dashed
 # line are poorly resolved in bulk. Data = compute_deconv_qc.py. Replaces the legacy figure.
 suppressMessages({library(ggplot2); library(patchwork)})
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../05_Supplementary_Figures"
 qc  <- read.csv(file.path(D2,"deconv_fit_qc.csv"))
 det <- read.csv(file.path(D2,"LS_detection_49.csv"))
 pr  <- read.csv(file.path(D2,"LS_wholecohort_prognosis.csv"))[,c("LS","prognosis")]

@@ -9,8 +9,8 @@ Panels are the .pdf outputs of panel_tnk_tcr_extra.R (run that first). No baked 
 The TRBV usage panel was dropped (HBM normal reference n=2 only)."""
 import os, fitz
 
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+P   = "../../04_Main_Figures/Figure_4_panels"
+OUT = "../../05_Supplementary_Figures"
 os.makedirs(OUT, exist_ok=True)
 A = fitz.open(os.path.join(P, "Figure_4_tcr_sharing.pdf"))        # 5.6 x 4.8  clonotype sharing
 B = fitz.open(os.path.join(P, "Figure_4_tcr_exhaustion.pdf"))     # 4.8 x 4.2  exhaustion (null)

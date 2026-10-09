@@ -4,9 +4,9 @@
 # clonality = lower Shannon diversity); naive-heavy patients are more diverse. Ties composition to
 # clonality at the patient level. Data = tcr_cd8_vs_clonality.csv. No fabricated values.
 suppressMessages({library(ggplot2)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-D  <-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT<-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+D  <-"../../08_Source_Data/Figure_4/v2"
+OUT<-"../../04_Main_Figures/Figure_4_panels"
 d <- read.csv(D |> file.path("tcr_cd8_vs_clonality.csv"), check.names=FALSE)
 d$cyto <- d[["cytotoxic_CD8"]]*100
 rs <- cor.test(d$cyto, d$clonality, method="spearman")

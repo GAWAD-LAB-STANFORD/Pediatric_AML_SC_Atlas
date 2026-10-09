@@ -4,7 +4,7 @@
 # state (per-state median of the precomputed per-cell score); one panel per score
 # (LSC Eppert, HSC). Kruskal-Wallis + pairwise Wilcoxon. No fabricated values.
 suppressMessages({library(ggplot2); library(ggpubr); library(patchwork)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_2"
+CODE <- "../../../07_Code/Figure_2"
 source("manuscript_palette.R")
 D2  <- "../source_data"
 OUT <- "../figures/Figure_2_panels"

@@ -4,7 +4,7 @@
 # HONEST NOTE: the ranking is dominated by an immediate-early/stress (dissociation) artifact, so we also
 # re-run after removing the canonical artifact gene classes to see what real biology survives. No fabrication.
 suppressMessages({library(fgsea); library(msigdbr); library(dplyr)})
-V2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+V2 <- "../../08_Source_Data/Figure_4/v2"
 de <- read.csv(file.path(V2, "tnk_aml_vs_hbm_de_bySubset.csv"), check.names = FALSE)
 rk <- de %>% group_by(gene) %>% summarise(lfc = mean(logFC), .groups = "drop")
 BP <- msigdbr(species = "Homo sapiens", collection = "C5", subcollection = "GO:BP") %>%

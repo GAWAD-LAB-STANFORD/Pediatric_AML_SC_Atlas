@@ -6,8 +6,8 @@ C whole-cohort EFS KM; D LS10 fraction across cytogenetic subtypes (adverse-enri
 E candidate HSC-sparing surface markers. Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+P   = "../../04_Main_Figures/Figure_2_panels"
+OUT = "../../04_Main_Figures"
 ROWS = [
   [("Figure_3_state_selection_volcano.png","A"), ("UMAP_LS10_vs_prolifNS_HSC.png","B")],
   [("Figure_3_LS10_gsea.png","C"), ("KM_LS_10_wholecohort_EFS.png","D")],

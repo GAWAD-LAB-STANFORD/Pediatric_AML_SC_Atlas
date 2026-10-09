@@ -28,7 +28,7 @@ cat("patched extract_ddrtree_ordering (graph.dfs -> igraph::dfs mode=)\n")
 assignInNamespace("project2MST", .p2mf, ns = "monocle")
 cat("patched project2MST (nei -> .nei, graph.adjacency -> graph_from_adjacency_matrix)\n")
 IN  <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/monocle_input"
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
+D3  <- "../../08_Source_Data/Figure_3/v3"
 set.seed(1)
 counts <- as(Matrix::readMM(file.path(IN,"counts.mtx")), "CsparseMatrix")   # genes x cells
 cells  <- read.csv(file.path(IN,"cells.csv")); genes <- read.csv(file.path(IN,"genes.csv"))

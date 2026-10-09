@@ -4,10 +4,10 @@
 # (HOXA9/MEIS1), proliferation (MKI67/TOP2A/CDK1), myeloid differentiation (MPO/LYZ/CD14).
 # Dot size = % expressing, fill = mean log-CPM. Data = compute_program_modules.py. No fabrication.
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 d <- read.csv(file.path(D3, "LS_program_modules.csv"))
 d$group  <- factor(d$group, levels = rev(c("normal HSPC","LS5/LS38 (leuk. HSC/MPP)","LS10 (proliferative)","other leukemic")))
 d$module <- factor(d$module, levels = c("HSC quiescence","leukemic stemness","proliferation","differentiation"))

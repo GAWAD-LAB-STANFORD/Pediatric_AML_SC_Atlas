@@ -6,9 +6,9 @@ C marker programs (progenitor / interferon / pDC / differentiation / surface); D
 E LS19 fraction across cytogenetic subtypes. Letters only; descriptions in the figure legend."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
-P2  = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+P   = "../../04_Main_Figures/Figure_3_panels"
+P2  = "../../04_Main_Figures/Figure_2_panels"
+OUT = "../../04_Main_Figures"
 def find(name):
     for d in (P, P2):
         p = os.path.join(d, name)

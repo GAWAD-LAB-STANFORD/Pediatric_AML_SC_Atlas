@@ -4,8 +4,8 @@ composition, per-sample cell-cycle phase fractions with outcome, and normal-line
 (AML vs healthy BM). Cell-cycle-by-prognosis (Panel D) is computed separately
 (state_cellcycle_by_prognosis.csv). No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc
-H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-D2 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
+H5 = "../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+D2 = "../../08_Source_Data/Figure_2/v3"
 a = sc.read_h5ad(H5, backed="r")
 o = a.obs[["SampleID","lineage","phase","Prognosis","SampleType"]].astype(str).copy()
 

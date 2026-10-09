@@ -7,9 +7,9 @@
 # NOTE (reported in text): overall per-patient CD8/T clonality does NOT differ AML vs HBM - the expansion
 # is a property of the effector-CD8 subset, present in both. Data = tcr_expanded_perpatient.csv. No fabrication.
 suppressMessages({library(ggplot2); library(dplyr); library(scales)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-V2 <-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT<-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+V2 <-"../../08_Source_Data/Figure_4/v2"
+OUT<-"../../04_Main_Figures/Figure_4_panels"
 allpp <- read.csv(file.path(V2,"tcr_expanded_perpatient.csv"))
 pp <- allpp %>% filter(group=="AML")
 sv <- read.csv(file.path(V2,"tnk_subset_survival.csv")) %>% filter(outcome=="EFS") %>%

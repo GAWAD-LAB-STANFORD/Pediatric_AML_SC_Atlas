@@ -7,9 +7,9 @@ LS19 % expressing, and writes the selected genes long-format for the dot plot. C
 flagged for reference. CSR-direct, no fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 D3 = C.DATA
-SURF = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ref/surfaceome_genes.txt"
+SURF = "../../ref/surfaceome_genes.txt"
 HSPC_MAX = 0.15     # "almost absent in HSC": <=15% of normal HSPC cells expressing
 LS19_MIN = 0.25     # require reasonable prevalence in LS19
 TOPN     = 14

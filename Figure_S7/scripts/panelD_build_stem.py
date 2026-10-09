@@ -4,7 +4,7 @@ from the h5ad obs (LSC_EPPERT_Score, HSC_Score) for the corrected 49-state leuke
 cells, label each by its res-4.5 stable state, and write per-cell scores. No scores are
 recomputed or fabricated -- they are read straight from the object."""
 import os, sys, numpy as np, pandas as pd, h5py
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
 D2 = "../source_data"
 

@@ -7,8 +7,8 @@
 #   binning-free statistic; the KM log-rank is the requested survival-curve test.
 # FDR (BH) computed within the 49 leukemic states, separately from the 7 normal, per context.
 suppressMessages(library(survival))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-D2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+D2 <- "../../08_Source_Data/Figure_2/v3"
 sv  <- read.csv(file.path(D3,"LS_survival.csv"), check.names=FALSE)
 ann <- read.csv(file.path(D3,"LS_annotation.csv"))
 states <- c(grep("^LS_",names(sv),value=TRUE), grep("^NORM_",names(sv),value=TRUE))

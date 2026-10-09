@@ -5,8 +5,8 @@
 # E normal-lineage depletion in AML vs healthy BM. Data = compute_S9_composition.py +
 # state_cellcycle_by_prognosis.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr); library(tidyr); library(ggsignif); library(patchwork)})
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../05_Supplementary_Figures"
 lin  <- read.csv(file.path(D2,"s9_lineage_by_sample.csv"))
 ph   <- read.csv(file.path(D2,"s9_phase_by_sample.csv"))
 norm <- read.csv(file.path(D2,"s9_normal_lineage_by_sample.csv"))

@@ -4,10 +4,10 @@
 # and committed GMP. Compared to normal HSC (primitive) and normal GMP (committed) across
 # four marker modules. Dot size = % expressing, fill = mean log-CPM. No fabricated values.
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 d <- read.csv(file.path(D3, "strictLSC_marker_profile.csv"))
 d$group  <- factor(d$group, levels = rev(c("normal HSC (primitive)","strict-LSC candidates (n=26)","normal GMP (committed)")))
 d$module <- factor(d$module, levels = c("stem/quiescence","LSC-aberrant","GMP/granule","monocyte"))

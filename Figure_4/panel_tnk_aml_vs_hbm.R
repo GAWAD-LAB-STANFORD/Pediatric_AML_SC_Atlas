@@ -4,9 +4,9 @@
 # are shifts in subset proportion (panel D) rather than new AML-specific T/NK states. The un-integrated
 # "do they co-cluster without forcing" view is a supplementary figure. Data = tnk_subset_percell.csv.
 suppressMessages({library(ggplot2)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-D   <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+D   <- "../../08_Source_Data/Figure_4/v2"
+OUT <- "../../04_Main_Figures/Figure_4_panels"
 d <- read.csv(file.path(D, "tnk_subset_percell.csv"))   # integrated (Harmony) coords, same as panel A
 d$group <- factor(d$group, levels = c("HBM", "AML"))
 d <- d[sample(nrow(d)), ]                        # shuffle so neither colour is fully on top

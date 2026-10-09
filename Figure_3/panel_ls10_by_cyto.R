@@ -3,10 +3,10 @@
 # LS10 is zero-inflated (81% zero), so points are jittered and a diamond marks the mean;
 # y is sqrt-scaled to show the spread. Shows LS10 enrichment in adverse-risk subtypes.
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 d <- read.csv(file.path(D3, "LS_survival.csv"), check.names=FALSE)
 d <- d[!is.na(d$subtype2) & trimws(d$subtype2) != "", c("subtype2","LS_10")]; d$pct <- d$LS_10*100  # drop blank/unclassified cytogenetics
 keep <- names(which(table(d$subtype2) >= 15)); d <- d[d$subtype2 %in% keep, ]

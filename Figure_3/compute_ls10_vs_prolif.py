@@ -5,7 +5,7 @@ LEUKEMIC cells only (healthy-BM cells that carry a proliferation Cell_Type label
 these states are excluded, so the contrast is purely leukemic). Wilcoxon, BH-adjusted; per-group
 percent expressing. Writes LS10_vs_prolif_DE.csv. No fabricated values."""
 import sys, numpy as np, pandas as pd, scanpy as sc
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 a = sc.read_h5ad(C.H5, backed="r")
 ra = pd.read_csv(C.REFA); ra["barcode"] = ra["barcode"].astype(str).str.replace(r"^b'|'$", "", regex=True)
 raws, ls = C.stable_raws(); raw2ls = {rw: ls[i] for i, rw in enumerate(raws)}

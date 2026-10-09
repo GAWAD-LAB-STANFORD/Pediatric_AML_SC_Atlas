@@ -5,8 +5,8 @@
 # presentation / progenitor), not cell cycle. Also writes the significant-term table for the word
 # cloud. Data = LS19_vs_other_DE.csv. No fabricated values.
 suppressPackageStartupMessages({library(fgsea); library(msigdbr); library(dplyr); library(ggplot2); library(stringr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_3_panels"
 de <- read.csv(file.path(D3,"LS19_vs_other_DE.csv"))
 r <- de$scores; names(r) <- de$names; r <- sort(r, decreasing=TRUE)
 BP <- msigdbr(species="Homo sapiens", collection="C5", subcollection="GO:BP") %>% dplyr::select(gs_name, gene_symbol)

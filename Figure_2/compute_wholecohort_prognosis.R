@@ -3,8 +3,8 @@
 # event-free survival (z-scored deconvolved fraction), BH-FDR. Defines the favorable/poor/
 # ns groups used by Figure 2 panels B–E. Merges state annotation. No fabricated values.
 suppressMessages(library(survival))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-D2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+D2 <- "../../08_Source_Data/Figure_2/v3"
 d  <- read.csv(file.path(D3, "LS_survival.csv"), check.names = FALSE)
 ls <- grep("^LS_", names(d), value = TRUE)
 dd <- d[!is.na(d$efs_time), ]

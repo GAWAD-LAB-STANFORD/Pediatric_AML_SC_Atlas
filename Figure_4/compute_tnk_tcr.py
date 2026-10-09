@@ -5,8 +5,8 @@ specific), compute clonal expansion and a clonality index (1 - normalized Shanno
 subset and by AML vs healthy BM, and test whether clonally-expanded / exhausted T cells co-express CD96
 (the lead leukemic target, also an inhibitory receptor in the TIGIT/CD226/CD96 axis). No fabrication."""
 import os, numpy as np, pandas as pd, scanpy as sc
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_total_Tcell_rna_withTCR.h5ad"
-D ="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+H5="../../raw/ALSF_AML_total_Tcell_rna_withTCR.h5ad"
+D ="../../08_Source_Data/Figure_4/v2"
 CKPT=["CD96","TIGIT","CD226","PDCD1","HAVCR2","LAG3","TOX"]
 a=sc.read_h5ad(H5)
 print("X max (expect log-norm ~<10):", round(float(a.X.max()),2))
@@ -61,7 +61,7 @@ print(bysamp.groupby("group")[["clonality","frac_expanded","n_tcr"]].median().ro
 #     scaled/z-scored (max ~86, negatives) so is unusable for expression magnitude ---
 import h5py
 from scipy.sparse import csr_matrix
-MAIN="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+MAIN="../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 f=h5py.File(MAIN,"r"); dec=lambda x:[v.decode() if isinstance(v,bytes) else v for v in x]
 mobs=np.array(dec(f["obs"]["_index"][:])); mvar=np.array(dec(f["var"]["_index"][:]))
 present=[g for g in CKPT if g in set(mvar)]

@@ -23,7 +23,7 @@ import numpy as np, pandas as pd
 from lifelines import KaplanMeierFitter, CoxPHFitter
 from lifelines.statistics import logrank_test
 
-ROOT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+ROOT = "../../../raw"
 SC_LOOM = f"{ROOT}/ALSF_AML_plot/H5AD/Total_30_scenic_integrated-output_python_3.8_new.loom"
 T_LOOM  = f"{ROOT}/ALSF_AML_plot/H5AD/NCI_Target_scenic_integrated-output.loom"
 CLIN    = f"{ROOT}/Figure7/Figure7F_TARGET_CD96_merged.csv"

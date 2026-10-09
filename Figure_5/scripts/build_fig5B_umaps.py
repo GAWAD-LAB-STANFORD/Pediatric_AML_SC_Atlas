@@ -27,7 +27,7 @@ SEQ_CMAP = LinearSegmentedColormap.from_list("heatmap0",
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
-CM = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+CM = "../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 OUT = os.path.join(ROOT, "assets", "fig6B_leads_umap.png")
 LEADS = ["CD96", "CD9", "SUCNR1", "IL1RAP"]   # AMN dropped (4 leads)
 FLAG = {}   # no dagger; CD9 shown plain (caveat lives in the safety panel)

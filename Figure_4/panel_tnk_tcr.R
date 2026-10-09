@@ -5,9 +5,9 @@
 # most clonally expanded. Only subsets with >=20 TCR+ cells shown. Data = tcr_by_subset.csv +
 # tnk_subset_survival.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-V2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+V2  <- "../../08_Source_Data/Figure_4/v2"
+OUT <- "../../04_Main_Figures/Figure_4_panels"
 tcr <- read.csv(file.path(V2, "tcr_by_subset.csv"))
 sv  <- read.csv(file.path(V2, "tnk_subset_survival.csv")) %>% filter(outcome=="EFS") %>%
        mutate(dir = ifelse(FDR<0.10, ifelse(HR>1,"poor","favorable"), "n.s.")) %>% select(subset, dir)

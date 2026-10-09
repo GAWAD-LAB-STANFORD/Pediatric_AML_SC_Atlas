@@ -47,14 +47,14 @@ library(circlize)
 
 detach(package:plyr)
 
-setwd("~/Downloads/ALSF_AML_plot")
-df_pca <- read.table("pca_Combo_AML_with_normal_by_Sample_for_dendrogram_repca.csv",sep = ",", header = TRUE)
+# setwd removed: run this script from its own folder (see README_REPRODUCIBILITY.md)
+df_pca <- read.table("../../08_Source_Data/Figure_1/pca_Combo_AML_with_normal_by_Sample_for_dendrogram_repca.csv",sep = ",", header = TRUE)
 df_pca[2:ncol(df_pca)]<- lapply(df_pca[2:ncol(df_pca)], FUN = function(y){as.numeric(y)})
 df_pca<-df_pca%>% separate(col=1, sep = "-", c("Sample", "Drop1"))
 df_pca[3:ncol(df_pca)]<- lapply(df_pca[3:ncol(df_pca)], FUN = function(y){as.numeric(y)})
 
 ###################################
-df_cell <- read.delim2("AML_scRNA_Cell_summary_Cell_Type.csv", sep = ",", header = TRUE)
+df_cell <- read.delim2("../../08_Source_Data/Figure_1/AML_scRNA_Cell_summary_Cell_Type.csv", sep = ",", header = TRUE)
 df_Cell_corr<-df_cell %>% separate(col="Sample", sep = "-", c("Sample", "Drop1"))
 
 df_Cell_corr<-subset(df_Cell_corr,select=c(1,4,8,9,15,18,36))

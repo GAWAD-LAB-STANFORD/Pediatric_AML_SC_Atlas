@@ -8,22 +8,13 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="${1:-$ROOT/app/_site}"
 BUNDLE="$(mktemp -d)/aml-atlas"
-mkdir -p "$BUNDLE/data"
+mkdir -p "$BUNDLE"
 
-# app.R, with the data path pinned to the bundled copy
-sed 's#for (p in c("source_data", file.path("..", "source_data"),#for (p in c("data", file.path("..", "data"),#; s#file.path(dirname(getwd()), "source_data")))#file.path(dirname(getwd()), "data")))#' \
-    "$ROOT/app/app.R" > "$BUNDLE/app.R"
+cp "$ROOT/app/app.R" "$BUNDLE/app.R"
 
-# copy only the CSVs the app actually reads
-grep -oE '<- rd\([^)]*\)' "$ROOT/app/app.R" \
-  | sed -E 's/<- rd\(|\)//g; s/"//g; s/, */\//g' \
-  | sort -u | while IFS= read -r rel; do
-      src="$ROOT/source_data/$rel"
-      [ -f "$src" ] || { echo "MISSING: $rel" >&2; exit 1; }
-      mkdir -p "$BUNDLE/data/$(dirname "$rel")"
-      cp "$src" "$BUNDLE/data/$rel"
-    done
-echo "bundle: $(du -sh "$BUNDLE" | cut -f1) across $(find "$BUNDLE/data" -type f | wc -l | tr -d ' ') data files"
+# One binary bundle instead of 24 MB of CSV: see app/prep_bundle.R for why.
+Rscript "$ROOT/app/prep_bundle.R" "$ROOT/source_data" "$BUNDLE/bundle.rds"
 
 Rscript -e "shinylive::export('$BUNDLE', '$OUT')"
+echo "app.json: $(du -h "$OUT/app.json" | cut -f1)"
 echo "built -> $OUT ($(du -sh "$OUT" | cut -f1))"

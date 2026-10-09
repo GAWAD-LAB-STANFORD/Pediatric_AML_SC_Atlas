@@ -16,9 +16,9 @@ import os
 import numpy as np, pandas as pd
 from scipy import stats
 
-RD = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data"
-FILT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/NCBI_TARGET_Star_counts_filtered.csv"
-MERGED = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/Figure7/Figure7F_TARGET_CD96_merged.csv"
+RD = "../../../07_Code/shared_CD96_pipeline/source_data"
+FILT = "../../../raw/NCBI_TARGET_Star_counts_filtered.csv"
+MERGED = "../../../raw/Figure7/Figure7F_TARGET_CD96_merged.csv"
 
 # current 12-antigen panel (matches build_metacells_S7.py)
 ENS = {"CD96":"ENSG00000153283","CD9":"ENSG00000010278","SUCNR1":"ENSG00000198829",

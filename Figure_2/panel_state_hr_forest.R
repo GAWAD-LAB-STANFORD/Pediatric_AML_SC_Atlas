@@ -4,9 +4,9 @@
 # by HR and coloured by prognosis (BH-FDR<0.10: favorable HR<1 / poor HR>1 / n.s.). Data =
 # LS_wholecohort_cox_efs.csv + LS_annotation.csv (lineage labels). No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr)})
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../05_Supplementary_Figures"
 cox <- read.csv(file.path(D2,"LS_wholecohort_cox_efs.csv"))
 ann <- read.csv(file.path(D3,"LS_annotation.csv"))[,c("LS","lineage_program")]
 d <- merge(cox, ann, by="LS", all.x=TRUE)

@@ -6,8 +6,8 @@ used to rank; the reported evidence is (a) within-subset logFC and (b) SAMPLE-LE
 of the 28 AML samples whose pseudobulk exceeds the higher of the 2 HBM samples. No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc
 from scipy.stats import mannwhitneyu
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-D ="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+H5="../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+D ="../../08_Source_Data/Figure_4/v2"
 pc=pd.read_csv(os.path.join(D,"tnk_subset_percell.csv")).set_index("barcode")
 a=sc.read_h5ad(H5); a=a[a.obs_names.isin(pc.index)].copy()
 a.X=a.layers["Raw_Counts"].copy(); sc.pp.normalize_total(a,target_sum=1e4); sc.pp.log1p(a)

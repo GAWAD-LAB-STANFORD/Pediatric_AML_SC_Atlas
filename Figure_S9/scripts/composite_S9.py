@@ -15,7 +15,7 @@ import os, io
 import fitz  # pymupdf
 from PIL import Image, ImageDraw, ImageFont
 
-BASE = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster"
+BASE = "../../.."
 SUP  = os.path.join(BASE, "05_Supplementary_Figures")
 AB   = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Figure_S9__regulon_detail_AB_source.pdf")  # external A/B (pySCENIC), kept in the code tree (not in deployed figures)
 GEN  = os.path.join(BASE, "04_Main_Figures/Figure_2_panels/Figure_2_regulon_states.png")  # panel C

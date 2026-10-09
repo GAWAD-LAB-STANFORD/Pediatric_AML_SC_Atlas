@@ -5,8 +5,8 @@
 # purple as reference. Tests where leukemic states sit relative to the normal differentiation axis.
 # Data = compute_pseudotime_ordering.py + LS_annotation.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_3_panels"
 dir.create(OUT, showWarnings=FALSE, recursive=TRUE)
 d   <- read.csv(file.path(D3,"pseudotime_by_group.csv"), row.names=1)
 ann <- read.csv(file.path(D3,"LS_annotation.csv"))[,c("LS","lineage_program")]

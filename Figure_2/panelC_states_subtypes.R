@@ -5,12 +5,12 @@
 # CIBERSORTx fractions (LS_survival.csv) + per-patient molecular status. Single-patient
 # states are marked with *. Harmonized ltc palette. No fabricated values.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_2"
+CODE <- "../../07_Code/Figure_2"
 source(file.path(CODE, "manuscript_palette.R"))
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-MOL <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"; dir.create(OUT, showWarnings=FALSE, recursive=TRUE)
+D2  <- "../../08_Source_Data/Figure_2/v3"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+MOL <- "../../08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv"
+OUT <- "../../04_Main_Figures/Figure_2_panels"; dir.create(OUT, showWarnings=FALSE, recursive=TRUE)
 
 # ---- data ----
 sv  <- read.csv(file.path(D3, "LS_survival.csv"), check.names=FALSE)

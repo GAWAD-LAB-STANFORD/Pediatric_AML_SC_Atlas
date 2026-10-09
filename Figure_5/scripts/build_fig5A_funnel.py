@@ -9,10 +9,10 @@ Writes fig5A_funnel.csv (funnel stage counts) and fig5A_top15.csv (full ranking;
 to both the pipeline source_data/ and the 08_Source_Data mirror."""
 import os, numpy as np, pandas as pd, scipy.sparse as sp, h5py
 
-H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-SURF = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ref/surfaceome_genes.txt"
-DEST = ["/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data",
-        "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_5"]
+H5 = "../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+SURF = "../../../ref/surfaceome_genes.txt"
+DEST = ["../../../07_Code/shared_CD96_pipeline/source_data",
+        "../../../08_Source_Data/Figure_5"]
 LEUK = {"AML", "AML-MKI67", "AML-PCNA", "AML-CD1C"}
 GATE_HSPC, GATE_MYE, AML_MIN = 10.0, 10.0, 0.20
 TCR = {"CD3D", "CD3E", "CD3G", "CD247", "TRAC", "TRBC1", "TRBC2", "TRGC1", "TRGC2", "TRDC"}

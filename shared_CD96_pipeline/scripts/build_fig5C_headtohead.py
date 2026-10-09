@@ -7,11 +7,11 @@ For every gene: x = leak (max % normal HSPC/Myeloid_Pro positive), y = % leukemi
 size = % of the 28 AML patients with >=20% leukemic positivity. Composite (candidate ranking) = mean of
 % leukemic + % patients (2-axis; the retired PPAC axis removed). No fabricated values."""
 import os, sys, numpy as np, pandas as pd, scipy.sparse as sp, h5py
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
 
-SURF = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ref/surfaceome_genes.txt"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data/fig5C_headtohead.csv"
+SURF = "../../../ref/surfaceome_genes.txt"
+OUT = "../../../07_Code/shared_CD96_pipeline/source_data/fig5C_headtohead.csv"
 GATE = 10.0
 LEADS = ["CD96", "CD9", "SUCNR1", "IL1RAP"]
 CLIN6 = {"CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD38": "CD38", "CD7": "CD7", "CD70": "CD70"}

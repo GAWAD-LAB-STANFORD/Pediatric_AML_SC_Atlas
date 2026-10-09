@@ -4,10 +4,10 @@
 # >1/3 zeros), and annotate BOTH the log-rank p and the binning-free continuous Cox HR/p.
 # Usage: Rscript km_state.R LS_45
 suppressMessages({library(survival); library(survminer)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D3 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3 <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 args <- commandArgs(trailingOnly=TRUE); ST <- if (length(args)>=1) args[1] else "LS_45"
 
 d <- read.csv(file.path(D3,"LS_survival.csv"), check.names=FALSE)

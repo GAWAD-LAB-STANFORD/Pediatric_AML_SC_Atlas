@@ -9,7 +9,7 @@ import os, sys, re, numpy as np, pandas as pd
 from wordcloud import WordCloud
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 OUT = os.path.join(C.BASE, "04_Main_Figures/Figure_3_panels")
 sig = pd.read_csv(os.path.join(C.DATA, "LS19_gsea_sig.csv"))
 STOP = {"of","to","the","in","a","and","or","by","via","process","positive","negative","regulation",

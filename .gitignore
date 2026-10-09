@@ -12,3 +12,11 @@ __pycache__/
 .ipynb_checkpoints/
 # os
 .DS_Store
+# editor/working backups (never distribute)
+*.bak
+*.bak.*
+**/_backups/
+**/_superseded/
+# never re-add: not de-identified, superseded by patient_characteristics.csv
+MRD_BCB-AML-list up-deidentified.xlsx
+**/MRD_BCB-AML-list*.xlsx

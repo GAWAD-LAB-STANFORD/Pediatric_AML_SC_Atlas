@@ -4,10 +4,10 @@
 # Dashed line = the p that corresponds to BH-FDR<0.10 (the selection cutoff). LS10 is the
 # top poor state; all FDR<0.10 states labelled. Shows LS10 was selected by testing all LS.
 suppressMessages({library(ggplot2); library(ggrepel)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2 <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 t <- read.csv(file.path(D2, "KM_all_states_table.csv"))
 d <- t[t$class == "leukemic", ]
 d$log2HR <- log2(d$WC_coxHR); d$neglogp <- -log10(d$WC_coxP)

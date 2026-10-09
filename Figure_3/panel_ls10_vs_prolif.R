@@ -6,8 +6,8 @@
 # DOWN = a myeloid-differentiation program, i.e. LS10 couples high replication to a maturation
 # block. Data = compute (LS10_vs_prolif_DE.csv). No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 de <- read.csv(file.path(D3,"LS10_vs_prolif_DE.csv"))
 up <- de %>% filter(pvals_adj<0.05, logfoldchanges> 0.5, pct_LS10 >0.25) %>% arrange(desc(logfoldchanges)) %>% head(10)
 dn <- de %>% filter(pvals_adj<0.05, logfoldchanges< -0.5, pct_other>0.25) %>% arrange(logfoldchanges) %>% head(10)

@@ -6,8 +6,8 @@
 # among proliferating blasts LS10 uniquely couples replication to a differentiation block.
 # Gene lists from LS10_vs_prolif_DE.csv (Wilcoxon, BH-adjusted). No fabricated values.
 suppressPackageStartupMessages({library(clusterProfiler); library(msigdbr); library(dplyr); library(ggplot2); library(stringr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 de <- read.csv(file.path(D3,"LS10_vs_prolif_DE.csv"))
 up <- de %>% filter(pvals_adj<0.05, logfoldchanges> 0.5, !grepl("^HIST", names)) %>% pull(names)
 dn <- de %>% filter(pvals_adj<0.05, logfoldchanges< -0.5) %>% pull(names)

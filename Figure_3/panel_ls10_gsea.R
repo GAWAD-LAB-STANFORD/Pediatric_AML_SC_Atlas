@@ -7,8 +7,8 @@
 # difference is real at the gene level (LYZ/S100A4/6/LGALS1/TYMP down) but not a significant pathway.
 # Data = LS10_vs_prolif_DE.csv. No fabricated values.
 suppressPackageStartupMessages({library(clusterProfiler); library(msigdbr); library(dplyr); library(ggplot2); library(stringr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 de <- read.csv(file.path(D3,"LS10_vs_prolif_DE.csv"))
 r <- de$scores; names(r) <- de$names; r <- sort(r, decreasing=TRUE)
 BP <- msigdbr(species="Homo sapiens", collection="C5", subcollection="GO:BP") %>% dplyr::select(gs_name, gene_symbol)

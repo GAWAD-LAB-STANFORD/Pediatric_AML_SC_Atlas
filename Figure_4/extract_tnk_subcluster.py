@@ -6,8 +6,8 @@ cells out of the raw counts and re-subcluster them. Harmony-integrated by Sample
 merge across patients. Writes per-cell subcluster labels + UMAP + per-cluster marker table for annotation.
 No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc, anndata as ad
-H5  = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+H5  = "../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+OUT = "../../08_Source_Data/Figure_4/v2"
 os.makedirs(OUT, exist_ok=True)
 sc.settings.verbosity = 1
 TNK = ["AML-CD4T","AML-CTL","AML-NK","AML-Naïve_CD8T","Activated_CD4T","CTL","NK","Naïve_CD4T","Naïve_CD8T"]

@@ -4,9 +4,9 @@ Leukemic cells (corrected 70,108 set) colored by cytogenetic origin: t(8;21) =
 RUNX1/RUNX1T1, inv(16) = CBFB/MYH11; other leukemic greyed; non-leukemic faint.
 Cytogenetic label is per-cell from the discovery sample. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py, matplotlib.pyplot as plt
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../07_Code/Figure_3")
 import config as C
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+OUT = "../../04_Main_Figures/Figure_2_panels"
 
 ra = pd.read_csv(C.REFA); ra["barcode"] = ra["barcode"].astype(str).str.replace(r"^b'|'$", "", regex=True)
 cbfmap = {"RUNX1/RUNX1T1": "t(8;21)", "CBFB/MYH11": "inv(16)"}

@@ -5,8 +5,8 @@ EFS prognosis); row 2 = states x subtypes dot plot; row 3 = stemness + GO:BP. Pa
 scaled to a shared per-row height (aspect preserved -> no distortion). Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+P   = "../../04_Main_Figures/Figure_2_panels"
+OUT = "../../04_Main_Figures"
 
 # (filename, letter)  -- empty letter = continuation of the previous panel (2A has 2 UMAPs)
 ROWS = [

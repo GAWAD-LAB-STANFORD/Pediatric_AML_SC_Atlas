@@ -5,8 +5,8 @@ A strict-LSC gating funnel (AML vs healthy BM). B those 26 candidates on the atl
 differentiation markers (aberrant GMP-like, not primitive LSC). Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+P   = "../../04_Main_Figures/Figure_2_panels"
+OUT = "../../05_Supplementary_Figures"
 os.makedirs(OUT, exist_ok=True)
 ROWS = [
   [("Figure_3_strict_LSC_funnel.png","A"), ("UMAP_strict_LSC.png","B")],

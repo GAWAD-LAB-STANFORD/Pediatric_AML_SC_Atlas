@@ -4,9 +4,9 @@
 # LSC-aberrant marker TIM3/CD96/CLEC12A that normal HSC lack). Counts are the observed
 # gate results (see compute log); log-x. Shows true LSC are vanishingly rare (26 AML vs 2 BM).
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 steps <- c("CD34+","+ CD38-","+ quiescent (HLF/AVP+)","+ non-cycling","+ LSC marker (TIM3/CD96/CLEC12A)")
 d <- data.frame(
   step  = factor(rep(steps, 2), levels = rev(steps)),

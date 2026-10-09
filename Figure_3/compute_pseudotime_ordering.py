@@ -4,7 +4,7 @@ iroot Cell_Type=0_HSPC) per cell, assigned to the 49 leukemic states OR the 8 no
 compartments (reference anchors). Palantir pseudotime/entropy are NOT used (mis-oriented / saturated
 in this object). Writes per-cell (group, dpt) for the ordering figure. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 f = h5py.File(C.H5, "r"); dec = lambda a: np.array([x.decode() if isinstance(x, bytes) else x for x in a])
 obs = dec(f["obs"]["_index"][:])
 ct = pd.Series(dec(f["obs"]["Cell_Type"]["categories"][:])[f["obs"]["Cell_Type"]["codes"][:]], index=obs)

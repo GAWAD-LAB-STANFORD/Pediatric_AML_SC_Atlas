@@ -6,7 +6,7 @@ P-value) across all deconvolved samples; (2) per-49-LS detection reliability (fr
 with fraction >1% and >5%, and mean fraction). Replaces the legacy AML_1..28 pseudobulk figure and
 the stale 30-state detection table. No fabricated values."""
 import os, sys, numpy as np, pandas as pd
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 D2 = C.DATA.replace("Figure_3", "Figure_2")
 d = pd.read_csv(os.path.join(C.DATA, "LS_survival.csv"))
 n = len(d)

@@ -2,42 +2,50 @@
 # ---------------------------------------------------------------------------
 # Screen the surfaceome for marrow-sparing immunotherapy targets, then profile
 # any candidate for efficacy, safety, cross-cohort validation and combinations.
-# Driven entirely by the manuscript Source Data in ../source_data — no .h5ad.
+# Driven entirely by the manuscript Source Data in ../source_data \u2014 no .h5ad.
 #
 #   shiny::runApp("app")          # from the repository root
 # ---------------------------------------------------------------------------
 
-library(shiny); library(bslib); library(ggplot2); library(DT); library(dplyr)
+library(shiny); library(bslib); library(ggplot2); library(DT)
 
-DATA <- local({
-  for (p in c("source_data", file.path("..", "source_data"),
-              file.path(dirname(getwd()), "source_data"))) if (dir.exists(p)) return(normalizePath(p))
-  stop("source_data/ not found — run from the repository root or from app/")
+# Data arrives as one binary bundle (app/prep_bundle.R). Reading 24 MB of CSV at
+# startup was what left the browser on a spinner; the bundle is 2 MB and R
+# deserialises it instead of parsing it. Falling back to the raw CSVs keeps the
+# app runnable straight from the repository during development.
+B <- local({
+  for (p in c("bundle.rds", file.path("app", "bundle.rds"), file.path("..", "bundle.rds")))
+    if (file.exists(p)) return(readRDS(p))
+  prep <- Filter(file.exists, c("prep_bundle.R", file.path("app", "prep_bundle.R")))
+  data <- Filter(dir.exists, c("source_data", file.path("..", "source_data"),
+                               file.path(dirname(getwd()), "source_data")))
+  if (length(prep) && length(data)) { source(prep[1], local = TRUE); return(build_bundle(data[1])) }
+  stop("no bundle.rds and no source_data/ - run Rscript app/prep_bundle.R first")
 })
-rd <- function(...) read.csv(file.path(DATA, ...), stringsAsFactors = FALSE, check.names = FALSE)
-
-# --- data ------------------------------------------------------------------
-screen   <- rd("Figure_5", "fig5A_top15.csv")       # 1,704 genes past the marrow gate
-funnel   <- rd("Figure_5", "fig5A_funnel.csv")
-h2h      <- rd("Figure_5", "fig5C_headtohead.csv")  # 48 genes, with class labels
-ls_expr  <- rd("Figure_5", "fig5D_ls.csv")          # 19 genes x leukemic states
-cyto     <- rd("Figure_5", "fig5D_cyto.csv")        # 19 genes x cytogenetic subtype
-meta_ped <- rd("Figure_5", "fig5F_meta_all.csv")            # TARGET bulk (paediatric)
-meta_ad  <- rd("Figure_5", "fig5F_adult_beataml_meta.csv")  # Beat AML (adult)
-sc_ad    <- rd("Figure_S23", "adult_scrna_overall.csv")     # adult scRNA
-radar    <- rd("Figure_6", "fig6D_radar.csv")
-tox_hema <- rd("Figure_6", "fig6tox_hema.csv")
-tox_org  <- rd("Figure_6", "fig6tox_organ.csv")
-combos   <- rd("Figure_7", "fig7_allpairs.csv")
-lsspec   <- rd("Figure_S16", "funnel_ls_specific.csv")          # 1,704 genes x poor-prognosis contexts
-lscomp   <- rd("Figure_S16", "funnel_ls_specific_composition.csv")
-N_PT     <- 28                                                   # patients in the discovery cohort
-emb      <- rd("Figure_2", "fig2A_umap_cells.csv")   # full paediatric atlas, 96,627 cells
-ebins    <- rd("Figure_2", "fig2A_bins.csv")         # hex/grid bin centres over the UMAP
-gexpr    <- rd("Figure_2", "fig2A_gene_bin_expr.csv")# mean log1p(CPM) per gene per bin
+screen <- B$screen; funnel <- B$funnel; h2h <- B$h2h; ls_expr <- B$ls_expr
+cyto <- B$cyto; meta_ped <- B$meta_ped; meta_ad <- B$meta_ad; sc_ad <- B$sc_ad
+radar <- B$radar; tox_hema <- B$tox_hema; tox_org <- B$tox_org; combos <- B$combos
+lsspec <- B$lsspec; lscomp <- B$lscomp; emb <- B$emb; ebins <- B$ebins
+N_PT <- 28                                        # patients in the discovery cohort
 LS_LEVELS <- paste0("LS_", 1:49)
-EXPR_GENES <- sort(unique(gexpr$gene))
-BINW <- diff(range(ebins$x)) / 120; BINH <- diff(range(ebins$y)) / 120
+
+# expression: dense uint8 matrix [bin, gene], so a gene lookup is a column read
+GMAT <- B$gmat; GSCALE <- B$gmax / 255
+EXPR_GENES <- B$genes_mapped
+gene_bins <- function(g) { i <- match(g, EXPR_GENES)
+                           if (is.na(i)) NULL else as.integer(GMAT[, i]) * GSCALE }
+
+# Each panel is measured on a different subset of genes. Rather than let someone
+# pick a gene and hit an empty panel, the sidebar can narrow the picker to the
+# genes a given panel actually covers.
+SCOPES <- list(
+  "Every screened gene"       = sort(unique(screen$gene)),
+  "Mapped on the atlas"       = sort(unique(EXPR_GENES)),
+  "Head-to-head panel"        = sort(unique(h2h$gene)),
+  "Profiled per leukemic state" = sort(unique(ls_expr$gene)),
+  "Full safety and validation"  = sort(unique(radar$gene)))
+SCOPE_LABELS <- sprintf("%s (%s)", names(SCOPES),
+                        format(lengths(SCOPES), big.mark = ",", trim = TRUE))
 
 PROG  <- c(favorable = "#2F5D70", poor = "#8C1515", n.s. = "#B9C0C7", normal = "#7E57C2")
 KLASS <- c(lead = "#8C1515", candidate = "#2F5D70", clinical = "#F6A30C",
@@ -51,19 +59,39 @@ theme_lab <- function(rot = 45) {
           axis.text.x = element_text(angle = rot, hjust = if (rot > 0) 1 else .5))
 }
 note <- function(...) div(class = "text-muted", style = "font-size:.85rem;margin-top:.5rem", ...)
+ext  <- function(label, url) a(label, href = url, target = "_blank", rel = "noopener",
+                               style = "font-weight:600")
+gene_links <- function(g) tagList(
+  ext("CZ CELLxGENE", paste0("https://cellxgene.cziscience.com/gene-expression?genes=", g)), " \u00b7 ",
+  ext("Human Protein Atlas", paste0("https://www.proteinatlas.org/search/", g)), " \u00b7 ",
+  ext("GTEx", paste0("https://gtexportal.org/home/gene/", g)))
+# Shown in place of a panel this study cannot fill for the selected gene, so the
+# answer is a pointer to where the measurement does exist rather than a blank.
+elsewhere <- function(g, what, why = NULL)
+  div(class = "border rounded p-3", style = "background:#F7F8F9;font-size:.9rem",
+      div(strong(g), sprintf(" has no %s in this study.", what)),
+      if (!is.null(why)) div(class = "text-muted", style = "margin-top:.25rem", why),
+      div(style = "margin-top:.6rem", "Look it up in ", gene_links(g), "."))
 has  <- function(df, g) nrow(df[df$gene == g, ]) > 0
 
 # --- ui --------------------------------------------------------------------
 ui <- page_navbar(
   id = "nav",
   title = "Pediatric AML Target Discovery",
+  header = tags$style(HTML(
+    ".navbar .navbar-brand{font-size:1.45rem;font-weight:700}",
+    ".navbar .nav-link{font-size:1.18rem;font-weight:600;padding:.5rem 1rem}",
+    ".navbar .nav-link.active{font-weight:700}")),
   # No font_google(): webR has no curl, so a downloaded font breaks the WebAssembly build.
   theme = bs_theme(version = 5, primary = "#2F5D70",
                    base_font = font_face(family = "Inter", src = "local('Inter')")),
   sidebar = sidebar(
     width = 300,
-    selectizeInput("gene", "Selected target", choices = NULL,
-                   options = list(placeholder = "type a gene, e.g. CD96")),
+    selectizeInput("gene", "Selected target", choices = SCOPES[[1]], selected = "CD96",
+                   options = list(placeholder = "type a gene, e.g. CD96", maxOptions = 200)),
+    radioButtons("glist", "Limit the list to genes with",
+                 choiceNames = SCOPE_LABELS, choiceValues = names(SCOPES),
+                 selected = names(SCOPES)[1]),
     uiOutput("gene_card"),
     conditionalPanel(
       "input.nav == 'Discover'",
@@ -92,7 +120,7 @@ ui <- page_navbar(
         radioButtons("emb_fill", "Colour by",
                      c("Gene expression" = "expr", "Compartment" = "comp", "Cell type" = "type",
                        "Leukemic state" = "state", "Cell density" = "dens")),
-        plotOutput("emb_plot", height = 520)),
+        div(uiOutput("emb_miss"), plotOutput("emb_plot", height = 520))),
       note(strong("96,627 cells"), " \u2014 70,108 leukemic and 26,519 normal marrow, across 29 annotated cell types. ",
            "Of the leukemic cells, 57,166 fall in one of the 49 reproducible states (LS_1\u2013LS_49); the other 12,942 sit in ",
            "clusters that failed the Jaccard \u2265 0.35 stability cut and are deliberately left unassigned. ",
@@ -120,11 +148,11 @@ ui <- page_navbar(
     "Target profile",
     layout_columns(
       col_widths = c(7, 5),
-      card(card_header(textOutput("ls_title")), plotOutput("ls_plot", height = 380)),
+      card(card_header(textOutput("ls_title")), uiOutput("ls_slot")),
       card(card_header("Head-to-head with established antigens"), plotOutput("h2h_plot", height = 380),
            note("The 48 antigens profiled side by side. Leads and clinical-stage comparators labelled."))
     ),
-    card(card_header("Coverage by cytogenetic subtype"), plotOutput("cyto_plot", height = 330),
+    card(card_header("Coverage by cytogenetic subtype"), uiOutput("cyto_slot"),
          note("A target that works across subtypes is more broadly deployable than one confined to a single lesion."))
   ),
 
@@ -144,16 +172,66 @@ ui <- page_navbar(
     ),
     layout_columns(
       col_widths = c(6, 6),
-      card(card_header("Normal marrow cell types"), plotOutput("hema_plot", height = 400)),
-      card(card_header("Vital organs (top 15)"), plotOutput("org_plot", height = 400))),
-    card(card_header("Five-axis profile"), plotOutput("radar_plot", height = 300),
+      card(card_header("Normal marrow cell types"), uiOutput("hema_slot")),
+      card(card_header("Vital organs (top 15)"), uiOutput("org_slot"))),
+    card(card_header("Five-axis profile"), uiOutput("radar_slot"),
          note("Each axis is min-max scaled across the twelve antigens carried past the screen. Higher is better."))
   ),
 
   nav_panel(
+    "Organ check",
+    card(
+      card_header("Marrow sparing is not safety"),
+      layout_columns(
+        col_widths = c(6, 6),
+        plotOutput("tradeoff_plot", height = 370),
+        div(
+          p(strong("The two filters disagree."),
+            " All 1,704 screened genes carry marrow-sparing data, because that came from this atlas. ",
+            "Body-wide organ expression was profiled for only the ", strong("twelve"),
+            " antigens carried past the screen, against the CZ CELLxGENE Census."),
+          p("Among those twelve the axes come apart. ", strong("CD9"), " scores 92.4 on marrow sparing and ",
+            strong("5.1"), " on organ sparing; ", strong("IL1RAP"), " scores 90.3 and 24.7. Both sit in the top ",
+            "four of the marrow ranking, and both were disqualified on body-wide expression. A screen that ",
+            "stopped at marrow sparing would have nominated them."),
+          p(strong("So a marrow rank is not a nomination."),
+            " Seven of the top twelve marrow-ranked genes have never been organ-checked here at all: ",
+            "AMN, LMBR1L, NRXN2, FURIN, UMODL1, GPR174 and SUSD1. Check one before you trust it."),
+          note("Axes are the five-axis profile, min-max scaled across the twelve profiled antigens. ",
+               "Higher is safer. The selected gene is ringed in amber when it is one of the twelve.")
+        )
+      )
+    ),
+    layout_columns(
+      col_widths = c(5, 7),
+      card(card_header(textOutput("organ_status_title")), uiOutput("organ_status")),
+      card(card_header("Check this gene body-wide, yourself"), uiOutput("census_panel"))
+    ),
+    card(
+      card_header(textOutput("organ_full_title")),
+      uiOutput("organ_full_note"),
+      layout_columns(col_widths = c(6, 6),
+                     DTOutput("organ_full_tbl"),
+                     plotOutput("organ_full_plot", height = 760)),
+      note("Every normal tissue the Census profile covers, not a top-15 cut. ",
+           strong("% positive"), " is the share of normal cells in that tissue with a detected ",
+           "transcript; ", strong("n"), " is how many cells that share is computed from, so a high ",
+           "percentage on a few thousand cells is weaker evidence than a low one on a million. ",
+           "Tissues flagged ", strong("vital"), " are the ones an antigen-directed therapy cannot spare.")
+    ),
+    card(
+      card_header("All 1,704 screened genes \u2014 marrow data here, organ data one click away"),
+      DTOutput("organ_tbl"),
+      note("Sort on % HSPC or % myeloid to rank by marrow sparing, then open the Census link to check the ",
+           "organs yourself. ", strong("Organ screened = yes"), " means this study profiled the gene across 54 ",
+           "normal organ cell types; ", strong("no"), " means the marrow numbers are real but body-wide ",
+           "expression is unknown here.")
+    )
+  ),
+  nav_panel(
     "Validation",
     card(card_header("Does the target hold beyond the paediatric discovery cohort?"),
-         plotOutput("valid_plot", height = 420),
+         uiOutput("valid_slot"),
          note("Percent of patients targetable in paediatric TARGET bulk RNA-seq and adult Beat AML, ",
               "alongside percent of cells positive in an independent adult single-cell cohort."))
   ),
@@ -162,14 +240,57 @@ ui <- page_navbar(
     "Combinations",
     card(card_header("Coverage vs marrow toxicity"), plotOutput("combo_plot", height = 440),
          note("Each point is a single antigen or an 'X OR Y' pair. Up and left is better.")),
-    card(card_header("Pairs involving the selected target"), DTOutput("combo_tbl"))
+    card(card_header("Pairs involving the selected target"), uiOutput("combo_miss"), DTOutput("combo_tbl"))
   )
 )
 
 # --- server ----------------------------------------------------------------
 server <- function(input, output, session) {
-  updateSelectizeInput(session, "gene", choices = screen$gene, selected = "CD96", server = TRUE)
   g <- reactive(if (is.null(input$gene) || !nzchar(input$gene)) "CD96" else input$gene)
+
+  # narrowing the list keeps the current gene when that gene is in the new list
+  observeEvent(input$glist, {
+    ch  <- SCOPES[[input$glist]]; cur <- isolate(input$gene)
+    updateSelectizeInput(session, "gene", choices = ch,
+                         selected = if (!is.null(cur) && cur %in% ch) cur else ch[1])
+  }, ignoreInit = TRUE)
+
+  # what this study actually measured for the selected gene
+  has_map  <- reactive(g() %in% EXPR_GENES)
+  has_ls   <- reactive(has(ls_expr,  g()))
+  has_cyto <- reactive(has(cyto,     g()))
+  has_h2h  <- reactive(has(h2h,      g()))
+  has_tox  <- reactive(has(tox_hema, g()))
+  has_org  <- reactive(has(tox_org,  g()))
+  has_rad  <- reactive(has(radar,    g()))
+  has_val  <- reactive(has(meta_ped, g()) || has(meta_ad, g()) || has(sc_ad, g()))
+  has_cmb  <- reactive(any(combos$g1 == g() | combos$g2 == g()))
+
+  ONLY19 <- "Only the 19 antigens taken forward from the screen were profiled this way."
+  ONLY12 <- "Deep Census profiling was run on the twelve antigens carried past the screen."
+
+  # A gene with no data for a panel gets the note alone - not a note above an
+  # empty 400px canvas, which reads as a failure rather than as "not measured".
+  slot <- function(ok, miss, id, h) if (ok) plotOutput(id, height = h) else miss
+  output$ls_slot    <- renderUI(slot(has_ls(),   uiOutput("ls_miss"),    "ls_plot",    380))
+  output$cyto_slot  <- renderUI(slot(has_cyto(), uiOutput("cyto_miss"),  "cyto_plot",  330))
+  output$hema_slot  <- renderUI(slot(has_tox(),  uiOutput("hema_miss"),  "hema_plot",  400))
+  output$org_slot   <- renderUI(slot(has_org(),  uiOutput("org_miss"),   "org_plot",   400))
+  output$radar_slot <- renderUI(slot(has_rad(),  uiOutput("radar_miss"), "radar_plot", 300))
+  output$valid_slot <- renderUI(slot(has_val(),  uiOutput("valid_miss"), "valid_plot", 420))
+
+  output$ls_miss    <- renderUI(if (!has_ls())   elsewhere(g(), "per-state expression", ONLY19))
+  output$cyto_miss  <- renderUI(if (!has_cyto()) elsewhere(g(), "cytogenetic breakdown", ONLY19))
+  output$hema_miss  <- renderUI(if (!has_tox())  elsewhere(g(), "normal-marrow cell-type profile", ONLY12))
+  output$org_miss   <- renderUI(if (!has_org())  elsewhere(g(), "vital-organ profile", ONLY12))
+  output$radar_miss <- renderUI(if (!has_rad())  elsewhere(g(), "five-axis profile", ONLY12))
+  output$valid_miss <- renderUI(if (!has_val())  elsewhere(g(), "cross-cohort validation", ONLY12))
+  output$combo_miss <- renderUI(if (!has_cmb())  elsewhere(g(), "combination analysis",
+                                 "Pairs were enumerated among the antigens carried past the screen."))
+  output$emb_miss   <- renderUI(
+    if (identical(input$emb_fill, "expr") && !has_map())
+      elsewhere(g(), "expression on the atlas",
+                "Genes detected in fewer than 25 cells are left off the map rather than drawn from noise."))
 
   # unified screening table: whole cohort, or one poor-prognosis context
   base_tbl <- reactive({
@@ -223,12 +344,19 @@ server <- function(input, output, session) {
   })
 
   output$coverage_note <- renderUI({
-    avail <- c("per-state" = has(ls_expr, g()), "subtype" = has(cyto, g()),
-               "safety" = has(tox_hema, g()), "validation" = has(meta_ped, g()))
-    if (all(avail)) note("Full profile available for this target.")
-    else note(sprintf("This gene has: %s. Panels without data will say so — only the %d antigens carried past the screen have safety and validation data.",
-                      if (any(avail)) paste(names(avail)[avail], collapse = ", ") else "ranking only",
-                      length(unique(radar$gene))))
+    gg <- g()
+    items <- c("Atlas expression map" = has_map(), "Per leukemic state" = has_ls(),
+               "Cytogenetic subtype" = has_cyto(), "Head-to-head panel" = has_h2h(),
+               "Normal-marrow safety" = has_tox(), "Vital-organ safety" = has_org(),
+               "Cross-cohort validation" = has_val(), "Combination analysis" = has_cmb())
+    tagList(
+      strong("Data for this gene", style = "font-size:.9rem"),
+      tags$ul(class = "list-unstyled", style = "font-size:.82rem;margin:.35rem 0 0",
+        lapply(names(items), function(n) tags$li(
+          span(style = sprintf("color:%s;font-weight:700", if (items[[n]]) "#2F5D70" else "#C2C8CE"),
+               if (items[[n]]) "\u2713 " else "\u2014 "), n))),
+      div(style = "font-size:.8rem;margin-top:.6rem", "Look up ", strong(gg), " elsewhere: ",
+          gene_links(gg)))
   })
 
   # ---- Discover ----
@@ -251,13 +379,19 @@ server <- function(input, output, session) {
   output$gate_plot <- renderPlot({
     d <- scored()
     sel <- d[d$gene == g(), ]
-    ggplot(d, aes(scRNA_AML_pct, scRNA_HSPC_pct)) +
-      geom_point(aes(colour = pass), alpha = .6, size = 1.8) +
+    # scored() carries the context-neutral names (aml/hspc), not screen's raw
+    # scRNA_* columns - those only exist on the whole-cohort table.
+    ggplot(d, aes(aml, hspc)) +
+      geom_point(aes(colour = pass), alpha = if (nrow(sel)) .3 else .6, size = 1.8) +
       geom_vline(xintercept = input$f_aml, linetype = "dashed", colour = CARD) +
       geom_hline(yintercept = input$f_hspc, linetype = "dashed", colour = CARD) +
-      { if (nrow(sel)) geom_point(data = sel, size = 4, shape = 21, fill = "#F6A30C", colour = "black") } +
+      { if (nrow(sel)) geom_point(data = sel, size = 10, shape = 21, fill = NA,
+                                  colour = "#F6A30C", stroke = 1.5) } +
+      { if (nrow(sel)) geom_point(data = sel, size = 4.5, shape = 21, fill = "#F6A30C", colour = "black") } +
       { if (nrow(sel)) geom_text(data = sel, aes(label = gene), vjust = -1.2, fontface = "bold") } +
       scale_colour_manual(values = c(`FALSE` = "#D5D9DD", `TRUE` = TEAL), name = "Passes gates") +
+      # headroom on the right so the label on the best target is not clipped
+      scale_x_continuous(expand = expansion(mult = c(.02, .1))) +
       labs(x = "% leukemic cells positive", y = "% normal HSPC positive") + theme_lab(0)
   })
 
@@ -278,8 +412,8 @@ server <- function(input, output, session) {
   # ---- Target profile ----
   output$ls_title <- renderText(sprintf("%s across leukemic states", g()))
   output$ls_plot <- renderPlot({
+    req(has_ls())
     d <- ls_expr[ls_expr$gene == g(), ]
-    validate(need(nrow(d) > 0, sprintf("%s was not profiled per leukemic state (only the 19 antigens taken forward were).", g())))
     d$group <- factor(d$group, levels = d$group[order(-d$pct)])
     ggplot(d, aes(group, pct, fill = prognosis)) + geom_col() +
       scale_fill_manual(values = PROG, name = "State outcome") +
@@ -290,18 +424,20 @@ server <- function(input, output, session) {
     d <- h2h
     d$is_sel <- d$gene == g()
     ggplot(d, aes(scRNA_AML_pct, scRNA_HSPC_pct, colour = klass)) +
-      geom_point(size = 2.6, alpha = .85) +
+      geom_point(size = 2.6, alpha = if (any(d$is_sel)) .4 else .85) +
       geom_text(data = d[d$do_label == "True" | d$is_sel, ], aes(label = label),
                 vjust = -1, size = 3, show.legend = FALSE) +
-      { if (any(d$is_sel)) geom_point(data = d[d$is_sel, ], size = 5, shape = 21,
-                                      fill = NA, colour = "black", stroke = 1.1) } +
+      { if (any(d$is_sel)) geom_point(data = d[d$is_sel, ], size = 10, shape = 21,
+                                      fill = NA, colour = "#F6A30C", stroke = 1.5) } +
+      { if (any(d$is_sel)) geom_point(data = d[d$is_sel, ], size = 4.5, shape = 21,
+                                      fill = "#F6A30C", colour = "black") } +
       scale_colour_manual(values = KLASS, name = NULL) +
       labs(x = "% leukemic cells positive", y = "% normal HSPC positive") + theme_lab(0)
   })
 
   output$cyto_plot <- renderPlot({
+    req(has_cyto())
     d <- cyto[cyto$gene == g(), ]
-    validate(need(nrow(d) > 0, sprintf("No cytogenetic breakdown for %s.", g())))
     d <- d[order(-d$pct), ]; d$group <- factor(d$group, levels = d$group)
     ggplot(d, aes(group, pct)) +
       geom_col(fill = TEAL) +
@@ -319,7 +455,10 @@ server <- function(input, output, session) {
   output$safety_scatter <- renderPlot({
     d <- top500; sel <- d[d$gene == g(), ]
     ggplot(d, aes(scRNA_HSPC_pct, scRNA_Myeloid_pct)) +
-      geom_point(aes(colour = composite, shape = deep), size = 2.4, alpha = .85) +
+      geom_point(aes(colour = composite, shape = deep), size = 2.4,
+                 alpha = if (nrow(sel)) .4 else .85) +
+      { if (nrow(sel)) geom_point(data = sel, size = 11, shape = 21, fill = NA,
+                                  colour = "#F6A30C", stroke = 1.5) } +
       { if (nrow(sel)) geom_point(data = sel, size = 5, shape = 21, fill = "#F6A30C", colour = "black") } +
       { if (nrow(sel)) geom_text(data = sel, aes(label = gene), vjust = -1.2, fontface = "bold") } +
       scale_colour_viridis_c(option = "mako", direction = -1, name = "Composite") +
@@ -338,22 +477,22 @@ server <- function(input, output, session) {
     updateSelectizeInput(session, "gene", selected = top500$gene[input$safety_tbl_rows_selected])
   })
   output$hema_plot <- renderPlot({
+    req(has_tox())
     d <- tox_hema[tox_hema$gene == g(), ]
-    validate(need(nrow(d) > 0, sprintf("No normal-marrow profile for %s.", g())))
     d <- d[order(-d$pct), ]; d$cell <- factor(d$cell, levels = rev(d$cell))
     ggplot(d, aes(pct, cell)) + geom_col(fill = TEAL) +
       labs(x = "% cells positive", y = NULL) + theme_lab(0)
   })
   output$org_plot <- renderPlot({
+    req(has_org())
     d <- tox_org[tox_org$gene == g(), ]
-    validate(need(nrow(d) > 0, sprintf("No vital-organ profile for %s.", g())))
     d <- head(d[order(-d$pct), ], 15); d$organ <- factor(d$organ, levels = rev(d$organ))
     ggplot(d, aes(pct, organ)) + geom_col(fill = CARD) +
       labs(x = "% cells positive", y = NULL) + theme_lab(0)
   })
   output$radar_plot <- renderPlot({
+    req(has_rad())
     d <- radar[radar$gene == g(), ]
-    validate(need(nrow(d) > 0, sprintf("No five-axis profile for %s.", g())))
     ax <- c("AML_coverage", "Patient_breadth", "Marrow_sparing", "Immune_sparing", "Organ_sparing")
     p <- data.frame(axis = factor(ax, levels = ax), value = as.numeric(d[1, ax]))
     ggplot(p, aes(axis, value)) +
@@ -371,7 +510,7 @@ server <- function(input, output, session) {
     if (nrow(a)) rows[[length(rows)+1]] <- data.frame(cohort = "Paediatric TARGET\n(bulk, n=475)", metric = "% patients targetable", value = a$pct_targetable[1])
     if (nrow(b)) rows[[length(rows)+1]] <- data.frame(cohort = sprintf("Adult Beat AML\n(bulk, n=%d)", b$n[1]), metric = "% patients targetable", value = b$pct_targetable[1])
     if (nrow(c3)) rows[[length(rows)+1]] <- data.frame(cohort = sprintf("Adult scRNA\n(%s cells)", format(c3$n_cells[1], big.mark=",")), metric = "% cells positive", value = c3$pct[1])
-    validate(need(length(rows) > 0, sprintf("No cross-cohort validation data for %s — only the twelve antigens carried past the screen were validated.", gg)))
+    req(length(rows) > 0)
     d <- do.call(rbind, rows)
     ggplot(d, aes(cohort, value, fill = metric)) +
       geom_col(width = .6) +
@@ -390,12 +529,14 @@ server <- function(input, output, session) {
       geom_text(data = lab, aes(label = combo), size = 3, vjust = -1, colour = "#17212B") +
       scale_colour_manual(values = c(`FALSE` = "#B9C0C7", `TRUE` = CARD), guide = "none") +
       scale_size_manual(values = c(`FALSE` = 2, `TRUE` = 4), guide = "none") +
-      labs(x = "Normal-marrow toxicity (%)", y = "% patients with >20% of blasts covered") +
+      labs(x = "Normal-marrow toxicity (%)", y = "% patients with >20% of blasts covered",
+           subtitle = if (!any(d$sel))
+             sprintf("%s is in none of these pairs, so nothing is highlighted. Pairs were enumerated among the antigens carried past the screen.", g())) +
       theme_lab(0)
   })
   output$combo_tbl <- renderDT({
+    req(has_cmb())
     d <- combos[combos$g1 == g() | combos$g2 == g(), c("combo", "kind", "within", "across", "toxicity")]
-    validate(need(nrow(d) > 0, sprintf("%s is not part of the combination analysis.", g())))
     names(d) <- c("Combination", "Kind", "Within-patient depth (%)", "Patient breadth (%)", "Marrow toxicity (%)")
     datatable(d, rownames = FALSE, options = list(pageLength = 8, order = list(list(3, "desc")))) |>
       formatRound(3:5, 1)
@@ -406,14 +547,23 @@ server <- function(input, output, session) {
   output$emb_plot <- renderPlot({
     p <- switch(input$emb_fill,
       expr = {
-        d <- gexpr[gexpr$gene == g(), c("bin", "mean")]
-        validate(need(nrow(d) > 0, sprintf(
-          "%s has no expression in the atlas (it is below the 25-cell detection floor, or absent from the reference).", g())))
-        m <- merge(ebins, d, by = "bin", all.x = TRUE); m$mean[is.na(m$mean)] <- 0
-        ggplot(m, aes(x, y, fill = mean)) +
-          geom_tile(width = BINW, height = BINH) +
-          scale_fill_viridis_c(option = "rocket", direction = -1,
-                               name = sprintf("%s\nmean log(CPM+1)", g())) +
+        req(has_map())
+        # Colour the cells themselves, not the grid squares. The estimate is still
+        # the per-bin mean - a bin holds ~16 cells, which is what makes it stable -
+        # but painting it onto the real coordinates keeps the embedding at full
+        # resolution instead of quantising it into squares, at no cost in data.
+        # Cells where the gene was never detected stay grey, so "not detected"
+        # cannot be read as "low", and the ramp is square-root so a marker confined
+        # to one population does not vanish into a flat wash.
+        m <- emb; m$val <- gene_bins(g())[match(m$bin, ebins$bin)]
+        m$val[is.na(m$val)] <- 0
+        m <- m[order(m$val), ]                     # expressing cells drawn on top
+        z <- m$val <= 0
+        ggplot() +
+          geom_point(data = m[z, ],  aes(UMAP1, UMAP2), colour = "#E3E7EA", size = .28, alpha = .55) +
+          geom_point(data = m[!z, ], aes(UMAP1, UMAP2, colour = val), size = .28, alpha = .85) +
+          scale_colour_viridis_c(option = "rocket", direction = -1, trans = "sqrt",
+                                 name = sprintf("%s\nmean log(CPM+1)", g())) +
           labs(x = "UMAP1", y = "UMAP2")
       },
       comp = ggplot(emb, aes(UMAP1, UMAP2, colour = compartment)) +
@@ -435,8 +585,154 @@ server <- function(input, output, session) {
       dens = ggplot(emb, aes(UMAP1, UMAP2)) +
         geom_hex(bins = 90) +
         scale_fill_viridis_c(name = "Cells", option = "mako", trans = "log10"))
-    p + coord_equal() + theme_lab(0)
+    p + coord_equal() + theme_lab(0) + theme(panel.grid = element_blank())
   })
+
+  # --- Organ check -----------------------------------------------------------
+  # Marrow sparing is screened for all 1,704 genes; body-wide organ expression
+  # only for the twelve carried past the screen. The two disagree sharply, so
+  # this tab shows the dissociation and hands the reader the Census lookup for
+  # every gene the study could not profile itself.
+  CENSUS <- function(g) paste0("https://cellxgene.cziscience.com/gene-expression?genes=", g)
+
+  output$tradeoff_plot <- renderPlot({
+    d <- radar
+    d$sel <- d$gene == g()
+    ggplot(d, aes(Marrow_sparing, Organ_sparing)) +
+      geom_hline(yintercept = 50, linetype = 2, colour = "#B9C0C7") +
+      { if (any(d$sel)) geom_point(data = d[d$sel, ], size = 10, shape = 21, fill = NA,
+                                   colour = "#F6A30C", stroke = 1.6) } +
+      geom_point(aes(colour = group), size = 3.4) +
+      geom_text(aes(label = label), vjust = -1.15, size = 3.2) +
+      scale_colour_manual(values = KLASS, name = NULL) +
+      labs(x = "Marrow sparing (score)", y = "Organ sparing (score)") +
+      ylim(0, 112) + xlim(40, 104) + theme_lab(0)
+  })
+
+  output$organ_status_title <- renderText(sprintf("%s \u2014 organ status in this study", g()))
+
+  output$organ_status <- renderUI({
+    gg <- g()
+    s  <- screen[screen$gene == gg, ]
+    if (has_org()) {
+      d <- tox_org[tox_org$gene == gg, ]
+      d <- head(d[order(-d$pct), ], 5)
+      r <- radar[radar$gene == gg, ]
+      tagList(
+        div(class = "alert alert-success py-2", style = "font-size:.9rem",
+            strong("Profiled body-wide."), sprintf(" Organ-sparing score %.0f of 100.", r$Organ_sparing[1])),
+        strong("Highest-expressing normal organ cell types"),
+        tags$ul(lapply(seq_len(nrow(d)), function(i)
+          tags$li(sprintf("%s \u2014 %.1f%% of cells positive", d$organ[i], d$pct[i])))),
+        note("Every tissue is listed below; the five-axis panel is on the Safety tab.")
+      )
+    } else {
+      tagList(
+        div(class = "alert alert-warning py-2", style = "font-size:.9rem",
+            strong("Not profiled body-wide here."),
+            " Marrow sparing below is measured; organ expression is unknown in this study."),
+        if (nrow(s)) tags$ul(
+          tags$li(sprintf("Marrow rank %s of 1,704", s$rank[1])),
+          tags$li(sprintf("%.1f%% of normal HSPC positive", s$scRNA_HSPC_pct[1])),
+          tags$li(sprintf("%.1f%% of myeloid progenitors positive", s$scRNA_Myeloid_pct[1])),
+          tags$li(sprintf("%.1f%% of leukemic cells positive", s$scRNA_AML_pct[1]))),
+        note("Use the Census lookup on the right before treating this as a candidate.")
+      )
+    }
+  })
+
+  output$census_panel <- renderUI({
+    gg <- g()
+    tagList(
+      div(style = "font-size:1.08rem;line-height:1.5;margin-bottom:.85rem",
+          "The CZ CELLxGENE Census shows ", strong(gg), " across roughly 65 normal human ",
+          "tissues, broken down by cell type, from millions of cells. Use it to see whether ",
+          strong(gg), " is expressed anywhere an antigen-directed therapy would have to spare."),
+      a(sprintf("Open %s in the CZ CELLxGENE Census \u2192", gg), href = CENSUS(gg),
+        target = "_blank", rel = "noopener", class = "btn btn-primary btn-lg",
+        style = "font-size:1.3rem;font-weight:700;padding:.75rem 1.4rem;white-space:normal"),
+      div(style = "font-size:1.05rem;margin-top:.9rem",
+          "Opens in a new tab. Also worth checking: ", gene_links(gg), "."),
+      hr(),
+      div(style = "font-size:1.05rem;font-weight:700", "What disqualifies a target"),
+      tags$ul(style = "font-size:.98rem;margin-bottom:.4rem;line-height:1.5",
+        tags$li("Appreciable expression on heart, brain, lung, liver, kidney or pancreas parenchyma \u2014 ",
+                "the organs an antigen-directed therapy cannot spare."),
+        tags$li("Expression on vascular endothelium, which carries the agent everywhere."),
+        tags$li("Expression on normal HSPC or myeloid progenitors, which is the marrow axis the screen ",
+                "already applies at a \u226410% gate."),
+        tags$li("In this study CD9, IL1RAP and ABCA7 were disqualified on body-wide expression despite ",
+                "passing the marrow gate.")),
+      note("The Census is a cross-platform relative reference across roughly 65 tissues. It was not ",
+           "statistically compared with the AML cohort in this study, and it is not a toxicology ",
+           "prediction \u2014 it tells you where a transcript is detected in normal human tissue.")
+    )
+  })
+
+  # The bundle carries all 54 tissues per profiled antigen; the Safety tab plots
+  # only the top 15, which hid 39 of them. This shows every one, sortable, with
+  # the cell count behind each percentage so a reader can weigh the evidence.
+  VITAL <- c("heart", "brain", "central nervous system", "cortex", "spinal cord",
+             "lung", "liver", "kidney", "pancreas", "vasculature", "eye",
+             "respiratory system", "sensory system")
+
+  output$organ_full_title <- renderText(
+    if (has_org()) sprintf("%s across all 54 normal tissues", g())
+    else sprintf("%s \u2014 no body-wide profile in this study", g()))
+
+  output$organ_full_note <- renderUI(
+    if (!has_org()) elsewhere(g(), "body-wide tissue profile", ONLY12))
+
+  # The table and plot are declared statically in the UI: a DT nested inside a
+  # renderUI on a tab that starts hidden initialises before Shiny binds its data
+  # and renders "No matching records found".
+  organ_full <- reactive({
+    if (!has_org()) return(NULL)
+    d <- tox_org[tox_org$gene == g(), c("organ", "pct", "mean", "n")]
+    d[order(-d$pct), ]
+  })
+
+  output$organ_full_tbl <- renderDT({
+    d <- organ_full()
+    req(!is.null(d))
+    d$vital <- ifelse(d$organ %in% VITAL, "vital", "")
+    names(d) <- c("Tissue", "% positive", "Mean expr", "n cells", "Flag")
+    datatable(d, rownames = FALSE, selection = "none",
+              options = list(pageLength = 15, order = list(list(1, "desc")))) |>
+      formatRound("% positive", 1) |> formatRound("Mean expr", 3) |>
+      formatRound("n cells", 0)
+  })
+
+  output$organ_full_plot <- renderPlot({
+    d <- organ_full()
+    req(!is.null(d))
+    d$organ <- factor(d$organ, levels = rev(d$organ))
+    d$vital <- d$organ %in% VITAL
+    ggplot(d, aes(pct, organ, fill = vital)) +
+      geom_col() +
+      scale_fill_manual(values = c(`TRUE` = CARD, `FALSE` = "#B9C0C7"),
+                        labels = c(`TRUE` = "vital organ", `FALSE` = "other tissue"),
+                        name = NULL) +
+      labs(x = "% of normal cells positive", y = NULL) +
+      theme_lab(0) + theme(legend.position = "top")
+  })
+
+  output$organ_tbl <- renderDT({
+    d <- screen[order(screen$rank),
+                c("rank", "gene", "scRNA_AML_pct", "scRNA_HSPC_pct", "scRNA_Myeloid_pct")]
+    d$organ <- ifelse(d$gene %in% radar$gene, "yes", "no")
+    d$census <- sprintf('<a href="%s" target="_blank" rel="noopener">Census &rarr;</a>', CENSUS(d$gene))
+    names(d) <- c("Marrow rank", "Gene", "% AML cells", "% HSPC", "% Myeloid",
+                  "Organ screened", "Look up")
+    datatable(d, selection = "single", rownames = FALSE, escape = FALSE,
+              options = list(pageLength = 12, order = list(list(0, "asc")))) |>
+      formatRound(c("% AML cells", "% HSPC", "% Myeloid"), 1)
+  })
+  observeEvent(input$organ_tbl_rows_selected, {
+    d <- screen[order(screen$rank), ]
+    updateSelectizeInput(session, "gene", selected = d$gene[input$organ_tbl_rows_selected])
+  })
+  outputOptions(output, "organ_full_tbl", suspendWhenHidden = FALSE)
 }
 
 shinyApp(ui, server)

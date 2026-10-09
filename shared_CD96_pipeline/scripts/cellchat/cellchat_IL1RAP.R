@@ -13,13 +13,13 @@
 # microenvironment-IL1 -> AML-LSC maintenance loop. Inferred WITHIN each sample; aggregated
 # over the IL1RAP-targetable samples (>=10% IL1RAP+ blasts). truncatedMean, trim=0.
 suppressPackageStartupMessages({ library(CellChat); library(Matrix) })
-HERE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/AML_2026_Alternate/scripts/cellchat"
+HERE <- "../../../../07_Code/shared_CD96_pipeline/scripts/cellchat"
 setwd(HERE)
-ROOT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/AML_2026_Alternate"
+ROOT <- "../../../../raw/AML_2026_Alternate"
 SD <- file.path(ROOT, "source_data"); ASSETS <- file.path(ROOT, "assets")
 MINC <- 10; POS_MIN <- 10                  # >=10% IL1RAP+ AML cells = targetable (receiver)
 GENES <- c("IL1A", "IL1B", "IL36A", "IL36G", "IL1R1", "IL1RL1", "IL1RL2", "IL1RAP")
-d <- read.csv("cellchat_IL1_input.csv", stringsAsFactors = FALSE, check.names = FALSE)
+d <- read.csv("../../../../08_Source_Data/Figure_7/cellchat_IL1_input.csv", stringsAsFactors = FALSE, check.names = FALSE)
 
 aml <- d[d$compartment == "AML (leukemic)", ]
 frac <- tapply(aml$IL1RAP > 0, aml$sample, mean) * 100

@@ -4,7 +4,7 @@
 # and committed GMP. Compared to normal HSC (primitive) and normal GMP (committed) across
 # four marker modules. Dot size = % expressing, fill = mean log-CPM. No fabricated values.
 suppressMessages({library(ggplot2); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
 D3 <- "../source_data"
 OUT <- "../figures/Figure_2_panels"

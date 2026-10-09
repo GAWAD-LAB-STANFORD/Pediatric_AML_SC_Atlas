@@ -6,8 +6,8 @@ pages (no baked label) get the new label stamped in the top-left corner.
 Requires PyMuPDF (fitz)."""
 import os, fitz
 
-FIN = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/AML_2026_Final"
-MS  = ("/Users/chuckgawad/Library/CloudStorage/Box-Box/01_Gawad Lab Documents/01_Manuscripts/"
+FIN = "../../raw/AML_2026_Final"
+MS  = ("SET_THIS_PATH_see_README_REPRODUCIBILITY.md"
        "AML_Submission_2025/00_Blood?_2025/AML single cell RNA-seq_Figures_2026 copy.pdf")
 def f(p): return os.path.join(FIN, p)
 

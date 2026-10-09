@@ -5,8 +5,8 @@ HSC quiescence (HLF/AVP/CRHBP), leukemic stemness (HOXA9/MEIS1), proliferation
 leukemic HSC/MPP states (LS5/LS38), LS10, and other leukemic cells. Reads raw counts
 straight from the h5ad. No fabricated values."""
 import numpy as np, pandas as pd, h5py
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-D3="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3/"
+H5="../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+D3="../../08_Source_Data/Figure_3/v3/"
 OUT=D3+"LS_program_modules.csv"
 MODULES={"HSC quiescence":["HLF","AVP","CRHBP"], "leukemic stemness":["HOXA9","MEIS1"],
          "proliferation":["MKI67","TOP2A","CDK1"], "differentiation":["MPO","LYZ","CD14"]}

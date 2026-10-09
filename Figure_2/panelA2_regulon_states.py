@@ -8,7 +8,7 @@ import os, sys, numpy as np, pandas as pd, matplotlib
 matplotlib.use("Agg"); import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 D3 = C.DATA; D2 = D3.replace("Figure_3", "Figure_2")
 OUT = os.path.join(C.BASE, "04_Main_Figures/Figure_2_panels")
 z = pd.read_csv(os.path.join(D3, "regulon_landscape_z.csv"), index_col=0)   # 57 cols (leukemic + normal) x regulons

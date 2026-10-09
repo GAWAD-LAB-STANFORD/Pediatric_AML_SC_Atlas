@@ -8,7 +8,7 @@ import os, numpy as np, pandas as pd, h5py, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from scipy.sparse import csr_matrix
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+H5="../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 OUT="../figures"
 RELAPSED={"AML948","AML3082","AML3371","AML3492","AML4068","AML4239","AML4304","AML3121"}
 UNKNOWN={"AML4271","AML4363"}

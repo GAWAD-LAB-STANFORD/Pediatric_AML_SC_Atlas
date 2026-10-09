@@ -4,10 +4,10 @@
 # no formal test); C defining-marker dot plot. Shared manuscript palette: categorical subsets sampled
 # from the SEQ gradient (lineage-ordered), dot-plot fill = scale_fill_seq. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr); library(scales); library(ggrepel)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_4"
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-D   <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+CODE <- "../../07_Code/Figure_4"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+D   <- "../../08_Source_Data/Figure_4/v2"
+OUT <- "../../04_Main_Figures/Figure_4_panels"
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
 ORD <- c("Naïve CD4 T","Memory CD4 T","Treg","Naïve CD8 T","Memory CD8 T","GZMK CD8 T",
          "GZMB CD8 T","GZMB DNT","MAIT","GZMK NK","GZMB NK","Proliferating T")

@@ -7,7 +7,7 @@ Columns/states are defined exactly as the rest of Fig 2/3 (REFA res4.50 -> stabl
 the stale legacy 48-state figure. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 D2 = C.DATA.replace("Figure_3", "Figure_2")
 
 PROG = {  # curated hematopoietic lineage programs (Cell-cycle -> proliferative)

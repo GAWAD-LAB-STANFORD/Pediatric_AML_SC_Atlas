@@ -17,7 +17,7 @@
 suppressPackageStartupMessages({ library(ggplot2); library(dplyr) })
 OUT <- normalizePath(file.path(dirname(dirname(getwd())), "figures", "cellchat"), mustWork = FALSE)
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
-d <- read.csv("cellchat_3path_input.csv", stringsAsFactors = FALSE)
+d <- read.csv("../../../../08_Source_Data/Figure_7/cellchat_3path_input.csv", stringsAsFactors = FALSE)
 names(d)[names(d) == "FCER2"] <- "FCER2A"
 GEN <- c("CD96","PVR","NECTIN1","NECTIN2","TNFSF4","TNFRSF4","C3","ICAM1","THY1","FCER2A","ITGAX","ITGB2")
 COMPS <- c("AML (leukemic)","HSPC","Myeloid_Pro","Mature myeloid","B-lineage","T cells","NK","Erythroid")

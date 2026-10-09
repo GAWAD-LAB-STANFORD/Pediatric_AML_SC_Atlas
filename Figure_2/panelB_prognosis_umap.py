@@ -6,10 +6,10 @@ res-4.5 stable states (Jaccard>=0.35) from reference_assignments.csv; each state
 coloured favorable / poor (whole-cohort EFS Cox FDR<0.10) or grey (ns / non-stable).
 Prognosis is EFS-based (unified). No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py, anndata as ad, scanpy as sc, matplotlib.pyplot as plt
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../07_Code/Figure_3")
 import config as C
-D2 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2 = "../../08_Source_Data/Figure_2/v3"
+OUT = "../../04_Main_Figures/Figure_2_panels"
 os.makedirs(OUT, exist_ok=True)
 
 # --- state -> prognosis (whole-cohort EFS) ---

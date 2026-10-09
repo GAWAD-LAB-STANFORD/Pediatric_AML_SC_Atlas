@@ -3,9 +3,9 @@
 # (favorable / poor / n.s.) and normal compartments as bold purple reference anchors. Data =
 # pseudotime_by_group.csv, monocle_pseudotime.csv, LS_wholecohort_prognosis.csv. No fabrication.
 suppressMessages({library(ggplot2); library(dplyr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../04_Main_Figures/Figure_3_panels"
 pr  <- read.csv(file.path(D2,"LS_wholecohort_prognosis.csv"))[,c("LS","prognosis")]
 pcol <- c(favorable="#00798c", poor="#d1495b", `n.s.`="#9aa0a6", normal="#7b3294")
 mkfig <- function(csv, val, xlab, outfile){

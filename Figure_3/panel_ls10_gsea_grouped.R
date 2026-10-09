@@ -6,8 +6,8 @@
 # replication/mitosis/repair (the significant signal is the replication program); the differentiation
 # difference is gene-level only. Data = LS10_vs_prolif_DE.csv. No fabricated values.
 suppressPackageStartupMessages({library(fgsea); library(msigdbr); library(dplyr); library(ggplot2)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 de <- read.csv(file.path(D3,"LS10_vs_prolif_DE.csv"))
 BP <- msigdbr(species="Homo sapiens", collection="C5", subcollection="GO:BP"); paths <- split(BP$gene_symbol, BP$gs_name)
 s <- de$scores; names(s) <- de$names; s <- sort(s, decreasing=TRUE)
@@ -36,4 +36,3 @@ p <- ggplot(grp, aes(nl, theme)) +
 ggsave(file.path(OUT,"Figure_3_LS10_gsea.pdf"), p, width=5.8, height=3.6)
 ggsave(file.path(OUT,"Figure_3_LS10_gsea.png"), p, width=5.8, height=3.6, dpi=200)
 cat("themes:\n"); print(as.data.frame(grp))
-PY

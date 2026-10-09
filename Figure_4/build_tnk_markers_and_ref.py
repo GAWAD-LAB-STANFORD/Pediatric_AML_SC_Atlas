@@ -4,8 +4,8 @@
 to run CIBERSORTx on TARGET bulk -> finer-subset (GZMB/GZMK-CD8, NK, etc.) deconvolution + survival.
 Reads the h5ad T/NK cells matched to the annotated subsets. No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc
-H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-D  = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+H5 = "../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+D  = "../../08_Source_Data/Figure_4/v2"
 MARKERS = ["CD3D","CD4","CD8A","CD8B","CCR7","SELL","TCF7","IL7R","FOXP3","CTLA4",
            "GZMK","GZMB","GNLY","PRF1","NKG7","NCAM1","FCGR3A","KLRD1","SLC4A10","KLRB1","MKI67"]
 SUBSET_ORDER = ["Naïve CD4 T","Memory CD4 T","Treg","Naïve CD8 T","Memory CD8 T","GZMK CD8 T",

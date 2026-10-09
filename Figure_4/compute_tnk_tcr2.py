@@ -11,9 +11,9 @@
 No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc, h5py
 from scipy.sparse import csr_matrix
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_total_Tcell_rna_withTCR.h5ad"
-MAIN="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-D ="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+H5="../../raw/ALSF_AML_total_Tcell_rna_withTCR.h5ad"
+MAIN="../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+D ="../../08_Source_Data/Figure_4/v2"
 rng=np.random.RandomState(0)
 a=sc.read_h5ad(H5)
 sub=pd.read_csv(os.path.join(D,"tnk_subset_percell.csv")).set_index("barcode")

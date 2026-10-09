@@ -5,7 +5,7 @@ cell-cycle phase, patient/batch, or a real program (crosstabs + marker/covariate
 subcluster labels + UMAP for downstream. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, scanpy as sc, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 OUT = os.path.join(C.BASE, "04_Main_Figures/Figure_3_panels"); D3 = C.DATA
 a = sc.read_h5ad(C.H5, backed="r")
 ra = pd.read_csv(C.REFA); ra["barcode"] = ra["barcode"].astype(str).str.replace(r"^b'|'$", "", regex=True)

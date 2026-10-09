@@ -7,8 +7,8 @@ import os, re, numpy as np, pandas as pd
 from wordcloud import WordCloud
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-V2  = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+V2  = "../../08_Source_Data/Figure_4/v2"
+OUT = "../../04_Main_Figures/Figure_4_panels"
 g = pd.read_csv(os.path.join(V2, "tnk_gsea_all.csv"))
 sig = g[(g["padj"] < 0.05) & (g["NES"] > 0)].copy()
 STOP = {"of","to","the","in","a","and","or","by","via","process","positive","negative","regulation",

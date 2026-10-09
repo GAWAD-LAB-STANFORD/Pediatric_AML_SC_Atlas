@@ -6,8 +6,8 @@ xlsx (MRD_BCB-AML-list, 'AML list'). Corrected relapsed set = 8 samples; AML4271
 Replaces the stale sub-panel. No fabricated values."""
 import os, numpy as np, pandas as pd, scanpy as sc, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
-H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+H5 = "../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+OUT = "../../05_Supplementary_Figures"
 RELAPSED = {"AML948","AML3082","AML3371","AML3492","AML4068","AML4239","AML4304","AML3121"}  # authoritative
 UNKNOWN  = {"AML4271","AML4363"}                                                            # clinically unavailable/ambiguous
 a = sc.read_h5ad(H5, backed="r")

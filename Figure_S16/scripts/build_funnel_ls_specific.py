@@ -31,10 +31,10 @@ import h5py
 from scipy.sparse import csr_matrix
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
-SURF = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ref/surfaceome_genes.txt"
-PROG = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3/LS_wholecohort_prognosis.csv"
+SURF = "../../../ref/surfaceome_genes.txt"
+PROG = "../../../08_Source_Data/Figure_2/v3/LS_wholecohort_prognosis.csv"
 OUT     = os.path.join(HERE, "..", "source_data", "funnel_ls_specific.csv")
 OUT_COMP= os.path.join(HERE, "..", "source_data", "funnel_ls_specific_composition.csv")
 

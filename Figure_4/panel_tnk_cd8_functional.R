@@ -5,9 +5,9 @@
 # (MKI67 ~0), and is NOT classically exhausted (PD1/TIM3 low) - a spent terminal-effector, not exhaustion.
 # Data = tnk_cd8_functional.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr); library(scales)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-D  <-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT<-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+D  <-"../../08_Source_Data/Figure_4/v2"
+OUT<-"../../04_Main_Figures/Figure_4_panels"
 d <- read.csv(file.path(D,"tnk_cd8_functional.csv"), check.names=FALSE)
 prog_ord <- c("cytotoxic","terminal/senescence","memory/stem reserve","exhaustion","prolif")
 d$program <- factor(d$program, levels=prog_ord)

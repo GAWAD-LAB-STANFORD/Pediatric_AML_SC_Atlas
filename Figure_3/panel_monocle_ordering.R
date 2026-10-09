@@ -3,8 +3,8 @@
 # median + IQR, ordered by median Monocle pseudotime; leukemic coloured by lineage program, normal in
 # bold purple. Independent cross-check of the diffusion-pseudotime ordering. Data = monocle3_trajectory.R.
 suppressMessages({library(ggplot2); library(dplyr)})
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_3_panels"
 d   <- read.csv(file.path(D3,"monocle_pseudotime.csv")) %>% filter(is.finite(monocle_pt))
 ann <- read.csv(file.path(D3,"LS_annotation.csv"))[,c("LS","lineage_program")]
 q <- d %>% group_by(group) %>% summarise(med=median(monocle_pt), lo=quantile(monocle_pt,.25), hi=quantile(monocle_pt,.75), .groups="drop")

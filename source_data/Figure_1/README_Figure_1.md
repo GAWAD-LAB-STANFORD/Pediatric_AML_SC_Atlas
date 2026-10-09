@@ -11,12 +11,12 @@ FAB subtype, sex, age at diagnosis, risk group, CNS status, disease status and
 sample type, WBC and blast % at diagnosis, MRD course, cytogenetics/mutations,
 karyotype, vital status, and relapse after induction.
 
-This replaces the biobank spreadsheet that previously sat here. That file was a
-938-row export of the whole tissue bank, of which only these 30 rows belong to
-this study, and it carried material that is not de-identified: exact specimen
-collection dates, a named pathologist, and verbatim flow-cytometry and pathology
-reports on per-patient sheets. It has been removed from this repository and from
-its git history, and is not redistributable.
+This replaces the biobank spreadsheet that previously sat here. That file held
+the same 30 samples, but carried material that is not de-identified. It had 30
+specimen collection dates at full day precision, a named pathologist and three
+named clinicians, pathology accession numbers, and eight per-patient sheets of
+verbatim flow-cytometry and pathology reports. It has been removed from this
+repository and from its git history, and is not redistributable.
 
 The table here is Safe Harbor de-identified: no dates finer than the year (the
 one date embedded in a free-text field was reduced to its year), no names, no

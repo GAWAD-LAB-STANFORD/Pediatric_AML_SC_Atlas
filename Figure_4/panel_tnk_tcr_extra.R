@@ -8,9 +8,9 @@
 # the deployed supplement: (1) duplicates main Fig 4F (per-patient clonality); (5) was dropped because the
 # HBM normal reference is only 2 donors (underpowered comparator).
 suppressMessages({library(ggplot2); library(dplyr); library(scales)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-V2 <-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT<-"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+V2 <-"../../08_Source_Data/Figure_4/v2"
+OUT<-"../../04_Main_Figures/Figure_4_panels"
 sv <- read.csv(file.path(V2,"tnk_subset_survival.csv")) %>% filter(outcome=="EFS") %>%
       mutate(dir=ifelse(FDR<0.10, ifelse(HR>1,"poor","favorable"),"n.s.")) %>% select(subset,dir)
 PC <- c(favorable=unname(PROG["favorable"]),poor=unname(PROG["poor"]),`n.s.`="#9aa0a6")

@@ -23,7 +23,7 @@ from lifelines import KaplanMeierFitter, CoxPHFitter
 from lifelines.statistics import logrank_test
 from statsmodels.stats.multitest import multipletests
 
-ROOT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+ROOT = "../../../raw"
 T_LOOM = f"{ROOT}/ALSF_AML_plot/H5AD/NCI_Target_scenic_integrated-output.loom"
 CLIN   = f"{ROOT}/Figure7/Figure7F_TARGET_CD96_merged.csv"
 SD     = f"{ROOT}/AML_2026_Alternate/source_data"

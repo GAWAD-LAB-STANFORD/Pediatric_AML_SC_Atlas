@@ -1,7 +1,7 @@
 """Figure 3 (CBF) shared config for the Python builders. Set FIG3_DATA to swap data."""
 import os
-BASE = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster"
-H5   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+BASE = "../.."
+H5   = "../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 DATA = os.environ.get("FIG3_DATA", os.path.join(BASE, "08_Source_Data/Figure_3/v3"))
 OUT  = os.environ.get("FIG3_OUT",  os.path.join(BASE, "04_Main_Figures/Figure_3_panels"))
 MEANCPM = os.path.join(DATA, "meancpm.npy"); GENES = os.path.join(DATA, "genes.npy")

@@ -6,11 +6,11 @@ AML-CD1C}); non-stable-cluster leukemic cells are greyed. No fabricated values."
 import os, sys, numpy as np, pandas as pd, h5py, anndata as ad, scanpy as sc, matplotlib, matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
 from matplotlib.colors import LinearSegmentedColormap
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../07_Code/Figure_3")
 import config as C
 HEATMAP0 = LinearSegmentedColormap.from_list("heatmap0",
   ["#001219","#005F73","#0A9396","#94D2BD","#E9D8A6","#EE9B00","#CA6702","#AE2012","#9B2226"])
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+OUT = "../../04_Main_Figures/Figure_2_panels"
 os.makedirs(OUT, exist_ok=True)
 
 # --- per-cell state labels (corrected) ---

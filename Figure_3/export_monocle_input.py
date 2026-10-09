@@ -6,7 +6,7 @@ existing UMAP) and genes.csv. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
 from scipy.io import mmwrite
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 OUT = "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/monocle_input"
 os.makedirs(OUT, exist_ok=True)
 f = h5py.File(C.H5, "r"); dec = lambda a: np.array([x.decode() if isinstance(x, bytes) else x for x in a])

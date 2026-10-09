@@ -5,10 +5,10 @@
 # (IRF7/IFI6/partial IL3RA) but NOT mature pDC (LILRA4/CLEC4C absent) and low myeloid differentiation.
 # Data = compute_ls19_markers.py. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr); library(scales)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D3  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_3_panels"
+D3  <- "../../08_Source_Data/Figure_3/v3"
+OUT <- "../../04_Main_Figures/Figure_3_panels"
 d <- read.csv(file.path(D3,"LS19_marker_dotplot.csv"))
 prog_ord <- c("progenitor","interferon","pDC","differentiation")   # surface -> its own panel (matches LS10)
 d <- d[d$program %in% prog_ord,]

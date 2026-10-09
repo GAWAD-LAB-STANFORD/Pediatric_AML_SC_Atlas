@@ -4,8 +4,8 @@ A UMAP of the 12 T/NK subsets; B per-sample composition (AML vs healthy BM); C d
 Panel D (finer-subset TARGET survival) is added after the CIBERSORTx run. Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+P   = "../../04_Main_Figures/Figure_4_panels"
+OUT = "../../04_Main_Figures"
 ROWS = [
   [("Figure_4A_tnk_umap.png","A"), ("Figure_4D_tnk_aml_vs_hbm.png","B"), ("Figure_4G_tnk_prognosis_dot.png","C")],  # same UMAP (subsets / AML-vs-HBM) + prognosis
   [("Figure_4B_tnk_composition.png","D")],          # per-sample composition

@@ -4,10 +4,10 @@
 # program-level version of the signal (the deconvolved normal-HSC fraction is too
 # zero-inflated to test). Score = mean z of the HSC/MPP program genes (LS25) on bulk CPM.
 suppressMessages({library(survival); library(survminer)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_2"
+CODE <- "../../07_Code/Figure_2"
 source(file.path(CODE, "manuscript_palette.R"))
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 
 sc <- read.csv(file.path(D2, "TARGET_bulk_program_scores.csv"))
 sv <- read.csv(file.path(D2, "..", "..", "Figure_3", "v3", "LS_survival.csv"), check.names=FALSE)

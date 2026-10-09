@@ -5,8 +5,8 @@ across the 8 normal hematopoietic compartments (toxicity reference) and the leuk
 CLL-1->CLEC12A. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-sys.path.insert(0,"/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
-OUT="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_5"
+sys.path.insert(0,"../../../07_Code/Figure_3"); import config as C
+OUT="../../../08_Source_Data/Figure_5"
 GSET=["CD96","CD9","SUCNR1","AMN","IL1RAP","LMBR1L","NRXN2","FURIN","UMODL1","CD7","CD33","CD123","CLL-1","CD38","CD70","FLT3","TNFRSF4","ABCA7","ITGAX"]
 SYM={"CD123":"IL3RA","CLL-1":"CLEC12A"}   # figure label -> gene symbol
 NORM={"0_HSPC":"HSPC","Myeloid_Pro":"Myeloid_Pro","CD14_Monocyte":"Monocyte","CD16_Monocyte":"Monocyte",

@@ -3,8 +3,8 @@
 # against event-free and overall survival (per-SD Cox), BH-FDR across the 12 subsets. Merges the CIBERSORTx
 # results with the same TARGET outcome table used for the leukemic states. No fabricated values.
 suppressMessages({library(survival); library(dplyr)})
-V2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-SURV <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3/LS_survival.csv"
+V2 <- "../../08_Source_Data/Figure_4/v2"
+SURV <- "../../08_Source_Data/Figure_3/v3/LS_survival.csv"
 jobs <- lapply(sprintf(file.path(V2, "CIBERSORTx_Job%d_Results.csv"), 29:32),
                read.csv, check.names = FALSE)
 cib <- bind_rows(jobs) %>% distinct(Mixture, .keep_all = TRUE)

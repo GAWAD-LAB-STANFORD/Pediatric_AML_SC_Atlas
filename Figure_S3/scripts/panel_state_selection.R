@@ -6,7 +6,7 @@
 # jaccard_percluster.csv (config.stable_raws uses the same >=0.35 rule). Replaces the legacy
 # 48-state figure, which read a superseded jaccard table. No fabricated values.
 suppressMessages({library(ggplot2)})
-JPC <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3/jaccard_percluster.csv"
+JPC <- "../../../08_Source_Data/Figure_3/v3/jaccard_percluster.csv"
 OUT <- "../figures"
 jac <- read.csv(JPC); jac <- jac[jac$res==4.5,]
 thr <- seq(0.30,0.75,0.05)

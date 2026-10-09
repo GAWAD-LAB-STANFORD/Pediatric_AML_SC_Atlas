@@ -4,7 +4,7 @@ reference) on the atlas UMAP. Shows LS19 sits with the progenitor/HSPC compartme
 mature pDC. Data = h5ad UMAP + REFA/Cell_Type. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 OUT = os.path.join(C.BASE, "04_Main_Figures/Figure_3_panels")
 f = h5py.File(C.H5, "r"); dec = lambda a: np.array([x.decode() if isinstance(x, bytes) else x for x in a])
 obs = dec(f["obs"]["_index"][:]); um = f["obsm"]["X_umap"][:]

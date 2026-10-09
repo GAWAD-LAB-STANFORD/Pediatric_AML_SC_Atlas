@@ -5,8 +5,8 @@
 # cytogenetic breadth (effective # subtypes) and patient-dominance class. Data =
 # compute_state_annotation.py (current 49-state h5ad). Replaces the legacy 48-state figure.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../05_Supplementary_Figures"
 PROG <- list("HSC/MPP"=c("CD34","HLF","AVP","CRHBP","HOXA9","MEIS1","MLLT3","PROM1","MECOM","GATA2"),
  "GMP"=c("MPO","ELANE","AZU1","PRTN3","CTSG","CEBPE","LYST","CFD"),
  "Monocyte"=c("LYZ","CD14","CSF1R","FCN1","VCAN","S100A8","S100A9","CD68"),

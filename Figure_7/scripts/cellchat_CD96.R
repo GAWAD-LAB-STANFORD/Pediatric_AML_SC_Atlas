@@ -16,10 +16,10 @@
 # the full sender network, per-patient heterogeneity, and the targetable-vs-cold
 # contrast. Sparse markers -> per-group mean (truncatedMean, trim=0).
 suppressPackageStartupMessages({ library(CellChat); library(Matrix) })
-HERE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/cellchat_CD96"; setwd(HERE)
-ASSETS <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/CD96_paper_figures_R/assets"
+HERE <- "../../../raw/cellchat_CD96"; setwd(HERE)
+ASSETS <- "../../../assets"
 MINC <- 10; CD96POS_MIN <- 10            # >=10% CD96+ AML cells = targetable
-d <- read.csv("cellchat_input.csv", stringsAsFactors = FALSE)
+d <- read.csv("../../../08_Source_Data/Figure_7/cellchat_input.csv", stringsAsFactors = FALSE)
 
 ## ---- per-sample CD96+ blast fraction; targetable = >=10% CD96+ leukemic ----
 aml <- d[d$compartment == "AML (leukemic)", ]

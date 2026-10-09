@@ -7,11 +7,11 @@ Cell_Type 0_HSPC/Myeloid_Pro. For each union "X OR Y" per cell:
   across   = % of AML patients with >=20% of blasts covered.
 -> source_data/fig7_allpairs.csv (+ 08_Source_Data mirror). No fabricated values."""
 import os, sys, itertools, numpy as np, pandas as pd, scipy.sparse as sp, h5py
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
 
-SD = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data"
-SD08 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_5"
+SD = "../../../07_Code/shared_CD96_pipeline/source_data"
+SD08 = "../../../08_Source_Data/Figure_5"
 GENES = {"CD96": "CD96", "CD9": "CD9", "SUCNR1": "SUCNR1", "IL1RAP": "IL1RAP", "FLT3": "FLT3",
          "CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD7": "CD7", "TNFRSF4": "TNFRSF4",
          "ABCA7": "ABCA7", "ITGAX": "ITGAX"}

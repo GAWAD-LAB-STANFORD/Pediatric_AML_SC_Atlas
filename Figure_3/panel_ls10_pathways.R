@@ -4,10 +4,10 @@
 # undifferentiated proliferation (DNA replication / chromosome segregation), comparators =
 # myeloid/immune differentiation. Gene lists from the per-cell DE. No fabricated values.
 suppressPackageStartupMessages({library(clusterProfiler); library(msigdbr); library(dplyr); library(ggplot2); library(stringr)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"
+CODE <- "../../07_Code/Figure_3"
 source(file.path(CODE, "manuscript_palette.R"))
-D2 <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2 <- "../../08_Source_Data/Figure_2/v3"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 BP <- msigdbr(species="Homo sapiens", collection="C5", subcollection="GO:BP") %>% dplyr::select(gs_name, gene_symbol)
 goterms <- function(csv, n=7){
   g <- read.csv(file.path(D2, csv))$names

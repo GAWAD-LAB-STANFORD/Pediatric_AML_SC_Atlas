@@ -13,7 +13,7 @@ Core-AML = Cell Type in {AML, AML-MKI67, AML-PCNA, AML-CD1C}; subtypes with >=50
 import os, sys
 import numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3")
+sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "source_data", "figS_cyto_window.csv")
 GENES = ["CD96","CD9","SUCNR1","IL1RAP","FLT3","CD33","IL3RA","CLEC12A","CD7","TNFRSF4","ABCA7","ITGAX"]

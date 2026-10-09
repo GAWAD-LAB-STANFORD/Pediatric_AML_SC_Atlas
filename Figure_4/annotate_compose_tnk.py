@@ -4,7 +4,7 @@ per-sample composition (AML vs healthy BM). Annotation from tnk_cluster_marker_m
 The LYZ+ low-quality cluster (15) is dropped. Writes per-cell subset labels, per-sample subset fractions,
 and a UMAP table for the panels. No fabricated values."""
 import os, numpy as np, pandas as pd
-D = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
+D = "../../08_Source_Data/Figure_4/v2"
 # cluster -> subset (from tnk_cluster_marker_means.csv):
 # 0 CD3-lo GZMB/GNLY/FCGR3A+ -> GZMB NK ; 1 CD3+CD8-lo GNLY+ -> GZMB DNT ; 2 CD4 IL7R+ CCR7-lo -> Memory CD4 T
 # 3 CD4 CCR7/SELL/TCF7+ -> Naive CD4 T ; 4 FOXP3/CTLA4+ -> Treg ; 5 CD8 CCR7/TCF7+ -> Naive CD8 T

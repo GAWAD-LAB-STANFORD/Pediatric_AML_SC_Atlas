@@ -2,7 +2,7 @@
 # holding LS_survival.csv, LS_annotation.csv, meancpm.npy, genes.npy,
 # reference_assignments.csv, jaccard_percluster.csv) or edit BASE below.
 suppressMessages({library(ggplot2); library(scales)})
-BASE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster"
+BASE <- "../.."
 C3   <- file.path(BASE, "07_Code/Figure_3")
 F3 <- new.env()
 F3$DATA   <- Sys.getenv("FIG3_DATA", file.path(BASE, "08_Source_Data/Figure_3/v3"))

@@ -5,11 +5,11 @@
 # unioned, capped at 28. Single-patient states marked with *. No fabricated values.
 suppressPackageStartupMessages({library(clusterProfiler); library(msigdbr); library(dplyr)
   library(tidyr); library(ggplot2); library(scales); library(stringr); library(patchwork)})
-CODE <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_2"
+CODE <- "../../07_Code/Figure_2"
 source(file.path(CODE, "manuscript_palette.R"))
-D2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_2/v3"
-UP  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_3/v3/LS_upgenes_wilcoxon.csv"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_panels"
+D2  <- "../../08_Source_Data/Figure_2/v3"
+UP  <- "../../08_Source_Data/Figure_3/v3/LS_upgenes_wilcoxon.csv"
+OUT <- "../../04_Main_Figures/Figure_2_panels"
 
 get_bp <- function() for (call in list(
     function() msigdbr(species="Homo sapiens", collection="C5", subcollection="GO:BP"),

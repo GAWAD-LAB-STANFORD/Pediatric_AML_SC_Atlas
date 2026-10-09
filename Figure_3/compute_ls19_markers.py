@@ -5,7 +5,7 @@ LS19 vs normal pDC vs normal HSPC vs other leukemic. Tests the 'least-differenti
 story. CSR-direct (fast). Also LS19 TARGET fraction by cytogenetic subtype. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-sys.path.insert(0, "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3"); import config as C
+sys.path.insert(0, "../../07_Code/Figure_3"); import config as C
 D3 = C.DATA
 GENES = {
  "pDC":         ["IRF7","LILRA4","GZMB","TCF4","CLEC4C","IRF8","SPIB","BST2"],

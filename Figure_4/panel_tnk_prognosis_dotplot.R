@@ -3,9 +3,9 @@
 # per SD (diverging: blue favorable / red poor), size = -log10 BH-FDR (significance). Deconvolved TARGET
 # fractions, n=1314. Data = tnk_subset_survival.csv. No fabricated values.
 suppressMessages({library(ggplot2); library(dplyr); library(scales)})
-source("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/07_Code/Figure_3/manuscript_palette.R")
-V2  <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_4_panels"
+source("../../07_Code/Figure_3/manuscript_palette.R")
+V2  <- "../../08_Source_Data/Figure_4/v2"
+OUT <- "../../04_Main_Figures/Figure_4_panels"
 d <- read.csv(file.path(V2, "tnk_subset_survival.csv"))
 d$log2HR <- log2(d$HR); d$nlFDR <- -log10(d$FDR)
 efs <- d %>% filter(outcome=="EFS")
