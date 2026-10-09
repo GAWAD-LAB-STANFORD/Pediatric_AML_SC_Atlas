@@ -6,10 +6,12 @@ Legacy figure carried from the original manuscript analysis (`Older_Files/ALSF A
 
 ## `patient_characteristics.csv` — the cohort table
 
-One row per sequenced sample (28 AML, 2 healthy marrow): study id, diagnosis and
+One row per AML patient in the study cohort (n = 28): study id, diagnosis and
 FAB subtype, sex, age at diagnosis, risk group, CNS status, disease status and
 sample type, WBC and blast % at diagnosis, MRD course, cytogenetics/mutations,
-karyotype, vital status, and relapse after induction.
+karyotype, vital status, and relapse after induction. The two healthy bone
+marrow donors in the atlas are not patients and have no row here, so the atlas
+has 30 samples where this table has 28.
 
 This replaces the biobank spreadsheet that previously sat here. That file held
 the same 30 samples, but carried material that is not de-identified. It had 30
