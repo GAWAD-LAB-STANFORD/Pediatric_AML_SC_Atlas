@@ -17,7 +17,7 @@ AML4062,AML,"WHO classification: AMLwith inv(16)(p13.1q22) or t(16;16)(p13.1;q22
 AML4068,Relapsed AML (M5b),M5b (acute monocytic leukemia) (from 2016),F,20.6,High Risk,CNS (?),Relapse,BM,>40,88.5,Negative at D50,FLT3 D835 mutation,"46,XX[20]Normal 46,XX female karyotype",Deceased,No
 AML4090,AML (M1),M1 (AML without maturation),F,15.1,High risk,CNS3,Diagnosis,BM,2.4,68,17.5% at D22,"Trisomy #8, negative FLT3-ITD","47,XX,+8[18]/48,idem,+8[2]",Alive,No
 AML4102,AML (M1),M1 (AML without maturation),F,9.9,Low risk,CNS1,Diagnosis,BM,3.8,88,UD at D22,t(8;21)(q22;q22); RUNX1-RUNX1T1,"45,X,-X,t(8;21)(q22;q22)[19]/46,idem,+6[2]",Alive,No
-AML4116,AML (M1),M1 (AML without maturation),M,12.8,Intermediate to Very high risk (NUP98-NSD1 fusion),CNS1,Diagnosis,BM,29.5,83,0.17 at D22,"NUP98-NSD1 fusion based on Dr. Lacayo, neg FLT3-ITD, MECOM, and KMT2A","46,XY[20]",Alive,No
+AML4116,AML (M1),M1 (AML without maturation),M,12.8,Intermediate to Very high risk (NUP98-NSD1 fusion),CNS1,Diagnosis,BM,29.5,83,0.17 at D22,"NUP98-NSD1 fusion based on the treating physician, neg FLT3-ITD, MECOM, and KMT2A","46,XY[20]",Alive,No
 AML4127,AML,"N/A, flow data shown in excel sheet",F,24.4,Standard Risk,CNS (?),Diagnosis,BM-R,2.9,25,2-5% after cycle 1,"Trisomy 8N, negative FLT3","47,XX,+8[18]/46,XX[2]",Alive,No
 AML4192,AML (M5a),M5a,F,7.8,intermediate risk,CNS3,Diagnosis,PB,Thrombocytopenia and severe leukocytosis with WBC >400.,94,UD at D22,"Trisomy #8 , Positive for FLT3 S451F,and BCORL1 mutation s/p induction 2. Found to be MLL rearranged by NGS with KMT2A-MLLT6","47,XX,+8[3]/46,XX[1]",Alive,No
 AML4226,AML (M2),M2,M,6.8,intermediate risk,CNS2,Diagnosis,BM,7.4,41,0.003,Negative FLT3,"46,XY[20]",Alive,No
