@@ -184,7 +184,7 @@ pBox <- ggplot(bxd, aes(label, pct, fill = cls)) +
 # violin_panel() (shared bulk-expression violin, coloured by group) now lives in _style.R
 # so the non-MLL supplement (figS.R) can reuse it.
 
-## ---- F (left): pediatric AML — TARGET bulk violins (4 leads + FLT3 ctrl + 3 clinical) ----
+## ---- F (left): pediatric AML — TARGET bulk violins (4 leads + FLT3 ctrl + 4 clinical incl. CD7 = 9 antigens) ----
 # Pediatric (discovery) cohort sets the shared x-order, by descending median; the adult
 # panel reuses it so each gene sits at the same x in both → direct cross-cohort read.
 # corrected scheme: drop the retired state-specific markers from the bulk validation; CD7 -> clinical comparator.
@@ -211,13 +211,13 @@ pF <- violin_panel(drop_ppac(sd("fig5F_violin.csv")) |> dplyr::filter(label %in%
 
 ## ---- G (right): adult AML — BeatAML bulk violins (cross-cohort twin of E) ----
 # Adult validation cohort: BeatAML (OHSU, Nature 2018), CPM profile, BM blasts ≥80% (n=104).
-# Same 8 targets, same log2(CPM+1) scale, same x-order → directly comparable to E.
+# Same 9 targets, same log2(CPM+1) scale, same x-order → directly comparable to E.
 adult <- drop_ppac(sd("fig5F_adult_beataml_violin.csv")) |> dplyr::filter(label %in% shared) |>
   dplyr::rename(log2cpm = log2)
 pE <- violin_panel(adult, adult_meta, gene_ord, "Adult AML (BeatAML)")
 
 # bottom row = cross-cohort bulk twins: pediatric TARGET violin (pF) = panel F (left);
-# adult BeatAML violin (pE) = panel G (right). Same 8 targets, same log2-CPM scale.
+# adult BeatAML violin (pE) = panel G (right). Same 9 targets, same log2-CPM scale.
 # panel D (all 49 states) + panel E (coverage summary) each get a full-width band; C sits above them,
 # the cross-cohort bulk violins (F pediatric, G adult) below.
 fig6 <- (pA | pB) / pC / pD / pBox / (pF | pE) +
