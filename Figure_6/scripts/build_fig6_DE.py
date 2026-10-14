@@ -6,13 +6,15 @@ with the rest of Figures 5-7.
 D: per-target metric profile (all axes 0-100, higher = better): AML coverage, patient breadth, marrow
    sparing, mature-immune sparing, vital-organ sparing (worst normal-tissue cell type from CZ Census).
 E: CD96-anchored greedy cumulative % of AML patients covered (>=20% of their blasts positive).
--> source_data/fig6D_radar.csv, fig5E_coverage.csv (+ 08_Source_Data mirror). No fabricated values."""
+-> fig6D_radar.csv to Figure_6, fig5E_coverage.csv to Figure_5 (+ pipeline and local source_data). No fabricated values."""
 import os, sys, numpy as np, pandas as pd, scipy.sparse as sp, h5py
 sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
 
 SD = "../../../07_Code/shared_CD96_pipeline/source_data"
-SD08 = "../../../08_Source_Data/Figure_5"
+SDL = "../source_data"                                  # what the R figure scripts read
+SD08_RADAR = "../../../08_Source_Data/Figure_6"         # panel D is Figure 6D
+SD08_COVER = "../../../08_Source_Data/Figure_5"         # coverage table, see note below
 SEL = {"CD96": "CD96", "CD9": "CD9", "SUCNR1": "SUCNR1", "IL1RAP": "IL1RAP", "FLT3": "FLT3",
        "CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD7": "CD7", "TNFRSF4": "TNFRSF4",
        "ABCA7": "ABCA7", "ITGAX": "ITGAX"}                        # symbol -> display
@@ -82,8 +84,21 @@ while remaining:
     steps.append(dict(step=len(chosen), gene=syms[best], label=SEL[syms[best]], group=GROUP[syms[best]],
                       added=best_new, cum_pct=round(100.0 * got.mean(), 1), n_patients=len(aml_samples)))
 
-for d in (SD, SD08):
+# fig6D_radar.csv is Figure 6 panel D and belongs under Figure_6. It was written
+# only to 08_Source_Data/Figure_5, so the copy under Figure_6 -- the one a reader
+# looks for, and the one the browser bundle reads -- was never regenerated. It
+# held pre-recluster values and disagreed with the published figure on three
+# genes (SUCNR1, IL3RA, ITGAX) and with the screen and head-to-head tables.
+# SDL is added because fig6_DE.R reads ../source_data (SRC in _style.R), which
+# this script did not write, so the figure's own input could drift too.
+for d in dict.fromkeys((SD, SDL, SD08_RADAR)):
+    os.makedirs(d, exist_ok=True)
     radar.to_csv(os.path.join(d, "fig6D_radar.csv"), index=False)
+# fig5E_coverage.csv keeps its Figure_5 home and its legacy name, although the
+# panel it feeds is now drawn by fig7_coverage.R. Renaming or moving it is a
+# separate decision; it is flagged rather than changed here.
+for d in dict.fromkeys((SD, SDL, SD08_COVER)):
+    os.makedirs(d, exist_ok=True)
     pd.DataFrame(steps).to_csv(os.path.join(d, "fig5E_coverage.csv"), index=False)
 print("AML patients: %d | corrected leukemic=%s & AML | threshold >=%.0f%%\n" % (len(aml_samples), C.LEUK_CELLTYPES, COVER_THRESH))
 print("=== D radar ===\n", radar.to_string(index=False))
