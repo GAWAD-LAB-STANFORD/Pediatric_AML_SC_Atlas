@@ -1,0 +1,37 @@
+# Python dependencies — Pediatric AML single-cell atlas
+#
+# Two groups. The first are the versions named in the manuscript Methods; those are
+# what produced the published results and are what to install to reproduce them.
+# The second are packages the code imports that the Methods does not name a version
+# for; the version given is the one present in the authors' current environment,
+# which post-dates the analysis for some packages. Install the Methods-pinned set
+# exactly; treat the second group as a floor, not a guarantee.
+#
+# Tested on Python 3.14.
+
+# ---- versions stated in the manuscript Methods ----
+scanpy==1.12.1
+anndata==0.12.16
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.8.0
+statsmodels==0.14.6
+lifelines==0.30.3
+
+# ---- imported by the shipped code, version not stated in Methods ----
+# (observed in the authors' environment at 2026-10-14)
+pandas>=3.0.6
+matplotlib>=3.11.2
+h5py>=3.16.0
+pillow>=12.3.0            # PIL, used by the composite/stitching scripts
+pymupdf>=1.28.2           # provides `fitz`
+seaborn>=0.13.2
+wordcloud>=1.9.6
+python-docx>=1.2.0        # caption/table builders only
+adjustText                # label de-overlap in several panels
+cellxgene-census          # Figure 6 normal-tissue pull (CZ CELLxGENE Census)
+tiledbsoma                # backend for cellxgene-census
+
+# h5py, anndata, scanpy, cellxgene-census and tiledbsoma are needed only by the
+# BUILDER scripts that read the large AnnData objects or query the Census. The
+# per-figure renderers, which read the shipped plot-level tables, do not need them.

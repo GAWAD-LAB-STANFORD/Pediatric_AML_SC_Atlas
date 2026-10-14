@@ -1,0 +1,61 @@
+# R dependencies — Pediatric AML single-cell atlas
+# Tested on R 4.5.2. Versions are those present in the authors' environment at
+# 2026-10-14; clusterProfiler 4.18.4 is the version named in the manuscript Methods.
+#
+# Install CRAN packages with install.packages(), Bioconductor packages with
+# BiocManager::install(), and the two GitHub packages as noted at the bottom.
+
+# ---- CRAN: plotting and data manipulation (used by nearly every renderer) ----
+ggplot2        4.0.2
+dplyr          1.2.0
+tidyr          1.3.2
+readr          2.2.0
+forcats        1.0.1
+tibble         3.3.1
+stringr        1.6.0
+scales         1.4.0
+patchwork      1.3.2
+ggrepel        0.9.7
+ggtext         0.1.2
+ggnewscale     0.5.2
+ggh4x          0.3.1
+ggsignif       0.6.4
+ggpubr         0.6.3
+ggdendro       0.2.0
+RColorBrewer   1.1.3
+ragg           1.5.0
+png            0.1.8
+gplots         3.3.0
+reshape2       1.4.5
+reshape        0.8.10
+
+# ---- CRAN: analysis ----
+survival       3.8.6
+survminer      0.5.2
+igraph         2.2.2
+Matrix         1.7.4
+cluster        2.1.8.2
+dendextend     1.19.1
+flexmix        2.3.21
+FactoMineR     2.13
+vegan          2.7.3
+ape            5.8.1
+phangorn       # not installed in the authors' current environment; used by a legacy tree script
+adegenet       2.1.11
+
+# ---- Bioconductor ----
+clusterProfiler        4.18.4   # version named in the manuscript Methods
+fgsea                  1.36.2
+msigdbr                25.1.1
+ComplexHeatmap         2.26.1
+circlize               0.4.17
+SingleCellExperiment   1.32.0
+
+# ---- GitHub ----
+monocle3       1.4.27        # remotes::install_github("cole-trapnell-lab/monocle3")
+CellChat       2.2.0.9001    # remotes::install_github("jinworks/CellChat")
+
+# ---- browser app only (07_Code/app) ----
+shiny          1.13.0
+DT             0.34.0
+bslib          0.10.0
