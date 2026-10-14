@@ -1,6 +1,6 @@
 # Figure S7 — State-level stemness does not distinguish prognosis
 
-**Self-contained.** Reproduces deployed **Figure S9** (`../../05_Supplementary_Figures/Figure_S7__stemness_by_prognosis.png`) from its own source data.
+**Self-contained.** Reproduces deployed **Figure S7** (`../../05_Supplementary_Figures/Figure_S7__stemness_by_prognosis.png`) from its own source data.
 Part of the atlas/prognosis analysis stream (legacy Figure_1-4 pipelines); scripts here are copies so this figure stands alone.
 
 ## Reproduce

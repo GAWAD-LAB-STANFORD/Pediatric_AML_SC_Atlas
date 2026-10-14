@@ -4,7 +4,7 @@
 # Inputs : fig6tox_celltypes.csv, fig6tox_hema.csv, fig6tox_organ.csv
 # Outputs: .panel_fig6ABC.pdf, _review_fig6ABC.png
 # Run    : Rscript fig6_toxicity.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # NEW Figure 6 (toxicity disqualification) — 3 stacked dot plots, each independently

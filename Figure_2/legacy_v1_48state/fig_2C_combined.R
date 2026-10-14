@@ -2,9 +2,9 @@
 # Figure 2C (v2): 14 prognostic states x {cytogenetic | molecular} subtypes, sharing
 # the y-axis + one stemness strip. Harmonized ltc palette (heatmap0).
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-SL <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SL <- "../../../raw/legacy_v1_48state"
 source(file.path(SL, "manuscript_palette.R"))
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
+OUT <- "../../../04_Main_Figures/Figure_2_new_panels"
 pr  <- read.csv(file.path(SL, "target_ls/LS48_prognosis.csv")); pr <- pr[pr$fdr < 0.10, ]
 ann <- read.csv(file.path(SL, "ls48/LS48_annotation.csv"))[, c("LS", "lineage_program")]
 stem<- read.csv(file.path(SL, "ls48/LS48_stem_scores.csv"))[, c("LS", "stem_z")]

@@ -5,7 +5,7 @@
 # Inputs : (reads upstream object / raw matrix — see body)
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : python build_Figure8_assembled.py   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 """Assemble FIGURE 8 — body-wide normal-tissue toxicity (4 panels).

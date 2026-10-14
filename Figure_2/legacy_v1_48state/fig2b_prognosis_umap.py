@@ -3,9 +3,9 @@
 full-atlas UMAP, same coordinates as Figure 1/2A. minou teal/red + grey (ns)."""
 import os, numpy as np, pandas as pd, h5py, anndata as ad, scanpy as sc, matplotlib.pyplot as plt
 from scipy.spatial.distance import cdist
-SC="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-OUT="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+SC="../../../raw/legacy_v1_48state"
+OUT="../../../04_Main_Figures/Figure_2_new_panels"
+H5="../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 f=h5py.File(H5,"r")
 def col(n):
     nd=f["obs"][n]; cats=[c.decode() if isinstance(c,bytes) else c for c in nd["categories"][:]]

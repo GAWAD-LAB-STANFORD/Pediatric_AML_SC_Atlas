@@ -4,7 +4,9 @@
 # the trajectory coloured by Monocle pseudotime and per-cell/per-group pseudotime for ordering the
 # states with normal anchors. Independent cross-check of the diffusion-pseudotime ordering. No fabrication.
 suppressPackageStartupMessages({library(monocle3); library(Matrix); library(dplyr); library(ggplot2); library(igraph)})
-IN  <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/monocle_input"
+# Intermediate staging directory written by export_monocle_input.py. "raw/" is the
+# documented side-by-side location for large intermediates; it is not shipped.
+IN  <- "../../raw/monocle_input"
 OUT <- "../../04_Main_Figures/Figure_3_panels"
 D3  <- "../../08_Source_Data/Figure_3/v3"
 set.seed(1)

@@ -7,7 +7,12 @@ E candidate HSC-sparing surface markers. Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 P   = "../../04_Main_Figures/Figure_2_panels"
-OUT = "../../04_Main_Figures"
+# Superseded LS10 proliferation composite. Figure 3 of the submitted paper is the LS19
+# pDC/progenitor figure built by composite_fig3_ls19.py; this one is retained for
+# provenance and writes to the panels directory so it cannot land a second
+# "Figure_3__" file beside the deployed figure.
+OUT = "../../04_Main_Figures/Figure_3_panels"
+os.makedirs(OUT, exist_ok=True)
 ROWS = [
   [("Figure_3_state_selection_volcano.png","A"), ("UMAP_LS10_vs_prolifNS_HSC.png","B")],
   [("Figure_3_LS10_gsea.png","C"), ("KM_LS_10_wholecohort_EFS.png","D")],

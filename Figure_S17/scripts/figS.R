@@ -4,7 +4,7 @@
 # Inputs : fig5F_meta_all.csv, fig5F_violin.csv, figS17_corr_r.csv, figS17_points_bulk.csv, figS17_points_singlecell.csv, figS_cyto_pediatric_violin.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript figS.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Supplementary figures (R/ggplot2):

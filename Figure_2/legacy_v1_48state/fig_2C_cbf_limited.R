@@ -4,13 +4,13 @@
 # EFS Cox (HR, p) text column. Rows = states associated with within-CBF EFS
 # (nominal Cox p<0.10), favorable/poor blocks, ordered by Cox p.
 suppressMessages({library(ggplot2); library(patchwork); library(scales); library(survival)})
-SL <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SL <- "../../../raw/legacy_v1_48state"
 source(file.path(SL, "manuscript_palette.R"))
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
-PKG <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+OUT <- "../../../04_Main_Figures/Figure_2_new_panels"
+PKG <- "../../.."
 
 d  <- read.csv(file.path(SL, "target_ls/LS48_survival.csv"))
-ef <- read.csv(file.path(PKG,"__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv"))[,c("sample","efs_time","efs_event")]
+ef <- read.csv(file.path(PKG,"08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv"))[,c("sample","efs_time","efs_event")]
 d  <- merge(d, ef, by="sample")
 cbf <- d[d$subtype2 %in% c("t(8;21)","inv(16)") & !is.na(d$efs_time), ]
 

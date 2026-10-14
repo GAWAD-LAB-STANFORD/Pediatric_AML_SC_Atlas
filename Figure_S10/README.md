@@ -1,6 +1,6 @@
 # Figure S10 — Cellular composition and cell cycle
 
-**Self-contained.** Reproduces deployed **Figure S6** (`../../05_Supplementary_Figures/Figure_S10__composition_cell_cycle.png`) from its own source data.
+**Self-contained.** Reproduces deployed **Figure S10** (`../../05_Supplementary_Figures/Figure_S10__composition_cell_cycle.png`) from its own source data.
 Part of the atlas/prognosis analysis stream (legacy Figure_1-4 pipelines); scripts here are copies so this figure stands alone.
 
 ## Reproduce

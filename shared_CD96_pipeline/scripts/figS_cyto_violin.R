@@ -4,7 +4,7 @@
 # Inputs : fig5F_meta_all.csv, figS_cyto_adult_violin.csv, figS_cyto_pediatric_violin.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript figS_cyto_violin.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Supplements to Figure-5 panels E/F: the 8 targets violined, FACETED by cytogenetic subtype.

@@ -4,7 +4,7 @@
 # Inputs : cellchat_3path_input.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript fig7_circos_3panel.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Figure 7 — three interaction circos (CD96, ITGAX, OX40), one per target, AML-centric.

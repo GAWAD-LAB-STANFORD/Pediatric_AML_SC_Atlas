@@ -1,6 +1,6 @@
 # Figure S21 — Therapeutic-window violins, KMT2Ar/MLL-excluded
 
-**Self-contained.** This folder reproduces deployed **Figure S20** (`../../05_Supplementary_Figures/Figure_S21__nonMLL_violins.pdf`) from its own
+**Self-contained.** This folder reproduces deployed **Figure S21** (`../../05_Supplementary_Figures/Figure_S21__nonMLL_violins.pdf`) from its own
 plot-level source data. Part of the integrated CD96 analysis (canonical pipeline:
 `../shared_CD96_pipeline/`, `run_all.sh`); the scripts here are copies so this figure stands alone.
 

@@ -4,7 +4,7 @@
 # Inputs : AML-sample-infor.csv, AML_scRNA_Cell_summary_Cell_Type.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript Figure_1_Dendrogram_plotting.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 
@@ -45,7 +45,7 @@ library(dendextend)
 library(ComplexHeatmap)
 library(circlize)
 
-detach(package:plyr)
+# detach(package:plyr)  # removed: plyr is never attached here, so this errored
 
 # setwd removed: run this script from its own folder (see README_REPRODUCIBILITY.md)
 df_pca <- read.table("../../08_Source_Data/Figure_1/pca_Combo_AML_with_normal_by_Sample_for_dendrogram_repca.csv",sep = ",", header = TRUE)

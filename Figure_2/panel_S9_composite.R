@@ -61,6 +61,6 @@ pE <- ggplot(norm, aes(sample_type, frac, fill=sample_type)) + geom_boxplot(widt
     plot.title=element_text(size=11,face="bold"))
 
 fig <- pA / pB / (pC | pD) / pE + plot_layout(heights=c(1,1,1.1,1.4))
-ggsave(file.path(OUT,"Figure_S6__composition_cell_cycle.pdf"), fig, width=11, height=15)
-ggsave(file.path(OUT,"Figure_S6__composition_cell_cycle.png"), fig, width=11, height=15, dpi=150)
+ggsave(file.path(OUT,"Figure_S10__composition_cell_cycle.pdf"), fig, width=11, height=15)
+ggsave(file.path(OUT,"Figure_S10__composition_cell_cycle.png"), fig, width=11, height=15, dpi=150)
 cat("wrote rebuilt S9->S6 composition+cell-cycle composite\n")

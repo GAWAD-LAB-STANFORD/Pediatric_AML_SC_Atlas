@@ -4,9 +4,9 @@
 # Figure 2F (clusterProfiler::enricher vs MSigDB C5 GO:BP), rendered as a heatmap.
 suppressPackageStartupMessages({library(clusterProfiler); library(msigdbr); library(dplyr)
   library(tidyr); library(ggplot2); library(patchwork); library(scales); library(stringr)})
-SL <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SL <- "../../../raw/legacy_v1_48state"
 source(file.path(SL, "manuscript_palette.R"))
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
+OUT <- "../../../04_Main_Figures/Figure_2_new_panels"
 args <- commandArgs(trailingOnly = TRUE)
 ORDER <- if (length(args) >= 1) args[1] else file.path(SL, "ls48/LS_prognostic_order.csv")
 OUTB  <- if (length(args) >= 2) args[2] else "Figure_2G_prognostic_GOBP"

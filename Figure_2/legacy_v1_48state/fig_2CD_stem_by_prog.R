@@ -3,9 +3,9 @@
 # (Favorable / No assoc. / Poor); each dot = one leukemic state (per-state median
 # score); one panel per score (LSC Eppert, HSC). Kruskal-Wallis + pairwise Wilcoxon.
 suppressMessages({library(ggplot2); library(ggpubr); library(patchwork)})
-SL <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SL <- "../../../raw/legacy_v1_48state"
 source(file.path(SL, "manuscript_palette.R"))
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
+OUT <- "../../../04_Main_Figures/Figure_2_new_panels"
 
 pc  <- read.csv(file.path(SL, "ls48/LS48_stem_percell.csv"))
 agg <- aggregate(cbind(LSC_Eppert, HSC) ~ LS, data = pc, median)     # per-state median

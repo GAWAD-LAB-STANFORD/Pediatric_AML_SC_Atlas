@@ -6,7 +6,7 @@
 # reference_assignments.csv, jaccard_percluster.csv.
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
-PY="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/.venv/bin/python"
+PY="python3"
 RS="Rscript"
 echo "[1/8] within-CBF EFS Cox + focus state"; $RS "$HERE/01_cbf_prognosis.R"
 echo "[2/8] panel A (CBF states)";            $RS "$HERE/02_panelA_cbf_states.R"

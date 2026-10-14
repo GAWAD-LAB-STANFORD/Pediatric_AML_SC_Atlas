@@ -1,6 +1,6 @@
 # Figure S15 — Per-poor-prognosis-state (LS) efficacy vs toxicity
 
-**Self-contained.** This folder reproduces deployed **Figure S16** (`../../05_Supplementary_Figures/Figure_S15__ls_headtohead.pdf`) from its own
+**Self-contained.** This folder reproduces deployed **Figure S15** (`../../05_Supplementary_Figures/Figure_S15__ls_headtohead.pdf`) from its own
 plot-level source data. Part of the integrated CD96 analysis (canonical pipeline:
 `../shared_CD96_pipeline/`, `run_all.sh`); the scripts here are copies so this figure stands alone.
 

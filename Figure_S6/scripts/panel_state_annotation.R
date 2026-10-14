@@ -48,6 +48,6 @@ b2 <- ggplot(ad,aes("patients",state,fill=patient_class))+geom_tile(colour="whit
   scale_fill_manual(values=pcol,name=NULL,drop=FALSE)+labs(x=NULL,y=NULL)+theme_minimal(base_size=7)+
   theme(axis.text.y=element_blank(),axis.text.x=element_text(size=6),panel.grid=element_blank(),legend.position="right")
 fig <- ph + b1 + b2 + plot_layout(widths=c(1,0.04,0.04))
-ggsave(file.path(OUT,"Figure_S10__leukemic_state_annotation.pdf"),fig,width=15,height=10)
-ggsave(file.path(OUT,"Figure_S10__leukemic_state_annotation.png"),fig,width=15,height=10,dpi=200)
+ggsave(file.path(OUT,"Figure_S6__leukemic_state_annotation.pdf"),fig,width=15,height=10)
+ggsave(file.path(OUT,"Figure_S6__leukemic_state_annotation.png"),fig,width=15,height=10,dpi=200)
 cat("wrote 49-state annotation heatmap (S10)\n")

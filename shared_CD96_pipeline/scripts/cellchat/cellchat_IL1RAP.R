@@ -4,7 +4,7 @@
 # Inputs : cellchat_IL1_input.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript cellchat_IL1RAP.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # CellChat IL-1 pathway (IL1A/IL1B -> IL1R1_IL1RAP; IL36A/IL36G -> IL1RL2_IL1RAP) in

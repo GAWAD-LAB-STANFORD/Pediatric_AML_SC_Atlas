@@ -27,7 +27,9 @@ cat("patched extract_ddrtree_ordering (graph.dfs -> igraph::dfs mode=)\n")
 .p2mf <- eval(parse(text = .p2m)); environment(.p2mf) <- asNamespace("monocle")
 assignInNamespace("project2MST", .p2mf, ns = "monocle")
 cat("patched project2MST (nei -> .nei, graph.adjacency -> graph_from_adjacency_matrix)\n")
-IN  <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/monocle_input"
+# Intermediate staging directory written by export_monocle_input.py. "raw/" is the
+# documented side-by-side location for large intermediates; it is not shipped.
+IN  <- "../../raw/monocle_input"
 D3  <- "../../08_Source_Data/Figure_3/v3"
 set.seed(1)
 counts <- as(Matrix::readMM(file.path(IN,"counts.mtx")), "CsparseMatrix")   # genes x cells

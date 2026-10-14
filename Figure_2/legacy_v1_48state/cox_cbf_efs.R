@@ -1,8 +1,8 @@
 suppressMessages(library(survival))
-SL="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-PKG="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+SL="../../../raw/legacy_v1_48state"
+PKG="../../.."
 d=read.csv(file.path(SL,"target_ls/LS48_survival.csv"))
-ef=read.csv(file.path(PKG,"__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv"))[,c("sample","efs_time","efs_event")]
+ef=read.csv(file.path(PKG,"08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv"))[,c("sample","efs_time","efs_event")]
 d=merge(d,ef,by="sample")
 cbf=d[d$subtype2 %in% c("t(8;21)","inv(16)") & !is.na(d$efs_time) & !is.na(d$efs_event),]
 cat(sprintf("CBF with EFS: %d patients, EFS events=%d\n\n",nrow(cbf),sum(cbf$efs_event)))

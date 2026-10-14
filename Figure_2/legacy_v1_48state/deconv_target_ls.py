@@ -8,9 +8,9 @@ normal-reference-augmented CIBERSORTx run is the confirmatory step.
 """
 import os, numpy as np, pandas as pd
 from scipy.optimize import nnls
-SC = "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SC = "../../../raw/legacy_v1_48state"
 SIG = f"{SC}/signatures_all"; OUT = f"{SC}/target_ls"; os.makedirs(OUT, exist_ok=True)
-PKG = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"
+PKG = "../../.."
 
 # ---- 30-state signature (marker genes) with LS names ----
 genes = np.load(f"{SIG}/genes.npy", allow_pickle=True).astype(str)
@@ -45,8 +45,8 @@ frac = pd.DataFrame(F, columns=ls_names); frac.insert(0, "sample", pts)
 frac.to_csv(f"{OUT}/LS_target_fractions.csv", index=False)
 
 # ---- join survival + cytogenetic subtype ----
-surv = pd.read_csv(f"{PKG}/__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv")
-cd = pd.read_csv(f"{PKG}/__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv")[["sample","subtype2"]]
+surv = pd.read_csv(f"{PKG}/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv")
+cd = pd.read_csv(f"{PKG}/08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv")[["sample","subtype2"]]
 J = frac.merge(surv[["sample","os_time","os_event","efs_time","efs_event","age","wbc","risk"]], on="sample", how="left")
 J = J.merge(cd.drop_duplicates("sample"), on="sample", how="left")
 J.to_csv(f"{OUT}/LS_target_survival_input.csv", index=False)

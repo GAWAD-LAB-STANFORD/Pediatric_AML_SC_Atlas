@@ -27,7 +27,7 @@ p <- ggplot(d, aes(HR, label, colour=prognosis)) +
   theme_minimal(base_size=10) +
   theme(panel.grid.minor=element_blank(), axis.text.y=element_text(size=6.5),
         plot.title=element_text(size=11, face="bold"), legend.position="right")
-ggsave(file.path(OUT,"Figure_S11__state_EFS_forest.pdf"), p, width=7.5, height=9)
-ggsave(file.path(OUT,"Figure_S11__state_EFS_forest.png"), p, width=7.5, height=9, dpi=200)
+ggsave(file.path(OUT,"Figure_S5__state_EFS_forest.pdf"), p, width=7.5, height=9)
+ggsave(file.path(OUT,"Figure_S5__state_EFS_forest.png"), p, width=7.5, height=9, dpi=200)
 cat(sprintf("wrote S11 49-state EFS forest (favorable=%d, poor=%d, n.s.=%d)\n",
     sum(d$prognosis=="favorable"), sum(d$prognosis=="poor"), sum(d$prognosis=="n.s.")))

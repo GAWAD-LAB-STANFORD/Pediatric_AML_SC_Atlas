@@ -11,10 +11,10 @@ import h5py, numpy as np, pandas as pd, os
 from scipy.sparse import csr_matrix
 dec=lambda a:np.array([x.decode() if isinstance(x,bytes) else x for x in a])
 ROOT="../../../raw"
-RD=os.path.join(ROOT,"__SUBMISSION_PACKAGE_v2_recluster/07_Code/shared_CD96_pipeline/source_data")
+RD="../../../07_Code/shared_CD96_pipeline/source_data"
 H5=os.path.join(ROOT,"ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad")
 H5T=os.path.join(ROOT,"ALSF_AML_plot/H5AD/ALSF_AML_total_Tcell_rna_withTCR.h5ad")
-PC=os.path.join(ROOT,"__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/Figure_4/v2/tnk_subset_percell.csv")
+PC="../../../08_Source_Data/Figure_4/v2/tnk_subset_percell.csv"
 GENES=["CD96","TIGIT","CD226","PVR","NECTIN1","NECTIN2"]
 ROLE={"CD96":"receptor","TIGIT":"receptor","CD226":"receptor","PVR":"ligand","NECTIN1":"ligand","NECTIN2":"ligand"}
 def raw(H5):

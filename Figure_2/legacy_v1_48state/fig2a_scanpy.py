@@ -8,9 +8,9 @@ from scipy.sparse import csr_matrix
 from scipy.spatial.distance import cdist
 from matplotlib.colors import LinearSegmentedColormap
 HEATMAP0=LinearSegmentedColormap.from_list("heatmap0",["#001219","#005F73","#0A9396","#94D2BD","#E9D8A6","#EE9B00","#CA6702","#AE2012","#9B2226"])
-SC="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-OUT="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+SC="../../../raw/legacy_v1_48state"
+OUT="../../../04_Main_Figures/Figure_2_new_panels"
+H5="../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 NSTATE=48
 pal30=[matplotlib.colors.to_hex(c) for c in (list(plt.cm.tab20.colors)+list(plt.cm.tab20b.colors)+list(plt.cm.tab20c.colors))][:NSTATE]
 

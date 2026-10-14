@@ -4,7 +4,7 @@
 # Inputs : figS16_leads_celltype.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript figS_leads_celltype.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # ALTERNATE — cell-type specificity / safety of the 4 LEAD targets (CD96, CD9, SUCNR1, IL1RAP).

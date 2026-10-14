@@ -5,7 +5,7 @@
 # Inputs : (reads upstream object / raw matrix — see body)
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : python build_FigureS_CD96_combinations.py   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 """Supplement: best 2nd target to PAIR with CD96 — two complementary questions,

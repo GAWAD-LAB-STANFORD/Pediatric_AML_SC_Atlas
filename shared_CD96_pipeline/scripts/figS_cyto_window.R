@@ -4,7 +4,7 @@
 # Inputs : figS_cyto_window.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript figS_cyto_window.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Supplementary figure — therapeutic window by CYTOGENETIC SUBTYPE (analogue of S15, grouped

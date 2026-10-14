@@ -3,8 +3,8 @@
 among leukemic states, join TARGET survival + cytogenetics, and run cross-patient
 detection + cytogenetic sanity. Writes survival input for the Cox step."""
 import numpy as np, pandas as pd
-PKG="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated"; OUT=f"{PKG}/cibersortx_output"
-SL="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+PKG="../../.."; OUT=f"{PKG}/cibersortx_output"
+SL="../../../raw/legacy_v1_48state"
 d=pd.concat([pd.read_csv(f"{OUT}/CIBERSORTx_Job{j}_Results.csv") for j in (14,15,16,17)],ignore_index=True)
 print(f"stitched {len(d)} patients; median correlation {d['Correlation'].median():.3f}, median RMSE {d['RMSE'].median():.3f}")
 ls=[f"LS_{i}" for i in range(1,31)]; norm=[c for c in d.columns if c.startswith("NORM_")]
@@ -14,8 +14,8 @@ lss=frac[ls].values; s=lss.sum(1,keepdims=True); s[s==0]=1
 frac[ls]=lss/s   # renormalize among leukemic states
 frac["leukemic_purity"]=d["leukemic_purity"].values
 frac.to_csv(f"{SL}/target_ls/LS_target_fractions_cibersortx.csv",index=False)
-surv=pd.read_csv(f"{PKG}/__SUBMISSION_PACKAGE_v2_recluster/08_Source_Data/../../08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv") if False else pd.read_csv(f"{PKG}/__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv")
-cd=pd.read_csv(f"{PKG}/__SUBMISSION_PACKAGE/08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv")[["sample","subtype2"]]
+surv=pd.read_csv(f"{PKG}/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv") if False else pd.read_csv(f"{PKG}/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv")
+cd=pd.read_csv(f"{PKG}/08_Source_Data/Figure_2/Figure2CD_TARGET_PAC_perpatient.csv")[["sample","subtype2"]]
 J=frac.merge(surv[["sample","os_time","os_event","efs_time","efs_event","age","wbc","risk"]],on="sample",how="left").merge(cd.drop_duplicates("sample"),on="sample",how="left")
 J.to_csv(f"{SL}/target_ls/LS_target_survival_cibersortx.csv",index=False)
 print(f"mean leukemic purity {frac['leukemic_purity'].mean():.2f}; patients with survival {J.os_time.notna().sum()}, deaths {int(J.os_event.sum())}")

@@ -6,9 +6,9 @@ are altered; fractions come straight from CIBERSORTx, clinical from the TARGET m
 import os, sys, glob
 import pandas as pd, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import config as C
-CBX = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/cibersortx_output"
+CBX = "../../../raw/cibersortx_output"
 JOBS = [f"{CBX}/CIBERSORTx_Job{j}_Results.csv" for j in (24,25,26,27)]
-SL = "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SL = "../../../raw/legacy_cbf_deepdive"
 CLIN = f"{SL}/target_ls/LS48_survival.csv"          # sample, os_time, os_event, subtype2 (real TARGET clinical)
 EFS  = f"{C.BASE}/08_Source_Data/Figure_2/Figure2E_TARGET_survival_input.csv"  # sample, efs_time, efs_event
 

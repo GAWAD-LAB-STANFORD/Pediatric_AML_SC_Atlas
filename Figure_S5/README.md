@@ -1,6 +1,6 @@
 # Figure S5 — Whole-cohort EFS hazard ratios for the 49 states
 
-**Self-contained.** Reproduces deployed **Figure S8** (`../../05_Supplementary_Figures/Figure_S5__state_EFS_forest.png`) from its own source data.
+**Self-contained.** Reproduces deployed **Figure S5** (`../../05_Supplementary_Figures/Figure_S5__state_EFS_forest.png`) from its own source data.
 Part of the atlas/prognosis analysis stream (legacy Figure_1-4 pipelines); scripts here are copies so this figure stands alone.
 
 ## Reproduce

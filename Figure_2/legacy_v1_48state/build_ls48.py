@@ -3,7 +3,7 @@
 ONLY (no cytogenetics), and quantify cross-cytogenetic breadth per state (the
 point: shared transcriptional states that span multiple genetic subtypes)."""
 import numpy as np, pandas as pd, h5py
-SC="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
+SC="../../../raw/legacy_v1_48state"
 OUT=f"{SC}/ls48"; import os; os.makedirs(OUT,exist_ok=True)
 genes=np.load(f"{SC}/signatures_all/genes.npy",allow_pickle=True).astype(str)
 M=np.load(f"{SC}/signatures_all/meancpm_res4.50.npy")            # 63 x G
@@ -14,7 +14,7 @@ ls=[f"LS_{i+1}" for i in range(K)]; raw2ls={rw:i for i,rw in enumerate(raws)}
 print(f"{K} states at Jaccard>=0.35")
 
 # cytogenetics + patient per cell (mask order)
-f=h5py.File("/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad","r")
+f=h5py.File("../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad","r")
 def col(n):
     nd=f["obs"][n]; cats=[c.decode() if isinstance(c,bytes) else c for c in nd["categories"][:]]
     return np.array([cats[i] if i>=0 else "NA" for i in nd["codes"][:]],dtype=object)

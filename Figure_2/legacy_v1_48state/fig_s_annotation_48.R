@@ -5,9 +5,9 @@
 # Right bars: cross-cytogenetic breadth (effective # subtypes a state spans) and
 # cross-patient recurrence.
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-source("/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/manuscript_palette.R")
-SC  <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/ls48"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures/Figure_S_states"
+source("../manuscript_palette.R")
+SC  <- "../../../raw/legacy_v1_48state/ls48"
+OUT <- "../../../05_Supplementary_Figures/Figure_S_states"
 PROG <- list("HSC/MPP"=c("CD34","HLF","AVP","CRHBP","HOXA9","MEIS1","MLLT3","PROM1","MECOM","GATA2"),
  "GMP"=c("MPO","ELANE","AZU1","PRTN3","CTSG","CEBPE","LYST","CFD"),
  "Monocyte"=c("LYZ","CD14","CSF1R","FCN1","VCAN","S100A8","S100A9","CD68"),

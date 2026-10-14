@@ -13,13 +13,13 @@ import time, gc, warnings, numpy as np, pandas as pd, h5py, scanpy as sc, anndat
 from sklearn.metrics import adjusted_rand_score
 warnings.filterwarnings("ignore"); sc.settings.verbosity = 0
 
-OUT = "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/jaccard_hi"
+OUT = "../../../raw/legacy_v1_48state/jaccard_hi"
 os.makedirs(OUT, exist_ok=True)
 _LOG = open(os.path.join(OUT, "run.log"), "a")
 def log(m):
     s = f"[{time.strftime('%H:%M:%S')}] {m}"; print(s, flush=True); _LOG.write(s+"\n"); _LOG.flush()
 
-H5 = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+H5 = "../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 RES = [2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
 B, FRAC, N_NEIGH, N_PCS = 20, 0.8, 50, 50
 CHECKPOINT = 5

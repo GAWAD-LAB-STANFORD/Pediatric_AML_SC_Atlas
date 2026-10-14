@@ -1,6 +1,6 @@
 # Figure S8 — Absence of a primitive quiescent LSC population
 
-**Self-contained.** Reproduces deployed **Figure S10** (`../../05_Supplementary_Figures/Figure_S8__LSC_scarcity.pdf`) from its own source data.
+**Self-contained.** Reproduces deployed **Figure S8** (`../../05_Supplementary_Figures/Figure_S8__LSC_scarcity.pdf`) from its own source data.
 Part of the atlas/prognosis analysis stream (legacy Figure_1-4 pipelines); scripts here are copies so this figure stands alone.
 
 ## Reproduce

@@ -4,7 +4,7 @@
 # Inputs : fig7_allpairs.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript fig7_allpairs.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Every 2-target combination of the 12 panel-E antigens (66 pairs) — toxicity (x) vs efficacy (y).

@@ -1,6 +1,6 @@
 # Figure S20 — Candidate antigens by cytogenetic subtype, pediatric TARGET
 
-**Self-contained.** This folder reproduces deployed **Figure S21** (`../../05_Supplementary_Figures/Figure_S20__cyto_violins_pediatric.pdf`) from its own
+**Self-contained.** This folder reproduces deployed **Figure S20** (`../../05_Supplementary_Figures/Figure_S20__cyto_violins_pediatric.pdf`) from its own
 plot-level source data. Part of the integrated CD96 analysis (canonical pipeline:
 `../shared_CD96_pipeline/`, `run_all.sh`); the scripts here are copies so this figure stands alone.
 

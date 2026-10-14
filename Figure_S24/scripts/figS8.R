@@ -4,7 +4,7 @@
 # Inputs : cd96_autocrine_coexpr.csv, cd96_persample_long.csv, cd96_sample_info.csv, figS22EF_cellchat.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript figS8.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Figure S8 (R/ggplot2) — CD96 cell–cell communication, supplement to Fig 7E/7F.

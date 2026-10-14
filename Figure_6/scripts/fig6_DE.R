@@ -4,7 +4,7 @@
 # Inputs : fig6D_radar.csv
 # Outputs: .panel_fig6D.pdf, _review_fig6D.png
 # Run    : Rscript fig6_DE.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # Figure 6 panel D — radar/spider profiles for ALL 12 targets (the panel A/B/C set).

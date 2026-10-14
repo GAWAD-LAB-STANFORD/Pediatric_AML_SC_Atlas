@@ -4,8 +4,8 @@
 #    (48 states) to retain marginal cross-cytogenetic states incl. the APL state.
 # B: bulk-deconvolution separability vs cluster number (why bulk resolves a subset).
 suppressMessages({library(ggplot2); library(patchwork); library(scales)})
-SC  <- "/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-OUT <- "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/05_Supplementary_Figures/Figure_S_states"
+SC  <- "../../../raw/legacy_v1_48state"
+OUT <- "../../../05_Supplementary_Figures/Figure_S_states"
 jac <- read.csv(file.path(SC,"jaccard_hi/jaccard_percluster.csv")); jac <- jac[jac$res==4.5,]
 thr <- seq(0.30,0.75,0.05)
 nst <- sapply(thr,function(t) sum(jac$mean_jaccard>=t))

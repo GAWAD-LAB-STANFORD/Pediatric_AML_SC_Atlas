@@ -3,8 +3,8 @@
 original Figure 2F method. Core cells only (cells in the stable res-4.5 cluster).
 Outputs full DE table + up-gene lists (padj<0.001 & log2FC>1)."""
 import scanpy as sc, numpy as np, pandas as pd, h5py, scipy.sparse as sp
-SC="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+SC="../../../raw/legacy_v1_48state"
+H5="../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 
 # --- state labels per leukemic cell (core = cell's res4.5 raw is a stable cluster) ---
 f=h5py.File(H5,"r")

@@ -4,7 +4,7 @@
 # Inputs : cellchat_input.csv
 # Outputs: (writes to ../figures or ../source_data — see body)
 # Run    : Rscript cellchat_CD96.R   (or: bash run_all.sh)  |  Deps: see REPRODUCIBILITY_CHECKLIST.md
-# Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
+# Source data for this figure is in the 08_Source_Data/ archive, unpacked beside 07_Code/.
 # ====================================================================
 
 # CellChat CD96 pathway (CD96->PVR[CD155], CD96->NECTIN1; cell-cell contact) in

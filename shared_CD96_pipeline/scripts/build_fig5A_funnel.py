@@ -3,7 +3,7 @@
 main atlas on the corrected leukemic definition (Cell_Type in {AML, AML-MKI67, AML-PCNA, AML-CD1C},
 AML samples). The retired PAC/STATE_SPECIFIC axis is removed: the composite is now the mean of just
   C1 = % leukemic cells positive (efficacy)   and   C2 = % of the 28 AML patients with >=20% leukemic positivity (breadth).
-Gate (official package): normal HSPC positivity <3% AND Myeloid_Pro <=5%, then AML+ (>20% in >=1 patient),
+Gate (official package): normal HSPC positivity ≤10% AND Myeloid_Pro ≤10%, then AML+ (>20% in >=1 patient),
 T-cell-receptor genes dropped. Detection = raw count > 0. No fabricated values.
 Writes fig5A_funnel.csv (funnel stage counts) and fig5A_top15.csv (full ranking; fig5.R takes the top 15)
 to both the pipeline source_data/ and the 08_Source_Data mirror."""
@@ -14,7 +14,7 @@ SURF = "../../../ref/surfaceome_genes.txt"
 DEST = ["../../../07_Code/shared_CD96_pipeline/source_data",
         "../../../08_Source_Data/Figure_5"]
 LEUK = {"AML", "AML-MKI67", "AML-PCNA", "AML-CD1C"}
-GATE_HSPC, GATE_MYE, AML_MIN = 3.0, 5.0, 0.20
+GATE_HSPC, GATE_MYE, AML_MIN = 10.0, 10.0, 0.20
 TCR = {"CD3D", "CD3E", "CD3G", "CD247", "TRAC", "TRBC1", "TRBC2", "TRGC1", "TRGC2", "TRDC"}
 
 dec = lambda a: np.array([x.decode() if isinstance(x, bytes) else x for x in a])
@@ -54,14 +54,14 @@ df["composite"] = (df.C1_pct_AML_cells + df.C2_pct_AML_patients) / 2      # 2-ax
 df["is_tcr"] = df.gene.isin(TCR)
 
 n_detect = len(df)
-n_hspc = int((df.scRNA_HSPC_pct < GATE_HSPC).sum())
-n_mye = int(((df.scRNA_HSPC_pct < GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE)).sum())
-gated = df[(df.scRNA_HSPC_pct < GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE) & (~df.is_tcr)].copy()
+n_hspc = int((df.scRNA_HSPC_pct <= GATE_HSPC).sum())
+n_mye = int(((df.scRNA_HSPC_pct <= GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE)).sum())
+gated = df[(df.scRNA_HSPC_pct <= GATE_HSPC) & (df.scRNA_Myeloid_pct <= GATE_MYE) & (~df.is_tcr)].copy()
 n_aml = int((gated.scRNA_n_pts_above20pct >= 1).sum())
 ranked = gated.sort_values("composite", ascending=False).reset_index(drop=True)
 ranked.insert(0, "rank", np.arange(1, len(ranked) + 1))
 
-funnel = pd.DataFrame({"stage": ["surfaceome (in silico)", "HSPC-sparing (<3%)", "+ Myeloid-sparing (≤5%)",
+funnel = pd.DataFrame({"stage": ["surfaceome (in silico)", "HSPC-sparing (≤10%)", "+ Myeloid-sparing (≤10%)",
                                  "+ AML+ (>20%, ≥1 pt)", "top 15 composite"],
                        "n": [n_detect, n_hspc, n_mye, n_aml, 15]})
 for d in DEST:

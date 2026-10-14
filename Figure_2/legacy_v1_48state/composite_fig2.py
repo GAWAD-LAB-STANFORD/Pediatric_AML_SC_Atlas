@@ -4,8 +4,8 @@
 cropped legends). Whole-cohort panels first (A-E), then CBF (F-H). Letters only."""
 import os
 from PIL import Image, ImageDraw, ImageFont
-P   = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures/Figure_2_new_panels"
-OUT = "/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/__SUBMISSION_PACKAGE_v2_recluster/04_Main_Figures"
+P   = "../../../04_Main_Figures/Figure_2_new_panels"
+OUT = "../../../04_Main_Figures"
 
 FILES = {"A":"Figure_2A_combined.png", "B":"Figure_2B_prognosis_umap.png",
          "C":"Figure_2C_states_subtypes.png", "D":"Figure_2CD_stemness_by_prognosis.png",

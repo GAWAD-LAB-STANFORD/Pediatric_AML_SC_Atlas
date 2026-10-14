@@ -1,5 +1,5 @@
 suppressMessages(library(survival))
-SL="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad/target_ls"
+SL="../../../raw/legacy_v1_48state/target_ls"
 d=read.csv(file.path(SL,"LS48_survival.csv")); d=d[!is.na(d$os_time)&!is.na(d$os_event),]
 ls=paste0("LS_",1:48); res=data.frame()
 for(x in ls){fr=d[[x]]; if(sd(fr)==0) next; z=scale(fr)[,1]; f=coxph(Surv(os_time,os_event)~z,data=d); s=summary(f)

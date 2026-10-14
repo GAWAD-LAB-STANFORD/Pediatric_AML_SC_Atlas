@@ -17,7 +17,7 @@ from matplotlib.gridspec import GridSpec
 
 H5 = "../../../raw/ALSF_AML_total_Tcell_rna_withTCR.h5ad"
 PC = "../../../08_Source_Data/Figure_4/v2/tnk_subset_percell.csv"
-OUTFIG = "../../../05_Supplementary_Figures/Figure_S11__T_NK_CITEseq_surface.pdf"
+OUTFIG = "../../../05_Supplementary_Figures/Figure_S12__T_NK_CITEseq_surface.pdf"
 OUTSD = "../source_data"
 SEQ = LinearSegmentedColormap.from_list("heatmap0",
     ["#001219","#005F73","#0A9396","#94D2BD","#E9D8A6","#EE9B00","#CA6702","#AE2012","#9B2226"])

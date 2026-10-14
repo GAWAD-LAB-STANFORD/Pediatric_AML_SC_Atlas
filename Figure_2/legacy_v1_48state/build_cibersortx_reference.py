@@ -6,9 +6,9 @@ tab-delimited .txt with 'Gene' top-left and class labels repeated across the hea
 (the format CIBERSORTx 'Create Signature Matrix' expects)."""
 import numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix
-SC="/private/tmp/claude-503/-Users-chuckgawad-Desktop-ALSF-AML-2026-updated/f5e93d65-31d5-411e-b754-6f7c504928b7/scratchpad"
-OUT="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/cibersortx_input"
-H5="/Users/chuckgawad/Desktop/ALSF_AML_2026_updated/ALSF_AML_plot/H5AD/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
+SC="../../../raw/legacy_v1_48state"
+OUT="../../../raw/cibersortx_input"
+H5="../../../raw/ALSF_AML_Combo_3500_with_PAC_new.h5ad"
 CAP=300; rng=np.random.default_rng(0)
 f=h5py.File(H5,"r")
 def col(n):
