@@ -26,4 +26,4 @@ for exact packages + versions) and read only from `source_data/`. The `scripts/u
 
 ## Provenance
 - `RENAME_LOG.json` — old→new source-data filename map (reverse it to undo the renumbering).
-- `SOURCE_DATA.md` — per-figure script → source-data → output map.
+- `../FIGURE_SCRIPT_MAP.md` — per-figure script → source-data → output map, on the deployed numbering.

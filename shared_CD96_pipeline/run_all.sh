@@ -26,7 +26,7 @@ cd "$ROOT/scripts"
 #   $PY build_cd96_axis.py                                            # S24 E/F CD96-nectin checkpoint axis (atlas + T/NK object)
 #   $PY build_ls_window.py                                            # S25 additive window per poor-LS (merged former S25+S27; 49-state)
 #   $PY build_cyto_window.py                                          # S26 additive window by cytogenetic subtype (atlas; 4-type core-AML)
-# (Full list + external-data provenance in REPRODUCIBILITY_CHECKLIST.md / SOURCE_DATA.md.)
+# (Full list + external-data provenance in REPRODUCIBILITY_CHECKLIST.md and ../FIGURE_SCRIPT_MAP.md.)
 
 run() { echo "   -> $1"; mkdir -p "$ROOT/logs"; "$RSCRIPT" "$1" >"$ROOT/logs/$(basename "$1").log" 2>&1 && echo "      ok" || echo "      FAILED: $1  (see logs/$(basename "$1").log)"; }
 
