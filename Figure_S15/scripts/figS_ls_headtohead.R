@@ -1,6 +1,6 @@
 # ====================================================================
 # figS_ls_headtohead.R  |  Per-poor-prognosis-STATE (LS) efficacy vs toxicity
-# Replaces the retired per-PPAC version (figS_ppac_headtohead.R) on the 49-state scheme.
+# Replaces the retired per-STATE_SPECIFIC version (figS_ppac_headtohead.R) on the 49-state scheme.
 # Figure-5C construction applied within each poor-prognosis LEUKEMIC STATE (LS), six panels:
 #   x = leak    = % normal HSPC/Myeloid_Pro positive (max)   [toxicity]
 #   y = cov_pct = % of that state's cells positive           [efficacy]

@@ -2,13 +2,13 @@
 # ====================================================================
 # build_funnel_ls_specific.py  |  Upstream builder (regenerates source_data)
 # Poor-prognosis-STATE (LS) surface-target discovery -- replaces the retired
-# per-PPAC version (build_funnel_ppac_specific.py) on the corrected 49-state scheme.
+# per-STATE_SPECIFIC version (build_funnel_ppac_specific.py) on the corrected 49-state scheme.
 # ====================================================================
 """Poor-prognosis leukemic-STATE (LS) surface-target discovery.
 
 Ranks surface markers WITHIN each poor-prognosis leukemic state (LS) by the % of
 that state's cells positive (count > 0), behind the same toxicity funnel as the
-retired PPAC version: normal HSPC <= GATE% AND normal Myeloid_Pro <= GATE%, and the
+retired STATE_SPECIFIC version: normal HSPC <= GATE% AND normal Myeloid_Pro <= GATE%, and the
 TCR/CD3 family dropped (MPAL-like co-expression). Uses the corrected 49-state
 assignment (reference_assignments res4.50 -> config.stable_raws; the "49 file").
 
@@ -17,7 +17,7 @@ Groups (parallel to the old pooled + PPAC_1..5):
   the 5 MULTI-patient poor LS (generalizable): LS_10, LS_19, LS_20, LS_21, LS_27
 The 3 single-patient poor LS (LS_23/LS_38/LS_41; >=77% of cells from one patient)
 are pooled into "All poor LS" but NOT given individual panels (single-patient
-artifacts, not generalizable) -- an improvement over the PPAC version, which had to
+artifacts, not generalizable) -- an improvement over the STATE_SPECIFIC version, which had to
 show a single-patient PPAC_5. Per-group patient composition is audited so any
 single-patient signal is flagged. No fabricated values.
 
@@ -38,7 +38,7 @@ PROG = "../../../08_Source_Data/Figure_2/v3/LS_wholecohort_prognosis.csv"
 OUT     = os.path.join(HERE, "..", "source_data", "funnel_ls_specific.csv")
 OUT_COMP= os.path.join(HERE, "..", "source_data", "funnel_ls_specific_composition.csv")
 
-GATE_HSPC, GATE_MYE = 10.0, 10.0      # toxicity tolerance (matches the PPAC version)
+GATE_HSPC, GATE_MYE = 10.0, 10.0      # toxicity tolerance (matches the STATE_SPECIFIC version)
 REC_THRESH = 0.20
 MIN_CELLS_PER_PT = 20
 TOP_N = 12

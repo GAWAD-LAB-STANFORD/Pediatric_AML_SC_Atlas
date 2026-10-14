@@ -1,6 +1,6 @@
 # ====================================================================
 # figS_ls_specific.R  |  Poor-prognosis-STATE (LS) surface-target discovery
-# Replaces the retired per-PPAC version (figS_ppac_specific.R) on the corrected
+# Replaces the retired per-STATE_SPECIFIC version (figS_ppac_specific.R) on the corrected
 # 49-state scheme. Markers ranked WITHIN each poor-prognosis leukemic state by
 # % of that state's cells positive, behind the same toxicity funnel
 # (HSPC<=10%, Myeloid<=10%, TCR/CD3 dropped). CD96 in crimson (ranked naturally).

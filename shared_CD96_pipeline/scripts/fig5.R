@@ -49,11 +49,11 @@ pB <- patchwork::wrap_elements(full = grid::rasterGrob(
 # klass: lead (5 leads, coloured circles) | candidate (gated, grey circles) |
 #        clinical (top-6 AML-trial antigens, slate diamonds) | control (FLT3, gold diamond).
 hh <- sd("fig5C_headtohead.csv") |>
-  # corrected scheme: the retired PAC/PPAC "subset-specific" label is removed. CD7 (a bona fide clinical
-  # CAR-T antigen) folds into the clinical comparators; the other former-PPAC markers become additional
+  # corrected scheme: the retired PAC/state-specific "subset-specific" label is removed. CD7 (a bona fide clinical
+  # CAR-T antigen) folds into the clinical comparators; the other former-state-specific markers become additional
   # candidate antigens (grey), matching panel D and the 12-antigen comparison used in Figures 6-7.
   dplyr::mutate(klass = dplyr::case_when(label == "CD7" ~ "clinical",
-                                         klass == "ppac" ~ "candidate", TRUE ~ klass)) |>
+                                         klass == "state_specific" ~ "candidate", TRUE ~ klass)) |>
   dplyr::mutate(
     fill = dplyr::case_when(klass == "lead" ~ as.character(LEAD_COLORS[gene]),
                             klass == "control" ~ "#f1c40f",
@@ -187,14 +187,14 @@ pBox <- ggplot(bxd, aes(label, pct, fill = cls)) +
 ## ---- F (left): pediatric AML — TARGET bulk violins (4 leads + FLT3 ctrl + 3 clinical) ----
 # Pediatric (discovery) cohort sets the shared x-order, by descending median; the adult
 # panel reuses it so each gene sits at the same x in both → direct cross-cohort read.
-# corrected scheme: drop the retired PPAC markers from the bulk validation; CD7 -> clinical comparator.
+# corrected scheme: drop the retired state-specific markers from the bulk validation; CD7 -> clinical comparator.
 # `group` is derived from gene identity when a source CSV lacks it (the two source_data mirrors differ).
 LEADS_ALL <- c("CD96", "CD9", "SUCNR1", "IL1RAP", "AMN")
 drop_ppac <- function(df) {
   if (!"group" %in% names(df)) df$group <- dplyr::case_when(
     df$label %in% LEADS_ALL ~ "lead", df$label == "FLT3" ~ "control",
-    df$label %in% PPAC_SPECIFIC ~ "ppac", TRUE ~ "clinical")
-  df |> dplyr::filter(!(group == "ppac" & label != "CD7")) |>
+    df$label %in% STATE_SPECIFIC ~ "state_specific", TRUE ~ "clinical")
+  df |> dplyr::filter(!(group == "state_specific" & label != "CD7")) |>
     dplyr::mutate(group = dplyr::if_else(label == "CD7", "clinical", group))
 }
 # the pediatric (TARGET) and adult (BeatAML) source tables were built on different antigen panels;

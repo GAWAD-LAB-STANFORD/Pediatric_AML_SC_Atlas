@@ -38,7 +38,7 @@ CAPS = [
  "(B) UMAP of the Prognosis-Associated Clusters (0_HSPC, Myeloid_Pro, FPAC_1–2, PPAC_1–5). "
  "(C) PAC composition across samples and cytogenetic groups (dot size = fraction of cells, "
  "colour = cell count). (D) LSC (Eppert) and (E) HSC gene-set scores across PAC clusters "
- "(violin with box). (F) GO:BP terms enriched among genes up- and down-regulated in each PPAC.",
+ "(violin with box). (F) GO:BP terms enriched among genes up- and down-regulated in each STATE_SPECIFIC.",
  "Differential genes by Wilcoxon rank-sum test (presto). GO:BP over-representation "
  "(clusterProfiler enricher) by one-sided hypergeometric test with Benjamini–Hochberg FDR "
  "(q<0.05; DE input thresholds padj<0.001 and |log2FC|>1). (C–E) descriptive "
@@ -66,10 +66,10 @@ CAPS = [
 ("Figure 5", "CD96 leads a panel of candidate surface immunotherapy targets in pediatric AML",
  "Twelve candidate surface antigens are compared throughout: four de novo leads (CD96, CD9, "
  "SUCNR1, IL1RAP), the pan-AML control FLT3, three clinical-stage antigens (CD33, CD123/IL3RA, "
- "CLL-1/CLEC12A) and four PPAC-specific markers (CD7, TNFRSF4, ABCA7, ITGAX). (A) In-silico "
+ "CLL-1/CLEC12A) and four state-specific markers (CD7, TNFRSF4, ABCA7, ITGAX). (A) In-silico "
  "surfaceome discovery funnel (2,129 surface genes → HSPC-sparing → myeloid-sparing → "
  "AML-expressed → top 15) and composite ranking (mean of % leukemic cells positive, % patients "
- ">20 % positive, and % PPAC cells positive); the four leads are highlighted and CD96 ranks "
+ ">20 % positive, and % STATE_SPECIFIC cells positive); the four leads are highlighted and CD96 ranks "
  "first. (B) scRNA UMAP of the cell-type compartments and the log-normalized expression of the "
  "four lead targets. (C) Head-to-head of all twelve antigens: leukemic-cell coverage (y, % "
  "positive) vs normal HSPC/Myeloid_Pro expression (x, % positive), point size = % of patients "
@@ -207,8 +207,8 @@ SUPP = [
  "Venn overlap between the composite-ranked discovery hits (Figure 5A) and the surface antigens "
  "currently in AML clinical trials, separating novel leads from already-pursued antigens.",
  "Descriptive (set overlap); no inferential test."),
-("Figure S14", "PPAC-specific surface-target discovery",
- "Surface markers ranked within each individual poor-prognosis cluster (PPAC) by the percent of "
+("Figure S14", "state-specific surface-target discovery",
+ "Surface markers ranked within each individual poor-prognosis cluster (STATE_SPECIFIC) by the percent of "
  "that cluster's cells that are positive (no composite). Candidates first pass a toxicity funnel "
  "with the tolerance raised to <=10% on both normal compartments (detectable -> HSPC<=10% AND "
  "Myeloid<=10% -> TCR/CD3 dropped; 1,706 eligible genes) — more permissive than the main Figure-5A "
@@ -218,12 +218,12 @@ SUPP = [
  "PPAC_2 (60%) and PPAC_4 (35%) and ranks second in the pooled group (behind CD9). In PPAC_3 CD96 "
  "covers only ~8.5% (ABCA7, ITGAX, LAMP5 lead) — the coverage gap. PPAC_5 is a single-patient "
  "cluster (94.5% one patient), flagged not generalizable."),
-("Figure S15", "Per-PPAC efficacy versus toxicity (Figure-5C construction), six panels",
+("Figure S15", "Per-STATE_SPECIFIC efficacy versus toxicity (Figure-5C construction), six panels",
  "The Figure-5C head-to-head — each surface marker as one point: x = % of normal HSPC/Myeloid_Pro "
- "positive (toxicity), y = % of that PPAC's cells positive (efficacy) — applied within each PPAC. "
- "(A) all PPACs pooled; (B-F) PPAC_1-5. Each panel plots the top-5 PPAC-specific markers (from "
+ "positive (toxicity), y = % of that STATE_SPECIFIC's cells positive (efficacy) — applied within each STATE_SPECIFIC. "
+ "(A) all PPACs pooled; (B-F) PPAC_1-5. Each panel plots the top-5 state-specific markers (from "
  "Figure S14) plus the 12 panel-E antigens (the genes in Figure 7B/C), coloured by group (leads "
- "identity colours, FLT3 control gold, clinical orange, PPAC-specific purple); discovered markers "
+ "identity colours, FLT3 control gold, clinical orange, state-specific purple); discovered markers "
  "are grey, CD96 crimson. Green band = sparing zone (leak <=10%).",
  "Descriptive (single-point % metrics; no inferential test). In PPAC_1, 2, 4 and the pooled group "
  "the high-efficacy markers inside the sparing zone are CD96 and CD9 (plus SUCNR1, CD7, TNFRSF4); "
@@ -281,14 +281,14 @@ SUPP = [
  "t(2;3) and t(7;14), and is CD96-cold in MLLr, del7q, MYB/GATA1, NUP98/NSD1 and Tri(8)/MLLr. "
  "Several subtypes are single-patient and should be read with caution. As in Figure S23, efficacy "
  "is over all patients' leukemic cells (not identical to the main window, Figure 7C)."),
-("Figure S25", "Additive CD96 combinations per PPAC (Figure-7C construction), six panels",
- "The Figure-7C additive therapeutic window applied within each PPAC: CD96 alone is the floor and "
+("Figure S25", "Additive CD96 combinations per STATE_SPECIFIC (Figure-7C construction), six panels",
+ "The Figure-7C additive therapeutic window applied within each STATE_SPECIFIC: CD96 alone is the floor and "
  "each point adds one partner as the union 'CD96 OR partner' (x = max % normal HSPC/Myeloid_Pro "
- "covered; y = % of that PPAC's cells covered). Pareto frontier dotted; green = sparing (leak "
+ "covered; y = % of that STATE_SPECIFIC's cells covered). Pareto frontier dotted; green = sparing (leak "
  "<=10%). (A) all PPACs pooled; (B-F) PPAC_1-5. Partners = the 12 panel-E antigens (the genes in "
  "Figure 7B/C), coloured by group (leads identity colours, FLT3 control gold, clinical orange, "
- "PPAC-specific purple).",
- "Descriptive (union % covered; no inferential test). Within each PPAC the best marrow-sparing "
+ "state-specific purple).",
+ "Descriptive (union % covered; no inferential test). Within each STATE_SPECIFIC the best marrow-sparing "
  "CD96 combinations use the low-toxicity partners (e.g. +CD9, +ITGAX, +SUCNR1), while the clinical "
  "antigens (+CD33, +CLL-1) and FLT3 add more coverage only by leaving the sparing zone. PPAC_5 is "
  "a single-patient cluster, flagged not generalizable."),

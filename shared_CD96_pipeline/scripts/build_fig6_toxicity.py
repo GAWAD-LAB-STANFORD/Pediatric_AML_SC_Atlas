@@ -30,12 +30,12 @@ ROOT = os.path.abspath(os.path.join(HERE, ".."))
 CEN = os.environ.get("CENSUS_DIR", os.path.join(ROOT, "external_data", "census"))
 SD = os.path.join(ROOT, "source_data")
 
-# gene -> (display label, group).  group: lead | control | clinical | ppac
+# gene -> (display label, group).  group: lead | control | clinical | state_specific
 GENES = {"CD96": ("CD96", "lead"), "CD9": ("CD9", "lead"), "SUCNR1": ("SUCNR1", "lead"),
          "IL1RAP": ("IL1RAP", "lead"), "FLT3": ("FLT3", "control"), "CD33": ("CD33", "clinical"),
          "IL3RA": ("CD123", "clinical"), "CLEC12A": ("CLL-1", "clinical"),
-         "CD7": ("CD7", "ppac"), "TNFRSF4": ("TNFRSF4", "ppac"), "ABCA7": ("ABCA7", "ppac"),
-         "ITGAX": ("ITGAX", "ppac")}
+         "CD7": ("CD7", "state_specific"), "TNFRSF4": ("TNFRSF4", "state_specific"), "ABCA7": ("ABCA7", "state_specific"),
+         "ITGAX": ("ITGAX", "state_specific")}
 SYMS = list(GENES)
 
 # haematopoietic / immune cell-type keywords (lowercase substring match on the CL term).

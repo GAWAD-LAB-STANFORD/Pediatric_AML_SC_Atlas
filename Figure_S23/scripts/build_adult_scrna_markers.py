@@ -29,8 +29,8 @@ H5 = os.path.join(ROOT, "external_data", "adult_scrna", "AML_scAtlas_748k.h5ad")
 # symbol -> (display, group)  -- the 12 panel-5E genes
 GENES = {"CD96": ("CD96", "lead"), "CD9": ("CD9", "lead"), "SUCNR1": ("SUCNR1", "lead"),
          "IL1RAP": ("IL1RAP", "lead"), "FLT3": ("FLT3", "control"), "CD33": ("CD33", "clinical"),
-         "IL3RA": ("CD123", "clinical"), "CLEC12A": ("CLL-1", "clinical"), "CD7": ("CD7", "ppac"),
-         "TNFRSF4": ("TNFRSF4", "ppac"), "ABCA7": ("ABCA7", "ppac"), "ITGAX": ("ITGAX", "ppac")}
+         "IL3RA": ("CD123", "clinical"), "CLEC12A": ("CLL-1", "clinical"), "CD7": ("CD7", "state_specific"),
+         "TNFRSF4": ("TNFRSF4", "state_specific"), "ABCA7": ("ABCA7", "state_specific"), "ITGAX": ("ITGAX", "state_specific")}
 MALIG = {"LSC", "HSC-like", "Prog-like", "GMP-like", "cDC-like", "ProMono-like", "Mono-like"}
 
 

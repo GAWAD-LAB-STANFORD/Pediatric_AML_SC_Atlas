@@ -1,6 +1,6 @@
 # ====================================================================
 # figS_ls_window.R  |  Additive therapeutic window per poor-prognosis STATE (LS)
-# Replaces AND MERGES the retired per-PAC (figS_pac_window.R) + per-PPAC (figS_ppac_additive.R)
+# Replaces AND MERGES the retired per-PAC (figS_pac_window.R) + per-STATE_SPECIFIC (figS_ppac_additive.R)
 # versions on the corrected 49-state scheme (S27 dropped as a duplicate). Sparing zone <=10% (Fig 7).
 # Each point = CD96 alone or CD96 OR one partner; x = normal HSPC/Myeloid toxicity,
 # y = % of that state's cells covered (efficacy); dotted = Pareto frontier (go by toxicity,

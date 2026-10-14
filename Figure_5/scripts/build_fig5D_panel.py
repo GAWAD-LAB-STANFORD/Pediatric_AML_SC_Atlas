@@ -25,7 +25,7 @@ CM = os.path.join(ROOT, "count_matrix", "ALSF_AML_raw_counts.h5ad")
 SD = os.path.join(ROOT, "source_data")
 
 # symbol -> display label.  composite top-10, then 6 clinical, then FLT3 control,
-# then 3 PPAC-specific markers from S17 (TNFRSF4/ABCA7/ITGAX; CD7 already above).
+# then 3 state-specific markers from S17 (TNFRSF4/ABCA7/ITGAX; CD7 already above).
 GENES = {"CD96": "CD96", "CD9": "CD9", "SUCNR1": "SUCNR1", "AMN": "AMN", "IL1RAP": "IL1RAP",
          "LMBR1L": "LMBR1L", "NRXN2": "NRXN2", "FURIN": "FURIN", "UMODL1": "UMODL1", "CD7": "CD7",
          "CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD38": "CD38", "CD70": "CD70",

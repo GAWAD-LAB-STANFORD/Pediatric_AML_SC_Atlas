@@ -16,7 +16,7 @@ suppressPackageStartupMessages(library(png))
 
 gcol <- function(gene, group) dplyr::case_when(
   group == "lead" ~ as.character(LEAD_COLORS[gene]),
-  group == "control" ~ "#b7950b", group == "clinical" ~ "#e8590c", TRUE ~ PPAC_COLOR)
+  group == "control" ~ "#b7950b", group == "clinical" ~ "#e8590c", TRUE ~ STATE_SPECIFIC_COLOR)
 
 ov <- sd("adult_scrna_overall.csv"); ov$col <- gcol(ov$gene, ov$group)
 GORD <- ov |> dplyr::arrange(dplyr::desc(pct)) |> dplyr::pull(label)

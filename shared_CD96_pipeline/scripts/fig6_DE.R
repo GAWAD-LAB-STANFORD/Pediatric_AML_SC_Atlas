@@ -15,7 +15,7 @@ source("_style.R")
 suppressPackageStartupMessages(library(patchwork))
 
 # corrected scheme: CD7 (a clinical CAR-T antigen) is coloured with the clinical comparators; the
-# remaining former-PPAC markers become neutral-slate "additional candidates".
+# remaining former-state-specific markers become neutral-slate "additional candidates".
 gcol <- function(gene, group) dplyr::case_when(
   group == "lead" ~ as.character(LEAD_COLORS[gene]),
   group == "control" ~ "#b7950b",

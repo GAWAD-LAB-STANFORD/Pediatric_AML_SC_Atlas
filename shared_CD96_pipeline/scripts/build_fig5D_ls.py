@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Figure 5 panel D redo on the corrected scheme: candidate-target coverage (% positive + mean log-norm)
 across the 8 normal hematopoietic compartments (toxicity reference) and the leukemic compartment
-(efficacy), replacing the retired PAC/PPAC/FPAC populations. Gene symbols mapped: CD123->IL3RA,
+(efficacy), replacing the retired PAC/STATE_SPECIFIC/FPAC populations. Gene symbols mapped: CD123->IL3RA,
 CLL-1->CLEC12A. No fabricated values."""
 import os, sys, numpy as np, pandas as pd, h5py
 from scipy.sparse import csr_matrix

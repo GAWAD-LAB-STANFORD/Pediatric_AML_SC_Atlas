@@ -14,8 +14,8 @@
 source("_style.R")
 cov <- as.data.frame(sd("fig5E_coverage.csv"))
 cov$group[cov$label == "CD7"] <- "clinical"        # corrected scheme: CD7 = clinical CAR-T antigen
-GCOL <- c(lead = "#2980b9", clinical = "#e8590c", control = "#b7950b", ppac = "#7f8c8d")
-GLAB <- c(lead = "lead candidate", clinical = "clinical antigen", ppac = "additional candidate")
+GCOL <- c(lead = "#2980b9", clinical = "#e8590c", control = "#b7950b", state_specific = "#7f8c8d")
+GLAB <- c(lead = "lead candidate", clinical = "clinical antigen", state_specific = "additional candidate")
 cov$xlab <- ifelse(cov$step == 1, "CD96", paste0("+ ", cov$label))
 cov$xlab <- factor(cov$xlab, levels = cov$xlab[order(cov$step)])
 cov$group <- factor(cov$group, levels = names(GCOL))

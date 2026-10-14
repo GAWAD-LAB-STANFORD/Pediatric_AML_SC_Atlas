@@ -49,7 +49,7 @@ SCOPE_LABELS <- sprintf("%s (%s)", names(SCOPES),
 
 PROG  <- c(favorable = "#2F5D70", poor = "#8C1515", n.s. = "#B9C0C7", normal = "#7E57C2")
 KLASS <- c(lead = "#8C1515", candidate = "#2F5D70", clinical = "#F6A30C",
-           control = "#7E57C2", ppac = "#5B8C5A")
+           control = "#7E57C2", state_specific = "#5B8C5A")
 CARD  <- "#8C1515"; TEAL <- "#2F5D70"
 
 theme_lab <- function(rot = 45) {

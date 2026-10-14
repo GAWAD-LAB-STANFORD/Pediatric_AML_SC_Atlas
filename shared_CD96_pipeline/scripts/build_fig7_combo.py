@@ -16,8 +16,8 @@ GENES = {"CD96": "CD96", "CD9": "CD9", "SUCNR1": "SUCNR1", "IL1RAP": "IL1RAP", "
          "CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD7": "CD7", "TNFRSF4": "TNFRSF4",
          "ABCA7": "ABCA7", "ITGAX": "ITGAX"}
 GROUP = {"CD96": "lead", "CD9": "lead", "SUCNR1": "lead", "IL1RAP": "lead", "FLT3": "control",
-         "CD33": "clinical", "CD123": "clinical", "CLL-1": "clinical", "CD7": "ppac",
-         "TNFRSF4": "ppac", "ABCA7": "ppac", "ITGAX": "ppac"}
+         "CD33": "clinical", "CD123": "clinical", "CLL-1": "clinical", "CD7": "state_specific",
+         "TNFRSF4": "state_specific", "ABCA7": "state_specific", "ITGAX": "state_specific"}
 HIGHLY_TOXIC = {"CD9", "CD123", "IL1RAP", "ABCA7"}    # organ-toxic in Fig 6 -> red ring
 COVER, CD96POS = 20.0, 10.0
 

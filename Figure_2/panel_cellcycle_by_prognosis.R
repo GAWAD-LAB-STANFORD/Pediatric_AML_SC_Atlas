@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # S9 Panel D (regenerated for the corrected scheme): per-state cell-cycle phase fractions grouped
-# by whole-cohort EFS prognosis (favorable / poor / n.s.), replacing the stale FPAC/PPAC panel.
+# by whole-cohort EFS prognosis (favorable / poor / n.s.), replacing the stale FPAC/state-specific panel.
 # Unit = leukemic state (each state contributes one phase fraction); groups compared by two-sided
 # Mann-Whitney. Poor-prognosis states trend more proliferative but not significantly at the state
 # level, consistent with Panel C (cell-cycle vs outcome, n.s.) and with proliferation being driven

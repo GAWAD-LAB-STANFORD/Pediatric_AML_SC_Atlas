@@ -34,11 +34,11 @@ GENES = [
     ("CD33",    "ENSG00000105383", "CD33",   "clinical"),
     ("IL3RA",   "ENSG00000185291", "CD123",  "clinical"),
     ("CLEC12A", "ENSG00000172322", "CLL-1",  "clinical"),
-    # PPAC-specific markers (S17 group; purple) — mark individual PPAC subsets, not pan-AML
-    ("CD7",     "ENSG00000173762", "CD7",     "ppac"),
-    ("TNFRSF4", "ENSG00000186827", "TNFRSF4", "ppac"),
-    ("ABCA7",   "ENSG00000064687", "ABCA7",   "ppac"),
-    ("ITGAX",   "ENSG00000140678", "ITGAX",   "ppac"),
+    # state-specific markers (S17 group; purple) — mark individual state-specific subsets, not pan-AML
+    ("CD7",     "ENSG00000173762", "CD7",     "state_specific"),
+    ("TNFRSF4", "ENSG00000186827", "TNFRSF4", "state_specific"),
+    ("ABCA7",   "ENSG00000064687", "ABCA7",   "state_specific"),
+    ("ITGAX",   "ENSG00000140678", "ITGAX",   "state_specific"),
 ]
 # scRNA normal-marrow toxicity (max %HSPC, %Myeloid positive) from the count matrix
 HSPC_MYE = {"CD96": 3.02, "CD9": 7.61, "SUCNR1": 7.12, "IL1RAP": 9.65,

@@ -37,13 +37,13 @@ GENES <- names(TARGET_COLORS)                     # display order
 # 4 additional get distinct Okabe-Ito (colourblind-safe) colours. Used as the hero
 # target set across the alternate main + supplemental figures.
 LEAD_TARGETS <- c("CD96", "CD9", "SUCNR1", "IL1RAP")   # de-novo candidate panel (CD96 top-ranked; CD9/IL1RAP later disqualified on organ toxicity)
-# PPAC-specific markers (from Figure-5 supplement S17): surface genes that mark individual PPAC
+# state-specific markers (from Figure-5 supplement S17): surface genes that mark individual state-specific
 # subsets rather than pan-AML leukemia. Shown as a distinct group (purple) in panels C and D.
-# NB CD7 is also a clinical CAR-T antigen; here it is coloured with this PPAC-specific group.
+# NB CD7 is also a clinical CAR-T antigen; here it is coloured with this state-specific group.
 # corrected scheme: these are now "additional candidate" antigens (CD7 is folded into the clinical
-# comparators elsewhere; the group is coloured neutral slate rather than the retired PPAC purple).
-PPAC_SPECIFIC <- c("CD7", "TNFRSF4", "ABCA7", "ITGAX")
-PPAC_COLOR    <- "#7f8c8d"
+# comparators elsewhere; the group is coloured neutral slate rather than the retired state-specific purple).
+STATE_SPECIFIC <- c("CD7", "TNFRSF4", "ABCA7", "ITGAX")
+STATE_SPECIFIC_COLOR    <- "#7f8c8d"
 # MPAL (mixed-phenotype acute leukemia) samples in the scRNA cohort map 1:1 to these three
 # cytogenetic subtypes (AML4363 = BCR/ABL, AML3121 = t(2;3), AML882 = t(7;14)); they are NOT
 # pure AML, so they are flagged in a distinct teal wherever cytogenetic subtypes appear.
@@ -53,8 +53,8 @@ LEAD_COLORS  <- c("CD96" = "#c0392b", "CD9" = "#0072B2", "SUCNR1" = "#009E73",
                   "AMN" = "#E69F00", "IL1RAP" = "#56B4E9")   # IL1RAP = muted purple (was pink)
 # The 12 panel-E antigens (= the genes in Figure 7B/C) with the shared group colour scheme
 # (matches Fig 5E): leads = identity colours, FLT3 control = gold, clinical = orange,
-# PPAC-specific = purple. Keyed by display label, CD96 first. Used by the window supplements
-# (S23 per-PAC, S24 per-cytogenetic, S25 per-PPAC) so they match the main combination figures.
+# state-specific = purple. Keyed by display label, CD96 first. Used by the window supplements
+# (S23 per-PAC, S24 per-cytogenetic, S25 per-state-specific) so they match the main combination figures.
 TARGET12_COLORS <- c(CD96 = "#c0392b", CD9 = "#0072B2", SUCNR1 = "#009E73", IL1RAP = "#56B4E9",
                      FLT3 = "#b7950b", CD33 = "#e8590c", CD123 = "#e8590c", "CLL-1" = "#e8590c",
                      CD7 = "#e8590c", TNFRSF4 = "#7f8c8d", ABCA7 = "#7f8c8d", ITGAX = "#7f8c8d")
@@ -198,14 +198,14 @@ dotplot_genesx <- function(df, ycol, ylevels = NULL, vmax = 70, maxsize = 6,
 }
 
 # Shared bulk-expression violin (used by Fig 5E/F and the non-MLL supplement). Genes ordered
-# by `ord`; coloured by group (lead = identity, control = gold, clinical = orange, ppac = purple).
+# by `ord`; coloured by group (lead = identity, control = gold, clinical = orange, state_specific = grey).
 # `vio` cols: gene, log2cpm, label, group.  `meta` cols: gene, label, group, median,
 # pct_targetable, hspc_mye.  Top: median + %targetable(>5); bottom: HSPC/Myeloid toxicity.
 violin_panel <- function(vio, meta, ord, title, ylab = "bulk expression in AML (log2 CPM)") {
   meta <- meta |>
     dplyr::mutate(col = dplyr::case_when(group == "lead" ~ as.character(LEAD_COLORS[gene]),
                                          group == "control" ~ "#b7950b",
-                                         group == "ppac" ~ PPAC_COLOR,
+                                         group == "state_specific" ~ STATE_SPECIFIC_COLOR,
                                          TRUE ~ "#e8590c"))
   labcol <- setNames(meta$col, as.character(meta$label))
   vio <- vio |> dplyr::left_join(meta[, c("label", "col")], by = "label") |>

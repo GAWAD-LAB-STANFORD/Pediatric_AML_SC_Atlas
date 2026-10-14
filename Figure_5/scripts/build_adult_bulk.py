@@ -29,9 +29,9 @@ GENES = {"CD96": (10225, "CD96", "lead"), "CD9": (928, "CD9", "lead"),
          "SUCNR1": (56670, "SUCNR1", "lead"), "IL1RAP": (3556, "IL1RAP", "lead"),
          "FLT3": (2322, "FLT3", "control"), "CD33": (945, "CD33", "clinical"),
          "IL3RA": (3563, "CD123", "clinical"), "CLEC12A": (160364, "CLL-1", "clinical"),
-         # PPAC-specific markers (S17 group; purple) — mark individual PPAC subsets, not pan-AML
-         "CD7": (924, "CD7", "ppac"), "TNFRSF4": (7293, "TNFRSF4", "ppac"),
-         "ABCA7": (10347, "ABCA7", "ppac"), "ITGAX": (3687, "ITGAX", "ppac")}
+         # state-specific markers (S17 group; purple) — mark individual state-specific subsets, not pan-AML
+         "CD7": (924, "CD7", "state_specific"), "TNFRSF4": (7293, "TNFRSF4", "state_specific"),
+         "ABCA7": (10347, "ABCA7", "state_specific"), "ITGAX": (3687, "ITGAX", "state_specific")}
 ENTREZ2SYM = {v[0]: k for k, v in GENES.items()}
 # scRNA normal-marrow toxicity (max %HSPC, %Myeloid_Pro positive) — cohort-independent
 # property of the gene vs our healthy-BM scRNA; carried so panel F reads as a twin of E.

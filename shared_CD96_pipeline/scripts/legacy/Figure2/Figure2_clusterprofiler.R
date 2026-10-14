@@ -7,7 +7,7 @@
 # Source data for this figure is in __SUBMISSION_PACKAGE/08_Source_Data/.
 # ====================================================================
 
-# Figure 2F — GO:BP over-representation per PPAC (clusterProfiler).
+# Figure 2F — GO:BP over-representation per state-specific (clusterProfiler).
 # RE-PATHED for the unified package: reads bundled source_data/legacy/, writes to
 # figures/legacy/Figure2/, runs from anywhere (Rscript), and is msigdbr-version robust.
 # Original (Sherlock paths) preserved in the working tree.
@@ -34,7 +34,7 @@ get_bp <- function() {
 }
 BP_t2g <- get_bp() %>% dplyr::select(gs_name, gene_symbol)
 
-## ---- per-PPAC DE tables (Wilcoxon; padj<0.001 & |log2FC|>1) ----
+## ---- per-state-specific DE tables (Wilcoxon; padj<0.001 & |log2FC|>1) ----
 rd <- function(f) read.delim2(file.path(SD, "Figure3", f), sep = ",", header = TRUE)
 df_name <- rd("AML_PAC_Rank_gene_wilcoxon.csv")
 df_fc   <- rd("AML_PAC_Rank_gene_wilcoxon_logFC.csv")

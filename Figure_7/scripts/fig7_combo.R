@@ -19,9 +19,9 @@ df$group[df$label == "CD7"] <- "clinical"          # corrected scheme: CD7 = cli
 base <- df[df$base, ]; part <- df[!df$base, ]
 bx <- base$tox[1]; TOXGATE <- 10
 
-GCOL <- c(lead = "#2980b9", clinical = "#e8590c", control = "#b7950b", ppac = "#7f8c8d")
+GCOL <- c(lead = "#2980b9", clinical = "#e8590c", control = "#b7950b", state_specific = "#7f8c8d")
 GLAB <- c(lead = "lead candidate", clinical = "clinical antigen",
-          control = "FLT3 (pan-AML control)", ppac = "additional candidate")
+          control = "FLT3 (pan-AML control)", state_specific = "additional candidate")
 part$group <- factor(part$group, levels = names(GCOL))
 
 mkpanel <- function(ycol, ylab, ttl) {

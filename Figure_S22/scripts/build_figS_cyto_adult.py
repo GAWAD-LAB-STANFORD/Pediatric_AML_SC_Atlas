@@ -52,7 +52,7 @@ def classify(fusion, karyo):
 
 
 vio = pd.read_csv(os.path.join(SD, "fig5F_adult_beataml_violin.csv")).rename(columns={"log2": "log2cpm"})
-# include ALL panel-F genes (now 12: + 4 PPAC-specific) so the supplement tracks the main panel
+# include ALL panel-F genes (now 12: + 4 state-specific) so the supplement tracks the main panel
 cohort = set(vio["sample"].unique())
 
 cl = _get(f"{API}/studies/{STUDY}/clinical-data?clinicalDataType=SAMPLE&pageSize=200000")

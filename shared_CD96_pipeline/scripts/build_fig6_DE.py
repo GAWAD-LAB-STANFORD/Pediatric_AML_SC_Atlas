@@ -19,8 +19,8 @@ SEL = {"CD96": "CD96", "CD9": "CD9", "SUCNR1": "SUCNR1", "IL1RAP": "IL1RAP", "FL
        "CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD7": "CD7", "TNFRSF4": "TNFRSF4",
        "ABCA7": "ABCA7", "ITGAX": "ITGAX"}                        # symbol -> display
 GROUP = {"CD96": "lead", "CD9": "lead", "SUCNR1": "lead", "IL1RAP": "lead", "FLT3": "control",
-         "CD33": "clinical", "IL3RA": "clinical", "CLEC12A": "clinical", "CD7": "ppac",
-         "TNFRSF4": "ppac", "ABCA7": "ppac", "ITGAX": "ppac"}
+         "CD33": "clinical", "IL3RA": "clinical", "CLEC12A": "clinical", "CD7": "state_specific",
+         "TNFRSF4": "state_specific", "ABCA7": "state_specific", "ITGAX": "state_specific"}
 SELECTED = ["CD96", "SUCNR1", "CD33", "CLEC12A", "CD7", "TNFRSF4", "ITGAX"]   # E coverage
 COVER_THRESH = 20.0
 MATURE = ["CD14_Monocyte", "CD16_Monocyte", "mDC", "pDC", "Macrophage", "Naïve_CD4T",

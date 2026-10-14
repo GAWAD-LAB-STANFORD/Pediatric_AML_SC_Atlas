@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Figure 5A (corrected scheme): surfaceome discovery funnel + composite ranking, recomputed from the
 main atlas on the corrected leukemic definition (Cell_Type in {AML, AML-MKI67, AML-PCNA, AML-CD1C},
-AML samples). The retired PAC/PPAC axis is removed: the composite is now the mean of just
+AML samples). The retired PAC/STATE_SPECIFIC axis is removed: the composite is now the mean of just
   C1 = % leukemic cells positive (efficacy)   and   C2 = % of the 28 AML patients with >=20% leukemic positivity (breadth).
 Gate (official package): normal HSPC positivity ≤10% AND Myeloid_Pro ≤10%, then AML+ (>20% in >=1 patient),
 T-cell-receptor genes dropped. Detection = raw count > 0. No fabricated values.
@@ -50,7 +50,7 @@ df = pd.DataFrame(dict(gene=present,
     scRNA_AML_pct=aml_pct.round(2), scRNA_n_pts_above20pct=npts))
 df["C1_pct_AML_cells"] = df.scRNA_AML_pct
 df["C2_pct_AML_patients"] = df.scRNA_n_pts_above20pct / len(patients) * 100
-df["composite"] = (df.C1_pct_AML_cells + df.C2_pct_AML_patients) / 2      # 2-axis (no PPAC)
+df["composite"] = (df.C1_pct_AML_cells + df.C2_pct_AML_patients) / 2      # 2-axis (no STATE_SPECIFIC)
 df["is_tcr"] = df.gene.isin(TCR)
 
 n_detect = len(df)

@@ -21,7 +21,7 @@ GENE_ORD <- sd("fig5F_meta_all.csv") |>
 grp_col <- function(meta_like) dplyr::case_when(
   meta_like$group == "lead"    ~ as.character(LEAD_COLORS[meta_like$gene]),
   meta_like$group == "control" ~ "#b7950b",
-  meta_like$group == "ppac"    ~ PPAC_COLOR,
+  meta_like$group == "state_specific"    ~ STATE_SPECIFIC_COLOR,
   TRUE                          ~ "#e8590c")
 
 VIOLIN_MIN <- 10   # draw a kernel-density violin only when a facet has >= this many samples;

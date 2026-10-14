@@ -55,7 +55,7 @@ def fam(row):
 
 
 vio = pd.read_csv(os.path.join(SD, "fig5F_violin.csv"))         # panel-E genes x 475 samples, log2cpm
-# include ALL panel-E genes (4 leads + FLT3 + 3 clinical + 4 PPAC-specific) so the supplement
+# include ALL panel-E genes (4 leads + FLT3 + 3 clinical + 4 state-specific) so the supplement
 # tracks the main panel exactly
 m = pd.read_csv(MERGED)
 m["cyto"] = m.apply(fam, axis=1)

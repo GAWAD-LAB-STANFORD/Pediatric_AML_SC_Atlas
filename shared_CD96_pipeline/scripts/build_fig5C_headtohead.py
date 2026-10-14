@@ -5,7 +5,7 @@ counts (h5py) on the corrected leukemic definition (Cell_Type in config.LEUK_CEL
 "AML") with normal HSPC/Myeloid_Pro taken from Cell_Type, so panel C is consistent with panels A/D.
 For every gene: x = leak (max % normal HSPC/Myeloid_Pro positive), y = % leukemic cells positive,
 size = % of the 28 AML patients with >=20% leukemic positivity. Composite (candidate ranking) = mean of
-% leukemic + % patients (2-axis; the retired PPAC axis removed). No fabricated values."""
+% leukemic + % patients (2-axis; the retired STATE_SPECIFIC axis removed). No fabricated values."""
 import os, sys, numpy as np, pandas as pd, scipy.sparse as sp, h5py
 sys.path.insert(0, "../../../07_Code/Figure_3")
 import config as C
@@ -16,9 +16,9 @@ GATE = 10.0
 LEADS = ["CD96", "CD9", "SUCNR1", "IL1RAP"]
 CLIN6 = {"CD33": "CD33", "IL3RA": "CD123", "CLEC12A": "CLL-1", "CD38": "CD38", "CD7": "CD7", "CD70": "CD70"}
 CONTROL = {"FLT3": "FLT3"}
-# former "PPAC-specific" markers -> now the "additional candidate" overlay group (label kept as 'ppac' for
-# fig5.R which recolours ppac->additional/candidate and CD7->clinical).
-PPAC = {"CD7": "CD7", "TNFRSF4": "TNFRSF4", "ABCA7": "ABCA7", "ITGAX": "ITGAX"}
+# former "state-specific" markers -> now the "additional candidate" overlay group (label kept as 'state_specific' for
+# fig5.R which recolours state_specific->additional/candidate and CD7->clinical).
+STATE_SPECIFIC = {"CD7": "CD7", "TNFRSF4": "TNFRSF4", "ABCA7": "ABCA7", "ITGAX": "ITGAX"}
 TCR = {"CD3D", "CD3E", "CD3G", "CD247", "TRAC", "TRBC1", "TRBC2", "TRGC1", "TRGC2", "TRDC"}
 TOPN_CANDIDATES = 40
 
@@ -35,7 +35,7 @@ X = sp.csr_matrix((rx["data"][:], rx["indices"][:], rx["indptr"][:]), shape=tupl
 f.close()
 
 surf = [g.strip() for g in open(SURF) if g.strip()]
-need = sorted(set([g for g in surf if g in sym]) | set(CLIN6) | set(CONTROL) | set(PPAC))
+need = sorted(set([g for g in surf if g in sym]) | set(CLIN6) | set(CONTROL) | set(STATE_SPECIFIC))
 present = [g for g in need if g in sym]
 gi = [sym.index(g) for g in present]
 posS = (X[:, gi] > 0).tocsc()                                  # cells x genes, boolean
@@ -52,7 +52,7 @@ for s in patients:
     npts += (np.asarray(posS[leuk & (sid == s)].mean(0)).ravel() >= 0.20)
 
 def metrics(i):
-    comp = (aml_pct[i] + npts[i] / N_PT * 100) / 2             # 2-axis composite (no PPAC term)
+    comp = (aml_pct[i] + npts[i] / N_PT * 100) / 2             # 2-axis composite (no STATE_SPECIFIC term)
     return dict(leak=round(max(hspc_pct[i], mye_pct[i]), 2), scRNA_AML_pct=round(aml_pct[i], 2),
                 scRNA_HSPC_pct=round(hspc_pct[i], 2), scRNA_Myeloid_pct=round(mye_pct[i], 2),
                 n_pts_pct=round(npts[i] / N_PT * 100, 1), composite=round(comp, 2))
@@ -73,16 +73,16 @@ for g, lab in CLIN6.items():
     prev = rows.get(g); cr = prev["comp_rank"] if prev else 999
     rows[g] = dict(gene=g, label=lab, **metrics(idx[g]),
                    klass=("lead" if g in LEADS else "clinical"), comp_rank=cr)
-for g, lab in PPAC.items():                                    # overlay last (incl. CD7)
+for g, lab in STATE_SPECIFIC.items():                                    # overlay last (incl. CD7)
     prev = rows.get(g); cr = prev["comp_rank"] if prev else 999
-    rows[g] = dict(gene=g, label=lab, **metrics(idx[g]), klass="ppac", comp_rank=cr)
+    rows[g] = dict(gene=g, label=lab, **metrics(idx[g]), klass="state_specific", comp_rank=cr)
 
 df = pd.DataFrame(rows.values())
-df["do_label"] = (df.klass.isin(["lead", "clinical", "control", "ppac"])) | (df.comp_rank <= 10)
+df["do_label"] = (df.klass.isin(["lead", "clinical", "control", "state_specific"])) | (df.comp_rank <= 10)
 df = df.sort_values(["klass", "composite"], ascending=[True, False])
 for d in [OUT, OUT.replace("07_Code/shared_CD96_pipeline/source_data", "08_Source_Data/Figure_5")]:
     df.to_csv(d, index=False)
 print("wrote fig5C_headtohead.csv (corrected: %d AML patients, leukemic=%s & AML)" % (N_PT, C.LEUK_CELLTYPES))
-print(df[df.klass.isin(['clinical', 'control', 'lead', 'ppac'])][
+print(df[df.klass.isin(['clinical', 'control', 'lead', 'state_specific'])][
     ['label', 'klass', 'leak', 'scRNA_AML_pct', 'n_pts_pct']].to_string(index=False))
 print("\nCD96:", metrics(idx["CD96"]))

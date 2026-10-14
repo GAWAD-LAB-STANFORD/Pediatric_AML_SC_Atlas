@@ -2,7 +2,7 @@
 # ====================================================================
 # build_ls_headtohead.py  |  Upstream builder (regenerates source_data)
 # Per-poor-prognosis-STATE (LS) efficacy-vs-toxicity (Figure-5C construction).
-# Replaces the retired per-PPAC version (build_ppac_headtohead.py) on the 49-state scheme.
+# Replaces the retired per-STATE_SPECIFIC version (build_ppac_headtohead.py) on the 49-state scheme.
 # ====================================================================
 """Per-poor-prognosis-STATE head-to-head (Figure-5C construction), six panels.
 
